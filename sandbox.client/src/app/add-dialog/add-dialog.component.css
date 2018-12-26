@@ -1,0 +1,19 @@
+button.btn-success{
+  margin-right: 10px;
+  width: 45%;
+}
+button.btn-light{
+  margin-left: 10px;
+  width: 45%;
+}
+input{
+  margin-top: 10px;
+}
+
+#lastAddClientInput{
+  margin-bottom: 10px;
+}
+
+h5{
+  text-align: center;
+}

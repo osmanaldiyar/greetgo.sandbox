@@ -1,0 +1,65 @@
+<h5 mat-dialog-title>Edit client data</h5>
+<div mat-dialog-content>
+  <label for="surname">Surname <span style="color:red">*</span></label>
+  <input id="surname" class="form-control" matInput [(ngModel)]="data.fio">
+
+  <label for="name">Name <span style="color:red">*</span></label>
+  <input id="name" class="form-control" matInput [(ngModel)]="data.character">
+
+  <label for="patronymic">Patronymic</label>
+  <input id="patronymic" class="form-control" matInput [(ngModel)]="data.age">
+
+  <label for="gender">Gender <span style="color:red">*</span></label>
+  <input id="gender" class="form-control" matInput [(ngModel)]="data.total_cash_rem">
+
+  <label for="birthday">Date of birth <span style="color:red">*</span></label>
+  <input id="birthday" class="form-control" matInput [(ngModel)]="data.max_rem">
+
+  <label for="character">Character <span style="color:red">*</span></label>
+  <input id="character" class="form-control" id="lastEditClientInput" matInput [(ngModel)]="data.min_rem">
+
+  <br>
+  <h4>Address</h4>
+  <label for="street">Street</label>
+  <input id="street" class="form-control" matInput [(ngModel)]="data.min_rem">
+
+  <label for="house">House</label>
+  <input id="house" class="form-control" matInput [(ngModel)]="data.min_rem">
+
+  <label for="flatNumberLbl">Flat number</label>
+  <input id="flatNumberLbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+
+  <br>
+  <h4>Registered Address <span style="color:red">*</span></h4>
+
+  <label for="streetLbl">Street</label>
+  <input id="streetLbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+
+  <label for="houseLbl">House</label>
+  <input id="houseLbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+
+  <label for="flatLbl">Flat</label>
+  <input id="flatLbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+
+  <br>
+  <h4>Phone numbers <span style="color:red">*</span></h4>
+
+  <label for="homeNumberLbl">Home number</label>
+  <input id="homeNumberLbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+
+  <label for="workingPhoneLbl">Working phone</label>
+  <input id="workingPhoneLbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+
+  <label for="mobilePhone1Lbl">Mobile 1</label>
+  <input id="mobilePhone1Lbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+
+  <label for="mobilePhone2Lbl">Mobile 2</label>
+  <input id="mobilePhone2Lbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+
+  <label for="mobilePhone3Lbl">Mobile 3</label>
+  <input id="mobilePhone3Lbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+</div>
+<div mat-dialog-actions>
+  <button class="btn btn-success" mat-button [mat-dialog-close]="data.fio" cdkFocusInitial>Save</button>
+  <button class="btn btn-light" mat-button (click)="onNoClick()">Cancel</button>
+</div>

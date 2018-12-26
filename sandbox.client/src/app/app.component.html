@@ -4,5 +4,7 @@
   </h1>
   <app-login></app-login>
   <app-about *ngIf="login.canViewAbout"></app-about>
-  <app-client-list *ngIf="login.canViewUsers"></app-client-list>
+  <br>
+  <app-table *ngIf="login.canViewUsers"></app-table>
+
 </div>

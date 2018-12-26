@@ -2,10 +2,7 @@ package kz.greetgo.sandbox.controller.controller;
 
 import kz.greetgo.depinject.core.Bean;
 import kz.greetgo.depinject.core.BeanGetter;
-import kz.greetgo.mvc.annotations.AsIs;
-import kz.greetgo.mvc.annotations.Par;
-import kz.greetgo.mvc.annotations.ParSession;
-import kz.greetgo.mvc.annotations.ToJson;
+import kz.greetgo.mvc.annotations.*;
 import kz.greetgo.mvc.annotations.on_methods.ControllerPrefix;
 import kz.greetgo.mvc.annotations.on_methods.OnGet;
 import kz.greetgo.mvc.annotations.on_methods.OnPost;
@@ -15,6 +12,9 @@ import kz.greetgo.sandbox.controller.register.AuthRegister;
 import kz.greetgo.sandbox.controller.security.PublicAccess;
 import kz.greetgo.sandbox.controller.util.Controller;
 import kz.greetgo.security.session.SessionIdentity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static kz.greetgo.sandbox.controller.util.SandboxViews.G_SESSION;
 
@@ -52,6 +52,8 @@ public class AuthController implements Controller {
 
     return identity.token;
   }
+
+
 
   @ToJson
   @OnGet("/displayPerson")

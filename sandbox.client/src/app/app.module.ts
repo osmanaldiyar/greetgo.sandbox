@@ -16,6 +16,7 @@ import { MatDialogModule } from '@angular/material';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { AddDialogComponent } from './add-dialog/add-dialog.component';
     AddDialogComponent,
   ],
   imports: [
-    BrowserModule, HttpClientModule, FormsModule, BrowserAnimationsModule, MatDialogModule
+    BrowserModule, HttpClientModule, FormsModule, BrowserAnimationsModule, MatDialogModule, Ng2SearchPipeModule //including into imports
   ],
   entryComponents: [TableComponent, EditDialogComponent, AddDialogComponent],
   providers: [HttpService, LoginService, ClientListService],

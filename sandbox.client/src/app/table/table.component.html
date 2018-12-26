@@ -5,33 +5,45 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- bootstrap-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
 </head>
 
 <body>
 
 <div class="container">
 
+  <header>
+    <nav class="navbar navbar-default">
+      <a class="navbar-brand" href="#">Ma Games</a>
+    </nav>
+  </header>
   <div class="row">
     <div class="col-sm-11">
+      <nav class="navbar">
+        <input class="form-control" type="text" name="search" [(ngModel)]="filter">
+      </nav>
     <table class="table table-bordered">
 
       <thead>
       <tr>
-        <td>Fullname</td>
-        <td>character</td>
-        <td>age</td>
-        <td>Total cash Remainings</td>
-        <td>Max cash remainings</td>
-        <td>Min cash remainings</td>
-        <td>Remove</td>
-        <td>Edit</td>
+        <th>Fullname</th>
+        <th>character</th>
+        <th>age</th>
+        <th>Total cash Remainings</th>
+        <th>Max cash remainings</th>
+        <th>Min cash remainings</th>
+        <th>Remove</th>
+        <th>Edit</th>
       </tr>
 
       </thead>
       <tbody>
-      <tr *ngFor="let client of clients">
+      <tr *ngFor="let client of clients | filter:filter; let i = index">
         <td>{{client.FIO}} </td>
         <td>{{client.character}}</td>
         <td>{{client.age}}</td>
@@ -53,10 +65,11 @@
 
   </div>
 
-
 </div>
 
+<!-- filter sort-->
 
+<!--end -->
 
 
 

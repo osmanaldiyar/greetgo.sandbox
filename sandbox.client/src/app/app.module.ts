@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2OrderModule } from 'ng2-order-pipe'; //importing the module
 
 @NgModule({
   declarations: [
@@ -30,7 +31,13 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AddDialogComponent,
   ],
   imports: [
-    BrowserModule, HttpClientModule, FormsModule, BrowserAnimationsModule, MatDialogModule, Ng2SearchPipeModule //including into imports
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    Ng2SearchPipeModule, //including into imports,
+    Ng2OrderModule //add here
   ],
   entryComponents: [TableComponent, EditDialogComponent, AddDialogComponent],
   providers: [HttpService, LoginService, ClientListService],

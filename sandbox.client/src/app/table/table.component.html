@@ -19,7 +19,7 @@
 
   <header>
     <nav class="navbar navbar-default">
-      <a class="navbar-brand" href="#">Ma Games</a>
+      <a class="navbar-brand" href="#">Clients</a>
     </nav>
   </header>
   <div class="row">
@@ -29,19 +29,21 @@
       </nav>
     <table class="table table-bordered">
 
+
+
       <thead>
       <tr>
-        <th>Fullname</th>
+        <th (click)="sort('fullname')">Fullname<span class="glyphicon sort-icon" *ngIf="key =='fullname'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
         <th>character</th>
-        <th>age</th>
-        <th>Total cash Remainings</th>
-        <th>Max cash remainings</th>
-        <th>Min cash remainings</th>
+        <th (click)="sort('age')">age<span class="glyphicon sort-icon" *ngIf="key =='age'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+        <th (click)="sort('total_cash_remainings')">Total cash Remainings<span class="glyphicon sort-icon" *ngIf="key =='total_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+        <th (click)="sort('max_cash_remainings')">Max cash remainings<span class="glyphicon sort-icon" *ngIf="key =='max_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+        <th (click)="sort('min_cash_remainings')">Min cash remainings<span class="glyphicon sort-icon" *ngIf="key =='min_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
         <th>Remove</th>
         <th>Edit</th>
       </tr>
-
       </thead>
+
       <tbody>
       <tr *ngFor="let client of clients | filter:filter; let i = index">
         <td>{{client.FIO}} </td>

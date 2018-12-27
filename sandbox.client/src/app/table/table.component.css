@@ -2,3 +2,6 @@
   margin-top: 10px;
   margin-right: 40px;
 }
+thead>tr>th {
+  cursor: pointer;
+}

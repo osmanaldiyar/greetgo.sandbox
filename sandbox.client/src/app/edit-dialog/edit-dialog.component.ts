@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {DialogData} from "../table/table.component";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 
+
+
 @Component({
   selector: 'edit-dialog',
   templateUrl: 'edit-dialog.component.html',
@@ -24,6 +26,9 @@ export class EditDialogComponent implements OnInit{
 
     }
 
+    addPhoneNumber(){
+
+    }
 
 
   onNoClick(): void {

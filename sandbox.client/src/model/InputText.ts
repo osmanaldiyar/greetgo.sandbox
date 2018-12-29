@@ -1,4 +1,3 @@
-import {PersonDisplay} from "./PersonDisplay";
 
 
 export class InputText {

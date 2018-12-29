@@ -13,7 +13,9 @@
   <input id="gender" class="form-control" matInput [(ngModel)]="data.total_cash_rem">
 
   <label for="birthday">Date of birth <span style="color:red">*</span></label>
-  <input id="birthday" class="form-control" matInput [(ngModel)]="data.max_rem">
+  <input type="date" id="birthday" class="form-control" matInput [(ngModel)]="data.max_rem">
+
+
 
   <label for="character">Character <span style="color:red">*</span></label>
   <input id="character" class="form-control" id="lastEditClientInput" matInput [(ngModel)]="data.min_rem">
@@ -44,14 +46,14 @@
   <br>
   <h4>Phone numbers <span style="color:red">*</span></h4>
 
+  <label for="mobilePhone1Lbl">Mobile <span style="color:red">*</span></label>
+  <input id="mobilePhone1Lbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+
   <label for="homeNumberLbl">Home number</label>
   <input id="homeNumberLbl" class="form-control" matInput [(ngModel)]="data.min_rem">
 
   <label for="workingPhoneLbl">Working phone</label>
   <input id="workingPhoneLbl" class="form-control" matInput [(ngModel)]="data.min_rem">
-
-  <label for="mobilePhone1Lbl">Mobile 1</label>
-  <input id="mobilePhone1Lbl" class="form-control" matInput [(ngModel)]="data.min_rem">
 
   <label for="mobilePhone2Lbl">Mobile 2</label>
   <input id="mobilePhone2Lbl" class="form-control" matInput [(ngModel)]="data.min_rem">

@@ -1,11 +1,13 @@
 package kz.greetgo.sandbox.controller.register;
 
+import kz.greetgo.sandbox.controller.model.ClientPageData;
 import kz.greetgo.sandbox.controller.model.ClientRecord;
 
 import java.util.List;
 
 public interface ClientRecordRegister {
 
-    List<ClientRecord> selectAllClientRecords();
+    ClientPageData selectAllClientRecords(int page);
+    //void deleteClientRecord(ClientRecord clientRecord);
 
 }

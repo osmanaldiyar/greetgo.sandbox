@@ -1,5 +1,6 @@
 package kz.greetgo.sandbox.register.dao;
 
+import kz.greetgo.sandbox.controller.model.ClientPageData;
 import kz.greetgo.sandbox.controller.model.ClientRecord;
 import org.apache.ibatis.annotations.Select;
 

@@ -1,9 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Client} from '../models/client';
 
-import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
 import {AddDialogComponent} from "../add-dialog/add-dialog.component";
+import {ClientsPageService} from "./clients-page.service";
+import {HttpService} from "../http.service";
+
 
 export interface DialogData {
   fio: string;
@@ -21,36 +24,13 @@ export interface DialogData {
 })
 export class TableComponent implements OnInit {
 
-  public clients: Client[] = [
-    {
-      FIO: "Pushkin", character: "good", age: 110, total_cash_remainings: 40,
-      max_remainings: 150, min_remainings: 160
-    },
-    {
-      FIO: "Lermontov", character: "very good", age: 114, total_cash_remainings: 900,
-      max_remainings: 500, min_remainings: 600
-    },
-    {
-      FIO: "Gogol", character: "nice", age: 120, total_cash_remainings: 70,
-      max_remainings: 40, min_remainings: 10
-    },
-    {
-      FIO: "Zack", character: "hero", age: 23, total_cash_remainings: 9000,
-      max_remainings: 9000, min_remainings: 1000
-    },
-    {
-      FIO: "Chuck", character: "movie-star", age: 24, total_cash_remainings: 9001,
-      max_remainings: 9001, min_remainings: 1001
-    },
-    {
-      FIO: "Boateng", character: "football-player", age: 25, total_cash_remainings: 9002,
-      max_remainings: 9002, min_remainings: 1002
-    }
-  ];
+  private page:number = 0;
+  public pages: Array<number>;
+  public clients: Client[];
 
 
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private clientsPageService: ClientsPageService, private http: HttpService) {
   }
 
   //sorting
@@ -65,7 +45,22 @@ export class TableComponent implements OnInit {
   p: number = 1;
 
   ngOnInit() {
+    this.getClients()
+  }
 
+  getClients(){
+    this.http.get(this.clientsPageService.getClients(this.page)).toPromise().then(resp => {
+      console.log(resp)
+      this.clients = resp.body['clients'];
+      this.pages = new Array(resp.body['totalPages']);
+    });
+
+  }
+
+  setPage(i,event:any){
+    event.preventDefault();
+    this.page = i;
+    this.getClients()
   }
 
   openDialog(client: Client): void {
@@ -103,6 +98,10 @@ export class TableComponent implements OnInit {
 
   delete(selectedItem: any) {
     console.log("Selected item Id: ", selectedItem.param1);
+
+    this.http.delete("/list", {
+      client: selectedItem
+    }, "text").toPromise().then(resp => resp.body as string);
 
     this.clients.splice(selectedItem.param1, 1);
   }

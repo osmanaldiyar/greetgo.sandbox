@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Bootstrap Example</title>
+  <title>Metodology</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -27,6 +27,8 @@
       <nav class="navbar">
         <input class="form-control" type="text" name="search" [(ngModel)]="filter">
       </nav>
+
+
     <table class="table table-bordered">
 
 
@@ -75,26 +77,9 @@
 
       </thead>
 
-      <!--
-      <tbody>
-      <tr *ngFor="let client of clients | filter:filter; let i = index">
-        <td>{{client.FIO}} </td>
-        <td>{{client.character}}</td>
-        <td>{{client.age}}</td>
-        <td>{{client.total_cash_remainings}}</td>
-        <td>{{client.max_remainings}}</td>
-        <td>{{client.min_remainings}}</td>
-
-        <td><button type="button" (click)="delete(client)" class="btn"><i class="fa fa-user-times"></i></button></td>
-        <td><button (click)="openDialog(client)" class="btn btn-light">...</button></td>
-
-      </tr>
-      </tbody>
-      -->
-
 
       <tbody>
-      <tr *ngFor="let client of clients | filter:filter | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
+      <tr *ngFor="let client of clients | filter:filter let i = index">
         <td>{{client.FIO}} </td>
         <td>{{client.character}}</td>
         <td>{{client.age}}</td>
@@ -106,10 +91,20 @@
         <td><button (click)="openDialog(client)" class="btn btn-light">...</button></td>
       </tr>
       </tbody>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
 
-    </table></div>
+
+    </table>
+      <!-- Pagination -->
+      <ul class="nav nav-pills">
+      <li class="nav-item" *ngFor="let p of pages; let i=index">
+        <a class="nav-link"  href="" (click)="setPage(i, $event)" [ngClass]="{'active':i==page}">{{i+1}}</a>
+      </li>
+      </ul>
+
+      <br><br>
+
+    </div>
 
     <div class="col-sm-1">
         <button id="addClientBtn" type="button" (click)="openAddDialog(null)" class="fa fa-user-plus"></button>

@@ -5,11 +5,11 @@
   <div *ngIf="!loginService.personDisplay">
     <input type="text" placeholder="Username" [(ngModel)]="loginService.username">
     <input type="password" placeholder="Password" [(ngModel)]="loginService.password">
-    <button (click)="loginService.login()">Войти</button>
+    <button (click)="loginService.login()">Login</button>
   </div>
 
   <div *ngIf="loginService.personDisplay">
-    Вошли как {{loginService.personDisplay.username}}/{{loginService.personDisplay.fio}}
-    <a (click)="loginService.exit()" class="exit">Выйти</a>
+    Logged as {{loginService.personDisplay.username}}/{{loginService.personDisplay.fio}}
+    <a (click)="loginService.exit()" class="exit">Logout</a>
   </div>
 </div>

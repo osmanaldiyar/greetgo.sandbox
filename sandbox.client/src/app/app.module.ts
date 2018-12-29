@@ -19,6 +19,7 @@ import { AddDialogComponent } from './add-dialog/add-dialog.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe'; //importing the module
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import {ClientsPageService} from "./table/clients-page.service";
 
 @NgModule({
   declarations: [
@@ -39,10 +40,10 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     MatDialogModule,
     Ng2SearchPipeModule, //including into imports,
     Ng2OrderModule, //add here
-    NgxPaginationModule//add here
+    NgxPaginationModule,//add here
   ],
   entryComponents: [TableComponent, EditDialogComponent, AddDialogComponent],
-  providers: [HttpService, LoginService, ClientListService],
+  providers: [HttpService, LoginService, ClientListService,ClientsPageService],
   bootstrap: [AppComponent],
 
 })

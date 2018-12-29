@@ -49,19 +49,28 @@
   <label for="mobilePhone1Lbl">Mobile <span style="color:red">*</span></label>
   <input id="mobilePhone1Lbl" class="form-control" matInput [(ngModel)]="data.min_rem">
 
-  <label for="homeNumberLbl">Home number</label>
-  <input id="homeNumberLbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+  <button id ="addPhoneNumber" class="btn btn-success" (click)="addPhoneNumber()" *ngIf="!addNumber" >+</button>
 
-  <label for="workingPhoneLbl">Working phone</label>
-  <input id="workingPhoneLbl" class="form-control" matInput [(ngModel)]="data.min_rem">
 
-  <label for="mobilePhone2Lbl">Mobile 2</label>
-  <input id="mobilePhone2Lbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+  <br>
+  <label for="streetLbl" *ngIf="addNumber">Add phone number</label>
+  <br>
+  <select id="selectPhoneType" class="form-control" *ngIf="addNumber">
+    <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
+  </select>
 
-  <label for="mobilePhone3Lbl">Mobile 3</label>
-  <input id="mobilePhone3Lbl" class="form-control" matInput [(ngModel)]="data.min_rem">
+  <div *ngIf="addNumber" class="addPhoneNumberInputs">
+    <input placeholder="+7" id="firstNumber" class="form-control" matInput>
+    <input placeholder="705" id="secondThreeNumber" class="form-control" matInput>
+    <input placeholder="951-30-95" id="lastNumbers" class="form-control" matInput>
+  </div>
+
+
+  <button id="removePhoneNumber" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber()" *ngIf="addNumber" ></button>
+
+
 </div>
 <div mat-dialog-actions>
-  <button class="btn btn-success" mat-button [mat-dialog-close]="data.fio" cdkFocusInitial>Save changes</button>
+  <button id="saveChanges" class="btn btn-success" mat-button [mat-dialog-close]="data.fio" cdkFocusInitial>Save changes</button>
   <button class="btn btn-light" mat-button (click)="onNoClick()">Cancel</button>
 </div>

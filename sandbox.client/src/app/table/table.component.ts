@@ -65,7 +65,7 @@ export class TableComponent implements OnInit {
 
   openDialog(client: Client): void {
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      width: '450px',
+      width: '550px',
       data: client
     });
 
@@ -77,7 +77,7 @@ export class TableComponent implements OnInit {
 
   openAddDialog(client: Client): void {
     const addDialogRef = this.dialog.open(AddDialogComponent, {
-      width: '450px',
+      width: '550px',
       data: {
         client: {
           fio: "Lermontov",

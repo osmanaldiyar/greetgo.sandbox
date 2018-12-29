@@ -15,6 +15,9 @@ export class EditDialogComponent implements OnInit{
     public dialogRef: MatDialogRef<EditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
+    addNumber: boolean = false;
+    phoneTypes:Array<string> = ["Home number","Work number", "Mobile"];
+
     ngOnInit(): void {
       this.data.fio = "Pushkin A.S."
       this.data.character = "Good"
@@ -27,6 +30,7 @@ export class EditDialogComponent implements OnInit{
     }
 
     addPhoneNumber(){
+      this.addNumber = !this.addNumber;
 
     }
 

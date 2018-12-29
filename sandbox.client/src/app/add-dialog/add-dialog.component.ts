@@ -15,7 +15,7 @@ export class AddDialogComponent implements OnInit {
 
   ngOnInit() {
     this.data.fio = "Pushkin A.S."
-    this.data.character = "Good"
+    this.data.character = "good"
     this.data.age = 50
     this.data.total_cash_rem = 100
     this.data.max_rem = 9000

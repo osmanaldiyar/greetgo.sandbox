@@ -33,9 +33,18 @@ export class TableComponent implements OnInit {
     {
       FIO: "Gogol", character: "nice", age: 120, total_cash_remainings: 70,
       max_remainings: 40, min_remainings: 10
-    },{
+    },
+    {
       FIO: "Zack", character: "hero", age: 23, total_cash_remainings: 9000,
       max_remainings: 9000, min_remainings: 1000
+    },
+    {
+      FIO: "Chuck", character: "movie-star", age: 24, total_cash_remainings: 9001,
+      max_remainings: 9001, min_remainings: 1001
+    },
+    {
+      FIO: "Boateng", character: "football-player", age: 25, total_cash_remainings: 9002,
+      max_remainings: 9002, min_remainings: 1002
     }
   ];
 
@@ -45,12 +54,15 @@ export class TableComponent implements OnInit {
   }
 
   //sorting
-  key: string = 'fullname'; //set default
+  key: string = 'age'; //set default
   reverse: boolean = false;
   sort(key){
     this.key = key;
     this.reverse = !this.reverse;
   }
+
+  //initializing p to one
+  p: number = 1;
 
   ngOnInit() {
 

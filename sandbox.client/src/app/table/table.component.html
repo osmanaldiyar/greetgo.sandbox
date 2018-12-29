@@ -32,18 +32,50 @@
 
 
       <thead>
+
       <tr>
-        <th (click)="sort('fullname')">Fullname<span class="glyphicon sort-icon" *ngIf="key =='fullname'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+
+        <th (click)="sort('fullname')">
+          Fullname
+          <i class="fa fa-fw fa-sort" *ngIf="key != 'fullname'"></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='fullname'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+
         <th>character</th>
-        <th (click)="sort('age')">age<span class="glyphicon sort-icon" *ngIf="key =='age'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
-        <th (click)="sort('total_cash_remainings')">Total cash Remainings<span class="glyphicon sort-icon" *ngIf="key =='total_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
-        <th (click)="sort('max_cash_remainings')">Max cash remainings<span class="glyphicon sort-icon" *ngIf="key =='max_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
-        <th (click)="sort('min_cash_remainings')">Min cash remainings<span class="glyphicon sort-icon" *ngIf="key =='min_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+
+        <th (click)="sort('age')">
+          age
+          <i class="fa fa-fw fa-sort" *ngIf="key != 'age'"></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='age'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+
+        <th (click)="sort('total_cash_remainings')">
+          Total cash Remainings
+          <i class="fa fa-fw fa-sort" *ngIf="key != 'total_cash_remainings'"></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='total_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+
+        <th (click)="sort('max_cash_remainings')">
+          Max cash remainings
+          <i class="fa fa-fw fa-sort" *ngIf="key !='max_cash_remainings'" ></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='max_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+
+        <th (click)="sort('min_cash_remainings')">
+          Min cash remainings
+          <i class="fa fa-fw fa-sort" *ngIf="key !='min_cash_remainings'"></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='min_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+
         <th>Remove</th>
+
         <th>Edit</th>
+
       </tr>
+
       </thead>
 
+      <!--
       <tbody>
       <tr *ngFor="let client of clients | filter:filter; let i = index">
         <td>{{client.FIO}} </td>
@@ -58,6 +90,24 @@
 
       </tr>
       </tbody>
+      -->
+
+
+      <tbody>
+      <tr *ngFor="let client of clients | filter:filter | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
+        <td>{{client.FIO}} </td>
+        <td>{{client.character}}</td>
+        <td>{{client.age}}</td>
+        <td>{{client.total_cash_remainings}}</td>
+        <td>{{client.max_remainings}}</td>
+        <td>{{client.min_remainings}}</td>
+
+        <td><button type="button" (click)="delete(client)" class="btn"><i class="fa fa-user-times"></i></button></td>
+        <td><button (click)="openDialog(client)" class="btn btn-light">...</button></td>
+      </tr>
+      </tbody>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
 
     </table></div>
 

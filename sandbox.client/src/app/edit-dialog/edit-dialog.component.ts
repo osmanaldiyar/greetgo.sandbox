@@ -19,12 +19,6 @@ export class EditDialogComponent implements OnInit{
     phoneTypes:Array<string> = ["Home number","Work number", "Mobile"];
 
     ngOnInit(): void {
-      this.data.fio = "Pushkin A.S."
-      this.data.character = "Good"
-      this.data.age = 50
-      this.data.total_cash_rem = 100
-      this.data.max_rem = 9000
-      this.data.min_rem = 1000
 
 
     }

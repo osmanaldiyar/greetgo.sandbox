@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ClientRecordRegister {
 
-    ClientPageData selectAllClientRecords(int page);
+    ClientPageData selectAllClientRecords(int page,String sortAttribute, String orderBy,String searchSurname,String searchName,String searchPatronymic);
     //void deleteClientRecord(ClientRecord clientRecord);
 
 }

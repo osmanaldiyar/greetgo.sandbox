@@ -24,14 +24,25 @@ export interface DialogData {
 })
 export class TableComponent implements OnInit {
 
-  private page:number = 0;
+  private page:number = 1;
+  public sortAttribute:string;
+  public orderBy:string;
+  public searchSurname: string ="";
+  public searchName: string = "";
+  public searchPatronymic: string = "";
+
+
   public pages: Array<number>;
   public clients: Client[];
 
 
+  isDisabled: boolean = true;
 
   constructor(public dialog: MatDialog, private clientsPageService: ClientsPageService, private http: HttpService) {
+
   }
+
+
 
   //sorting
   key: string = 'age'; //set default
@@ -39,34 +50,99 @@ export class TableComponent implements OnInit {
   sort(key){
     this.key = key;
     this.reverse = !this.reverse;
+
+    console.log("reverse: "+this.reverse);
+
+    if(this.reverse){
+      this.orderBy = "asc";
+      console.log("orderBy: "+this.orderBy);
+    }else if(this.reverse == false){
+      this.orderBy = "desc";
+      console.log("orderBy: "+this.orderBy);
+    }
+
+    if(key == "fullname"){
+
+      this.sortAttribute = "fullname";
+      console.log("attr: "+this.sortAttribute);
+
+    }else if(key == "age"){
+
+      this.sortAttribute = "age";
+      console.log("attr: "+this.sortAttribute);
+
+    }else if(key == "total_cash_remainings"){
+
+      this.sortAttribute = "total_cash_remainings";
+      console.log("attr: "+this.sortAttribute);
+
+    }else if(key == "max_cash_remainings"){
+      this.sortAttribute = "max_cash_remainings";
+      console.log("attr: "+this.sortAttribute);
+
+    }else if(key == "min_cash_remainings"){
+
+      this.sortAttribute = "min_cash_remainings";
+      console.log("attr: "+this.sortAttribute);
+
+    }
+
+    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
+      console.log(resp)
+      this.clients = resp.body['clients'];
+      this.pages = new Array(resp.body['totalPages']);
+
+    });
+
   }
 
   //initializing p to one
   p: number = 1;
+
+
 
   ngOnInit() {
     this.getClients()
   }
 
   getClients(){
-    this.http.get(this.clientsPageService.getClients(this.page)).toPromise().then(resp => {
+    console.log("attr: "+this.sortAttribute + "orderBy: "+this.orderBy)
+    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
       console.log(resp)
       this.clients = resp.body['clients'];
       this.pages = new Array(resp.body['totalPages']);
     });
+    this.setClickedRow = function(index){
+      this.selectedRow = index;
+      this.isDisabled = false
+      console.log("selected row "+this.selectedRow)
+    }
+
+
 
   }
+
+  //
+  selectedRow : number;
+  setClickedRow : Function;
+
+
 
   setPage(i,event:any){
     event.preventDefault();
+
     this.page = i;
+
     this.getClients()
   }
 
-  openDialog(client: Client): void {
+  openDialog(): void {
+
+    console.log()
+
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '550px',
-      data: client
+      data: this.clients[this.selectedRow]
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -97,6 +173,7 @@ export class TableComponent implements OnInit {
   }
 
   delete(selectedItem: any) {
+
     console.log("Selected item Id: ", selectedItem.param1);
 
     this.http.delete("/list", {
@@ -104,6 +181,20 @@ export class TableComponent implements OnInit {
     }, "text").toPromise().then(resp => resp.body as string);
 
     this.clients.splice(selectedItem.param1, 1);
+  }
+
+  searchFilter(searchSurname:string, searchName:string, searchPatronymic: string){
+
+    this.searchSurname = searchSurname;
+    this.searchName = searchName;
+    this.searchPatronymic = searchPatronymic;
+
+
+    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
+      console.log(resp)
+      this.clients = resp.body['clients'];
+      this.pages = new Array(resp.body['totalPages']);
+    });
   }
 
 

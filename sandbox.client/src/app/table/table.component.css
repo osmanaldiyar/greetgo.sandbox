@@ -1,7 +1,24 @@
-#addClientBtn{
+.btn {
   margin-top: 10px;
-  margin-right: 40px;
 }
 thead>tr>th {
   cursor: pointer;
+}
+
+.filter-form .form-control{
+  margin-left: 10px;
+  float: left;
+  width: 30%;
+}
+
+/*table tr:nth-child(2){
+  background: #47caff;
+}*/
+.table tr.active td {
+  background-color:#123456 !important;
+  color: white;
+}
+
+[disabled]{
+
 }

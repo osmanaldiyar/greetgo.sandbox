@@ -23,13 +23,19 @@
     </nav>
   </header>
   <div class="row">
+
+
+      <form class="filter-form">
+        <input #searchSurname class="form-control" type="text" name="searchSurname">
+        <input #searchName class="form-control" type="text" name="searchName">
+        <input #searchPatronymic class="form-control" type="text" name="searchPatronymic">
+        <input type="submit" name="submitSearch" value="search" (click)="searchFilter(searchSurname.value,searchName.value,searchPatronymic.value)">
+      </form>
+
+      <br>
+
     <div class="col-sm-11">
-      <nav class="navbar">
-        <input class="form-control" type="text" name="search" [(ngModel)]="filter">
-      </nav>
-
-
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="table">
 
 
 
@@ -69,17 +75,13 @@
           <span class="glyphicon sort-icon" *ngIf="key =='min_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
         </th>
 
-        <th>Remove</th>
-
-        <th>Edit</th>
-
       </tr>
 
       </thead>
 
 
       <tbody>
-      <tr *ngFor="let client of clients | filter:filter let i = index">
+      <tr *ngFor="let client of clients; let i = index" (click)="setClickedRow(i)" [class.active]="i == selectedRow">
         <td>{{client.FIO}} </td>
         <td>{{client.character}}</td>
         <td>{{client.age}}</td>
@@ -87,8 +89,8 @@
         <td>{{client.max_remainings}}</td>
         <td>{{client.min_remainings}}</td>
 
-        <td><button type="button" (click)="delete(client)" class="btn"><i class="fa fa-user-times"></i></button></td>
-        <td><button (click)="openDialog(client)" class="btn btn-light">...</button></td>
+        <!--<td><button type="button" (click)="delete(client)" class="btn"><i class="fa fa-user-times"></i></button></td>
+        <td><button (click)="openDialog(client)" class="btn btn-light">...</button></td>-->
       </tr>
       </tbody>
 
@@ -106,8 +108,11 @@
 
     </div>
 
+
     <div class="col-sm-1">
-        <button id="addClientBtn" type="button" (click)="openAddDialog(null)" class="fa fa-user-plus"></button>
+        <button id="addClientBtn" type="button" (click)="openAddDialog(null)" class="btn fa fa-user-plus"></button>
+        <button type="button" (click)="delete()" class="btn"><i class="fa fa-user-times"></i></button>
+        <button (click)="openDialog()" class="btn btn-light" [disabled]="isDisabled">...</button>
     </div>
 
   </div>
@@ -117,7 +122,6 @@
 <!-- filter sort-->
 
 <!--end -->
-
 
 
 

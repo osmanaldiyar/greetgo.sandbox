@@ -22,8 +22,9 @@ public class ClientPageDataController implements Controller {
     @PublicAccess
     @ToJson
     @OnGet("/list")
-    public ClientPageData clientPageData(@Par("page") int page) {
-        return clientRecordRegister.get().selectAllClientRecords(page);
+    public ClientPageData clientPageData(@Par("page") int page, @Par("sortAttribute") String sortAttribute, @Par("orderBy") String orderBy,
+                                         @Par("searchSurname") String searchSurname,@Par("searchName") String searchName,@Par("searchPatronymic") String searchPatronymic) {
+        return clientRecordRegister.get().selectAllClientRecords(page, sortAttribute, orderBy,searchSurname,searchName,searchPatronymic);
     }
 
     /*@PublicAccess

@@ -1,4 +1,5 @@
 export class Client {
+  id: number;
   FIO: string;
   character: string;
   age: number;

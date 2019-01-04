@@ -53,14 +53,14 @@
 
 
   <br>
-  <label for="streetLbl" *ngIf="addNumber">Add phone number</label>
+  <label *ngIf="addNumber">Add phone number</label>
   <br>
-  <select id="selectPhoneType" class="form-control" *ngIf="addNumber">
+  <select id="selectPhoneType" class="form-control selectPhoneType" *ngIf="addNumber">
     <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
   </select>
 
   <div *ngIf="addNumber" class="addPhoneNumberInputs">
-    <input placeholder="+7" id="firstNumber" class="form-control" matInput>
+    <input placeholder="+7" id="firstNumber" class="form-control firstNumber" matInput>
     <input placeholder="705" id="secondThreeNumber" class="form-control" matInput>
     <input placeholder="951-30-95" id="lastNumbers" class="form-control" matInput>
   </div>
@@ -68,6 +68,87 @@
 
   <button id="removePhoneNumber" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber()" *ngIf="addNumber" ></button>
 
+  <!--
+-->
+
+  <button id ="addPhoneNumber2" class="btn btn-success" (click)="addPhoneNumber2()" *ngIf="!addNumber2" >+</button>
+
+  <br>
+  <label *ngIf="addNumber2">Add phone number</label>
+  <br>
+  <select id="selectPhoneType2" class="form-control selectPhoneType" *ngIf="addNumber2">
+    <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
+  </select>
+
+  <div *ngIf="addNumber2" class="addPhoneNumberInputs2">
+    <input placeholder="+7" id="firstNumber2" class="form-control firstNumber" matInput>
+    <input placeholder="705" id="secondThreeNumber2" class="form-control" matInput>
+    <input placeholder="951-30-95" id="lastNumbers2" class="form-control" matInput>
+  </div>
+
+
+  <button id="removePhoneNumber2" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber2()" *ngIf="addNumber2" ></button>
+
+  <!--
+  -->
+
+  <button id ="addPhoneNumber3" class="btn btn-success" (click)="addPhoneNumber3()" *ngIf="!addNumber3" >+</button>
+
+  <br>
+  <label *ngIf="addNumber3">Add phone number</label>
+  <br>
+  <select id="selectPhoneType3" class="form-control selectPhoneType" *ngIf="addNumber3">
+    <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
+  </select>
+
+  <div *ngIf="addNumber3" class="addPhoneNumberInputs3">
+    <input placeholder="+7" id="firstNumber3" class="form-control firstNumber" matInput>
+    <input placeholder="705" id="secondThreeNumber3" class="form-control" matInput>
+    <input placeholder="951-30-95" id="lastNumbers3" class="form-control" matInput>
+  </div>
+
+
+  <button id="removePhoneNumber3" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber3()" *ngIf="addNumber3" ></button>
+
+  <!--
+  -->
+  <button id ="addPhoneNumber4" class="btn btn-success" (click)="addPhoneNumber4()" *ngIf="!addNumber4" >+</button>
+
+  <br>
+  <label *ngIf="addNumber4">Add phone number</label>
+  <br>
+  <select id="selectPhoneType4" class="form-control selectPhoneType" *ngIf="addNumber4">
+    <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
+  </select>
+
+  <div *ngIf="addNumber4" class="addPhoneNumberInputs4">
+    <input placeholder="+7" id="firstNumber4" class="form-control" matInput>
+    <input placeholder="705" id="secondThreeNumber4" class="form-control" matInput>
+    <input placeholder="951-30-95" id="lastNumbers4" class="form-control" matInput>
+  </div>
+
+
+  <button id="removePhoneNumber4" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber4()" *ngIf="addNumber4" ></button>
+
+  <!--
+  -->
+  <button id ="addPhoneNumber5" class="btn btn-success" (click)="addPhoneNumber5()" *ngIf="!addNumber5" >+</button>
+
+  <br>
+  <label *ngIf="addNumber5">Add phone number</label>
+  <br>
+  <select id="selectPhoneType5" class="form-control selectPhoneType" *ngIf="addNumber5">
+    <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
+  </select>
+
+  <div *ngIf="addNumber5" class="addPhoneNumberInputs5">
+    <input placeholder="+7" id="firstNumber5" class="form-control" matInput>
+    <input placeholder="705" id="secondThreeNumber5" class="form-control" matInput>
+    <input placeholder="951-30-95" id="lastNumbers5" class="form-control" matInput>
+  </div>
+
+
+  <button id="removePhoneNumber5" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber5()" *ngIf="addNumber5" ></button>
 
 </div>
 <div mat-dialog-actions>

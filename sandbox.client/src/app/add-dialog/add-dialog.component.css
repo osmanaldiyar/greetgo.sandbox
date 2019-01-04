@@ -1,7 +1,12 @@
-button.btn-success{
+button#addSaveChanges{
   margin-right: 10px;
   width: 45%;
 }
+
+button.btn-success{
+  margin-left: 5px;
+}
+
 button.btn-light{
   margin-left: 10px;
   width: 45%;
@@ -16,4 +21,119 @@ input{
 
 h5{
   text-align: center;
+}
+
+select#selectPhoneType{
+  width:30%;
+  float: left;
+}
+#firstNumber{
+  width: 10%;
+}
+#secondThreeNumber{
+  width: 15%;
+}
+#lastNumbers{
+  width: 20%;
+}
+
+#removePhoneNumber{
+  margin-left: 10px;
+}
+
+.addPhoneNumberInputs input{
+  margin-left: 10px;
+  float: left;
+}
+
+select#selectPhoneType2{
+  width:30%;
+  float: left;
+}
+#firstNumber2{
+  width: 10%;
+}
+#secondThreeNumber2{
+  width: 15%;
+}
+#lastNumbers2{
+  width: 20%;
+}
+
+#removePhoneNumber2{
+  margin-left: 10px;
+}
+
+.addPhoneNumberInputs2 input{
+  margin-left: 10px;
+  float: left;
+}
+
+select#selectPhoneType3{
+  width:30%;
+  float: left;
+}
+#firstNumber3{
+  width: 10%;
+}
+#secondThreeNumber3{
+  width: 15%;
+}
+#lastNumbers3{
+  width: 20%;
+}
+
+#removePhoneNumber3{
+  margin-left: 10px;
+}
+
+.addPhoneNumberInputs3 input{
+  margin-left: 10px;
+  float: left;
+}
+
+select#selectPhoneType4{
+  width:30%;
+  float: left;
+}
+#firstNumber4{
+  width: 10%;
+}
+#secondThreeNumber4{
+  width: 15%;
+}
+#lastNumbers4{
+  width: 20%;
+}
+
+#removePhoneNumber4{
+  margin-left: 10px;
+}
+
+.addPhoneNumberInputs4 input{
+  margin-left: 10px;
+  float: left;
+}
+
+select#selectPhoneType5{
+  width:30%;
+  float: left;
+}
+#firstNumber5{
+  width: 10%;
+}
+#secondThreeNumber5{
+  width: 15%;
+}
+#lastNumbers5{
+  width: 20%;
+}
+
+#removePhoneNumber5{
+  margin-left: 10px;
+}
+
+.addPhoneNumberInputs5 input{
+  margin-left: 10px;
+  float: left;
 }

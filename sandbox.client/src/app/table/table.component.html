@@ -29,7 +29,9 @@
         <input #searchSurname class="form-control" type="text" name="searchSurname">
         <input #searchName class="form-control" type="text" name="searchName">
         <input #searchPatronymic class="form-control" type="text" name="searchPatronymic">
-        <input type="submit" name="submitSearch" value="search" (click)="searchFilter(searchSurname.value,searchName.value,searchPatronymic.value)">
+        <button type="submit" name="submitSearch" (click)="searchFilter(searchSurname.value,searchName.value,searchPatronymic.value)">
+          <i class="fa fa-search"></i>
+        </button>
       </form>
 
       <br>
@@ -100,9 +102,11 @@
       <!-- Pagination -->
       <ul class="nav nav-pills">
       <li class="nav-item" *ngFor="let p of pages; let i=index">
-        <a class="nav-link"  href="" (click)="setPage(i, $event)" [ngClass]="{'active':i==page}">{{i+1}}</a>
+        <a class="nav-link"  href="" (click)="setPage(i, $event)" [ngClass]="{'active':i==page}">{{i}}</a>
       </li>
       </ul>
+
+
 
       <br><br>
 
@@ -111,8 +115,8 @@
 
     <div class="col-sm-1">
         <button id="addClientBtn" type="button" (click)="openAddDialog(null)" class="btn fa fa-user-plus"></button>
-        <button type="button" (click)="delete()" class="btn"><i class="fa fa-user-times"></i></button>
         <button (click)="openDialog()" class="btn btn-light" [disabled]="isDisabled">...</button>
+        <button type="button" (click)="delete()" class="btn"><i class="fa fa-user-times"></i></button>
     </div>
 
   </div>

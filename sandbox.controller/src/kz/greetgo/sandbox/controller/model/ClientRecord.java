@@ -2,6 +2,7 @@ package kz.greetgo.sandbox.controller.model;
 
 public class ClientRecord {
 
+    public int id;
     public String FIO;
     public String character;
     public int age;

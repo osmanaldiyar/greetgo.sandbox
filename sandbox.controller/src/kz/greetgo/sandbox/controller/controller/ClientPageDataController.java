@@ -27,11 +27,11 @@ public class ClientPageDataController implements Controller {
         return clientRecordRegister.get().selectAllClientRecords(page, sortAttribute, orderBy,searchSurname,searchName,searchPatronymic);
     }
 
-    /*@PublicAccess
+    @PublicAccess
+    @ToJson
     @OnDelete("/list")
-    public String deleteClientRecord(@Par("client-record") ClientRecord clientRecord) {
-        clientRecordRegister.get().deleteClientRecord(clientRecord);
-        return "";
-    }*/
+    public String deleteClientRecord(@Par("id") int id) {
+        return clientRecordRegister.get().deleteClientRecord(id);
+    }
 
 }

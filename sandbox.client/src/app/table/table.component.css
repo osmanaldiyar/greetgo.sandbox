@@ -14,11 +14,10 @@ thead>tr>th {
 /*table tr:nth-child(2){
   background: #47caff;
 }*/
+
+
 .table tr.active td {
   background-color:#123456 !important;
   color: white;
 }
 
-[disabled]{
-
-}

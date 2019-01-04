@@ -24,7 +24,7 @@ export interface DialogData {
 })
 export class TableComponent implements OnInit {
 
-  private page:number = 1;
+  private page:number = 0;
   public sortAttribute:string;
   public orderBy:string;
   public searchSurname: string ="";
@@ -33,7 +33,10 @@ export class TableComponent implements OnInit {
 
 
   public pages: Array<number>;
-  public clients: Client[];
+  public clients: Array<Client>;
+  public firstClientIndex: number;
+  public lastClientIndex: number;
+
 
 
   isDisabled: boolean = true;
@@ -89,8 +92,10 @@ export class TableComponent implements OnInit {
 
     this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
       console.log(resp)
-      this.clients = resp.body['clients'];
+      this.clients = resp.body['clientsToDisplay'];
       this.pages = new Array(resp.body['totalPages']);
+      this.firstClientIndex = resp.body['firstElement'];
+      this.lastClientIndex = resp.body['lastElement'];
 
     });
 
@@ -103,16 +108,22 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     this.getClients()
+
   }
+
+
 
   getClients(){
     console.log("attr: "+this.sortAttribute + "orderBy: "+this.orderBy)
     this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
       console.log(resp)
-      this.clients = resp.body['clients'];
+      this.clients = resp.body['clientsToDisplay'];
       this.pages = new Array(resp.body['totalPages']);
+      this.firstClientIndex = resp.body['firstElement'];
+      this.lastClientIndex = resp.body['lastElement'];
     });
     this.setClickedRow = function(index){
+      console.log("success ")
       this.selectedRow = index;
       this.isDisabled = false
       console.log("selected row "+this.selectedRow)
@@ -123,6 +134,7 @@ export class TableComponent implements OnInit {
   }
 
   //
+
   selectedRow : number;
   setClickedRow : Function;
 
@@ -151,6 +163,8 @@ export class TableComponent implements OnInit {
     });
   }
 
+
+
   openAddDialog(client: Client): void {
     const addDialogRef = this.dialog.open(AddDialogComponent, {
       width: '550px',
@@ -172,15 +186,25 @@ export class TableComponent implements OnInit {
     });
   }
 
-  delete(selectedItem: any) {
+  delete() {
 
-    console.log("Selected item Id: ", selectedItem.param1);
+    console.log("Selected item Id: ", this.selectedRow);
+    console.log("offset element id "+ this.selectedRow);
 
-    this.http.delete("/list", {
-      client: selectedItem
-    }, "text").toPromise().then(resp => resp.body as string);
+    var id = this.firstClientIndex+this.selectedRow;
+    console.log("list element id" + id);
 
-    this.clients.splice(selectedItem.param1, 1);
+    this.http.delete("/list?id="+id, {
+    }, "text").toPromise().then(resp => console.log(resp.body));
+
+    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
+      console.log(resp)
+      this.clients = resp.body['clientsToDisplay'];
+      this.pages = new Array(resp.body['totalPages']);
+      this.firstClientIndex = resp.body['firstElement'];
+      this.lastClientIndex = resp.body['lastElement'];
+    });
+
   }
 
   searchFilter(searchSurname:string, searchName:string, searchPatronymic: string){
@@ -192,8 +216,10 @@ export class TableComponent implements OnInit {
 
     this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
       console.log(resp)
-      this.clients = resp.body['clients'];
+      this.clients = resp.body['clientsToDisplay'];
       this.pages = new Array(resp.body['totalPages']);
+      this.firstClientIndex = resp.body['firstElement'];
+      this.lastClientIndex = resp.body['lastElement'];
     });
   }
 

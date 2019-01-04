@@ -10,7 +10,12 @@
   <input id="patronymic" class="form-control" matInput [(ngModel)]="data.age">
 
   <label for="gender">Gender <span style="color:red">*</span></label>
-  <input id="gender" class="form-control" matInput [(ngModel)]="data.total_cash_rem">
+  <br>
+  <select id="gender" class="form-control">
+    <option>Male</option>
+    <option>Female</option>
+  </select>
+  <br>
 
   <label for="birthday">Date of birth <span style="color:red">*</span></label>
   <input type="date" id="birthday" class="form-control" matInput [(ngModel)]="data.max_rem">
@@ -145,6 +150,7 @@
     <input placeholder="+7" id="firstNumber5" class="form-control" matInput>
     <input placeholder="705" id="secondThreeNumber5" class="form-control" matInput>
     <input placeholder="951-30-95" id="lastNumbers5" class="form-control" matInput>
+
   </div>
 
 

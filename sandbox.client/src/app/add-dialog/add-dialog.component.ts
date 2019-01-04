@@ -1,6 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {DialogData} from "../table/table.component";
+import {HttpService} from "../http.service";
+import {ClientDetails} from "../../model/ClientDetails";
+import {Client} from "../models/client";
+import {toPromise} from "rxjs-compat/operator/toPromise";
 
 @Component({
   selector: 'app-add-dialog',
@@ -10,14 +14,18 @@ import {DialogData} from "../table/table.component";
 export class AddDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+              @Inject(MAT_DIALOG_DATA) public data: DialogData, private http: HttpService) { }
+
 
   addNumber: boolean = false;
   addNumber2: boolean = false;
   addNumber3: boolean = false;
   addNumber4: boolean = false;
   addNumber5: boolean = false;
+  selectedGender: string;
   phoneTypes:Array<string> = ["Home number","Work number", "Mobile"];
+  addClientDetails: ClientDetails = new ClientDetails();
+  addClientRecord: Client = new Client();
 
   ngOnInit() {
   }
@@ -39,13 +47,54 @@ export class AddDialogComponent implements OnInit {
   }
 
 
-  onAddClientClick(surname:string, name:string){
+  onAddClientClick(surname:string, name:string, patronymic: string, dateOfBirth: Date , character: string,
+                   street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string,
+                   phoneNumber1:string,phoneNumber2:string,phoneNumber3:string,phoneNumber4:string,phoneNumber5:string){
+
+    console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,character,street,house,flatNumber,
+      registeredStreet,registeredFlatNumber,registeredHouse,phoneNumber1,phoneNumber2,phoneNumber3,phoneNumber4,phoneNumber5);
+
+    this.addClientDetails.gender = "Male";
+    this.addClientDetails.dateOfBirth = dateOfBirth;
+    this.addClientDetails.street = street;
+    this.addClientDetails.house = house;
+    this.addClientDetails.flatNumber = flatNumber;
+    this.addClientDetails.registeredStreet = registeredStreet;
+    this.addClientDetails.registeredFlatNumber = registeredFlatNumber;
+    this.addClientDetails.registeredHouse = registeredHouse;
+
+    this.addClientRecord.FIO = surname + " " + name + " " + patronymic;
+    this.addClientRecord.character = character;
+
+    var d = new Date();
+    dateOfBirth = new Date();
+
+    this.addClientRecord.age = d.getFullYear() - 1998;
+
+    console.log(this.addClientRecord.FIO);
+
+    this.addClientRecord.total_cash_remainings = 21313;
+    this.addClientRecord.max_remainings = 4313;
+    this.addClientRecord.min_remainings = 1313;
+
+    console.log(this.addClientRecord.total_cash_remainings,this.addClientRecord.max_remainings,this.addClientRecord.min_remainings);
+
+    this.http.post("/list/add", {
+      FIO: this.addClientRecord.FIO,
+      age: this.addClientRecord.age,
+      character: this.addClientRecord.character,
+      total_cash_rem: this.addClientRecord.total_cash_remainings,
+      max_cash_rem: this.addClientRecord.max_remainings,
+      min_cash_rem: this.addClientRecord.min_remainings
+    }, "text").toPromise().then(resp => resp.body as string);
+
 
   }
 
   onNoClick(): void {
     this.dialogRef.close(this.data);
   }
+
 
 
 }

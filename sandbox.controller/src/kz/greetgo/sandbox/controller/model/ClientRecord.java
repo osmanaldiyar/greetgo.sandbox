@@ -20,6 +20,16 @@ public class ClientRecord {
         this.min_remainings = min_remainings;
     }
 
+    public ClientRecord(int id, String FIO, String character, int age, int total_cash_remainings, int max_remainings, int min_remainings) {
+        this.id = id;
+        this.FIO = FIO;
+        this.character = character;
+        this.age = age;
+        this.total_cash_remainings = total_cash_remainings;
+        this.max_remainings = max_remainings;
+        this.min_remainings = min_remainings;
+    }
+
     public String getFIO() {
         return FIO;
     }

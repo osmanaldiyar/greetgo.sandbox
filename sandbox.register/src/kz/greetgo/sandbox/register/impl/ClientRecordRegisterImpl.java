@@ -2,6 +2,7 @@ package kz.greetgo.sandbox.register.impl;
 
 import kz.greetgo.depinject.core.Bean;
 import kz.greetgo.depinject.core.BeanGetter;
+import kz.greetgo.sandbox.controller.model.ClientDetails;
 import kz.greetgo.sandbox.controller.model.ClientPageData;
 import kz.greetgo.sandbox.controller.model.ClientRecord;
 import kz.greetgo.sandbox.controller.register.ClientRecordRegister;
@@ -251,16 +252,6 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             System.out.println("first: "+ first + " last: " + last);
 
 
-            /*last = page * elementsPerPage;
-            first = last - elementsPerPage;
-
-
-
-            while(filteredClients.size()<last){
-                last--;
-            }*/
-
-            //totalPages
 
             System.out.println("listsize "+listSize);
 
@@ -428,6 +419,22 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         System.out.println("Delete--------------END");
         System.out.println();
         return "Ok";
+    }
+
+    @Override
+    public String addClientRecord(String FIO,int age, String character, int total_cash_rem,int max_cash_rem,int min_cash_rem) {
+        System.out.println(FIO);
+        System.out.println(age);
+        System.out.println(character);
+        System.out.println(total_cash_rem);
+        System.out.println(max_cash_rem);
+        System.out.println(min_cash_rem);
+
+        int id = clientPageData.getClients().size()-1;
+
+        clientPageData.getClients().add(new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
+
+        return "ok";
     }
 }
 

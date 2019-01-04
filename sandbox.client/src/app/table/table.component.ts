@@ -36,9 +36,12 @@ export class TableComponent implements OnInit {
   public clients: Array<Client>;
   public firstClientIndex: number;
   public lastClientIndex: number;
+  //unused
+  public selectedClient: Client;
+  public isFiltering: boolean = false;
 
 
-
+//unused
   isDisabled: boolean = true;
 
   constructor(public dialog: MatDialog, private clientsPageService: ClientsPageService, private http: HttpService) {
@@ -51,6 +54,7 @@ export class TableComponent implements OnInit {
   key: string = 'age'; //set default
   reverse: boolean = false;
   sort(key){
+    this.isFiltering = true;
     this.key = key;
     this.reverse = !this.reverse;
 
@@ -96,7 +100,7 @@ export class TableComponent implements OnInit {
       this.pages = new Array(resp.body['totalPages']);
       this.firstClientIndex = resp.body['firstElement'];
       this.lastClientIndex = resp.body['lastElement'];
-
+      this.isFiltering = true;
     });
 
   }
@@ -122,7 +126,9 @@ export class TableComponent implements OnInit {
       this.firstClientIndex = resp.body['firstElement'];
       this.lastClientIndex = resp.body['lastElement'];
     });
-    this.setClickedRow = function(index){
+    this.setClickedRow = function(index,client){
+      console.log("client id",client.id);
+      this.selectedClient = client;
       console.log("success ")
       this.selectedRow = index;
       this.isDisabled = false
@@ -176,13 +182,38 @@ export class TableComponent implements OnInit {
           total_cash_rem: 5000,
           max_rem: 5000,
           min_rem: 1000
+        },
+        clientDetails:{
+          id:0,
+          gender:"Male",
+          dateOfBirth:"",
+          street:"",
+          house:"",
+          flatNumber:"",
+          registeredStreet:"",
+          registeredHouse:"",
+          registeredFlatNumber:"",
+          phoneNumber1:"",
+          phoneNumber2:"",
+          phoneNumber3:"",
+          phoneNumber4:"",
+          phoneNumber5:"",
         }
       }
     });
 
     addDialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(result)
+      console.log(result);
+
+      this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
+        console.log(resp)
+        this.clients = resp.body['clientsToDisplay'];
+        this.pages = new Array(resp.body['totalPages']);
+        this.firstClientIndex = resp.body['firstElement'];
+        this.lastClientIndex = resp.body['lastElement'];
+      });
+
     });
   }
 
@@ -208,7 +239,7 @@ export class TableComponent implements OnInit {
   }
 
   searchFilter(searchSurname:string, searchName:string, searchPatronymic: string){
-
+    this.isFiltering = true;
     this.searchSurname = searchSurname;
     this.searchName = searchName;
     this.searchPatronymic = searchPatronymic;

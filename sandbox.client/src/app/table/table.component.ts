@@ -39,6 +39,7 @@ export class TableComponent implements OnInit {
   //unused
   public selectedClient: Client;
   public isFiltering: boolean = false;
+  public shortcutPages: Array<number> = [];
 
 
 //unused
@@ -112,7 +113,6 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     this.getClients()
-
   }
 
 
@@ -125,6 +125,12 @@ export class TableComponent implements OnInit {
       this.pages = new Array(resp.body['totalPages']);
       this.firstClientIndex = resp.body['firstElement'];
       this.lastClientIndex = resp.body['lastElement'];
+
+      for(var _i = 0; _i < resp.body['totalPages']; _i+=5){
+        console.log("shortcuts ", _i)
+        this.shortcutPages[_i] = _i;
+      }
+
     });
     this.setClickedRow = function(index,client){
       console.log("client id",client.id);

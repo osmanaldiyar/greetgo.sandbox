@@ -106,6 +106,9 @@
       </li>
       </ul>
 
+      <select>
+        <option *ngFor="let shorcutPage of shortcutPages" (click)="setPage(shortcutPage, $event)">{{shorcutPage}}</option>
+      </select>
 
 
       <br><br>

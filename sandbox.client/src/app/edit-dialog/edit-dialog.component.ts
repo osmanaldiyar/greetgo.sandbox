@@ -16,7 +16,9 @@ export class EditDialogComponent implements OnInit{
 
   constructor(
     public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private http: HttpService) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private http: HttpService) {
+    console.log("Client",data.fio + " came to edit")
+  }
 
   addNumber: boolean = false;
   addNumber2: boolean = false;
@@ -63,7 +65,7 @@ export class EditDialogComponent implements OnInit{
   }
 
 
-  onEditClient(surname:string, name:string, patronymic: string,gender: string, dateOfBirth: Date , character: string,
+  onEditClient(surname:string, name:string, patronymic: string, dateOfBirth: Date , character: string,
                street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string,
                phoneNumber1:string,phoneNumber2:string,phoneNumber3:string,phoneNumber4:string,phoneNumber5:string){
 
@@ -84,13 +86,10 @@ export class EditDialogComponent implements OnInit{
     this.addClientRecord.FIO = surname + " " + name + " " + patronymic;
     this.addClientRecord.character = character;
 
+    //calculate year
     var d = new Date();
     var year = dateOfBirth.toString().split("-");
-
-    //this.addClientRecord.age = d.getFullYear() - year[0];
-    this.addClientRecord.age = 21;
-
-    console.log(this.addClientRecord.FIO);
+    this.addClientRecord.age = d.getFullYear() - parseInt(year[0]);
 
     this.addClientRecord.total_cash_remainings = 21313;
     this.addClientRecord.max_remainings = 4313;

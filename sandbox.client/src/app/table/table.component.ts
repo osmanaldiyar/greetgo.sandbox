@@ -59,7 +59,7 @@ export class TableComponent implements OnInit {
         this.selectedRow = undefined;
         this.isDisabled = true;
       }
-      console.log("selected row "+this.selectedRow)
+      //console.log("selected row "+this.selectedRow)
     }
   }
 
@@ -183,11 +183,18 @@ export class TableComponent implements OnInit {
 
   openDialog(): void {
 
-    console.log()
+    console.log("selected row", this.selectedRow)
+    console.log("Editing client ", this.clients[this.selectedRow].FIO);
+
+    var id = this.firstClientIndex+this.selectedRow;
+    console.log("list element id" + id);
 
     const dialogRef2 = this.dialog.open(EditDialogComponent, {
       width: '550px',
-      data: this.clients[this.selectedRow]
+      data: {
+        client: this.selectedClient,
+        id: id
+      }
     });
 
     dialogRef2.afterClosed().subscribe(result => {

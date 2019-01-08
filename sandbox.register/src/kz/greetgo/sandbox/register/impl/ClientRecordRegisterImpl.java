@@ -8,6 +8,7 @@ import kz.greetgo.sandbox.controller.register.ClientRecordRegister;
 import kz.greetgo.sandbox.register.dao.ClientRecordDao;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Bean
 public class ClientRecordRegisterImpl implements ClientRecordRegister {
@@ -383,8 +384,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         System.out.println();
         System.out.println("Delete--------------START");
         System.out.println("size "+standDb.get().getClients().size());
-        System.out.println("deleted FIO "+standDb.get().getClients().get(id).getFIO());
-        standDb.get().getClients().remove(id);
+        standDb.get().getClients().removeIf(obj -> obj.id == id);
 
         //totalPages
 
@@ -455,9 +455,18 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         System.out.println(max_cash_rem);
         System.out.println(min_cash_rem);
 
-        if(!FIO.isEmpty()){
+
+        //remove
+
+        //findId
+
+        //add
+
+        standDb.get().getClients().set(id,new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
+/*
+        if(FIO != ""){
             standDb.get().getClients().get(id).setFIO(FIO);
-        }if(character != null) {
+        }if(character != "") {
             standDb.get().getClients().get(id).setCharacter(character);
         }if(total_cash_rem != 0){
             standDb.get().getClients().get(id).setTotal_cash_remainings(total_cash_rem);
@@ -467,7 +476,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             standDb.get().getClients().get(id).setMin_remainings(min_cash_rem);
         }if(age != 0){
             standDb.get().getClients().get(id).setAge(age);
-        }
+        }*/
         return "ok";
     }
 }

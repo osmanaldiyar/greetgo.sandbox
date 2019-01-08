@@ -61,18 +61,17 @@ export class AddDialogComponent implements OnInit {
   }
 
 
-  onAddClientClick(surname:string, name:string, patronymic: string,gender: string, dateOfBirth: string , character: string,
+  onAddClientClick(surname:string, name:string, patronymic: string, dateOfBirth: Date , character: string,
                    street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string,
                    phoneNumber1:string,phoneNumber2:string,phoneNumber3:string,phoneNumber4:string,phoneNumber5:string){
 
     console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,character,street,house,flatNumber,
       registeredStreet,registeredFlatNumber,registeredHouse,phoneNumber1,phoneNumber2,phoneNumber3,phoneNumber4,phoneNumber5);
 
-    var d = new Date();
 
     console.log("Gender ",this.selectedGender)
     this.addClientDetails.gender = this.selectedGender;
-    this.addClientDetails.dateOfBirth = d;
+    this.addClientDetails.dateOfBirth = dateOfBirth;
     this.addClientDetails.street = street;
     this.addClientDetails.house = house;
     this.addClientDetails.flatNumber = flatNumber;
@@ -83,16 +82,11 @@ export class AddDialogComponent implements OnInit {
     this.addClientRecord.FIO = surname + " " + name + " " + patronymic;
     this.addClientRecord.character = character;
 
+    //calculate year
     var d = new Date();
-    //this.year = dateOfBirth.toString().split("-");
-    var currentYear: number = d.getFullYear();
+    var year = dateOfBirth.toString().split("-");
+    this.addClientRecord.age = d.getFullYear() - parseInt(year[0]);
 
-    //this.addClientRecord.age = currentYear - parseInt(this.year[0]);
-    this.addClientRecord.age = 21;
-    console.log("dateofbirth ",dateOfBirth);
-    console.log("clientage ",this.addClientRecord.age);
-
-    console.log(this.addClientRecord.FIO);
 
     this.addClientRecord.total_cash_remainings = 21313;
     this.addClientRecord.max_remainings = 4313;

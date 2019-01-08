@@ -18,7 +18,7 @@
   <br>
 
   <label for="birthday">Date of birth <span style="color:red">*</span></label>
-  <input #date [(ngModel)]="dateOfBirthInput" (ngModelChange)="inputsIsEmpty()" id="birthday" class="form-control">
+  <input #dateOfBirth [(ngModel)]="dateOfBirthInput" (ngModelChange)="inputsIsEmpty()" type="date" id="birthday" class="form-control">
 
   <label for="character">Character <span style="color:red">*</span></label>
   <input #character [(ngModel)]="characterInput" (ngModelChange)="inputsIsEmpty()" id="character" class="form-control" id="lastAddClientInput">
@@ -146,8 +146,8 @@
 
 <div mat-dialog-actions>
 
-  <button id="addSaveChanges" [disabled]="inputIsEmpty" (click)="onAddClientClick(surname.value,name.value,patronymic.value,date.value,character.value,street.value,
-  house.value,flatNumber.value,regStreet.value,regHouse.value,regFlat.value)" class="btn btn-success"
+  <button id="addSaveChanges" [disabled]="inputIsEmpty" (click)="onAddClientClick(surname.value,name.value,patronymic.value,dateOfBirth.value,character.value,street.value,
+  house.value,flatNumber.value,regStreet.value,regHouse.value,regFlat.value,firstNumber.value)" class="btn btn-success"
           mat-button [mat-dialog-close]="data.fio" cdkFocusInitial>Add client</button>
 
   <button class="btn btn-light" mat-button (click)="onNoClick()">Cancel</button>

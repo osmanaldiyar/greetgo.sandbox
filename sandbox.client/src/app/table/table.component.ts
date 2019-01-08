@@ -9,6 +9,7 @@ import {HttpService} from "../http.service";
 
 
 export interface DialogData {
+  id: number;
   fio: string;
   character: string;
   age: number;
@@ -36,15 +37,15 @@ export class TableComponent implements OnInit {
   public clients: Array<Client>;
   public firstClientIndex: number;
   public lastClientIndex: number;
-  //unused
+
   public selectedClient: Client;
   public isFiltering: boolean = false;
   public shortcutPages: Array<number> = [];
   public selected: boolean = false;
 
-
-//unused
   isDisabled: boolean = true;
+
+  amountOfRowsToDisplay: number = 5;
 
   constructor(public dialog: MatDialog, private clientsPageService: ClientsPageService, private http: HttpService) {
     this.setClickedRow = function(index,client){
@@ -110,7 +111,7 @@ export class TableComponent implements OnInit {
 
     }
 
-    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
+    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
       console.log(resp)
       this.clients = resp.body['clientsToDisplay'];
       this.pages = new Array(resp.body['totalPages']);
@@ -134,14 +135,14 @@ export class TableComponent implements OnInit {
 
   getClients(){
     console.log("attr: "+this.sortAttribute + "orderBy: "+this.orderBy)
-    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
+    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
       console.log(resp)
       this.clients = resp.body['clientsToDisplay'];
       this.pages = new Array(resp.body['totalPages']);
       this.firstClientIndex = resp.body['firstElement'];
       this.lastClientIndex = resp.body['lastElement'];
 
-      for(var _i = 0; _i < resp.body['totalPages']; _i+=4){
+      for(var _i = 5; _i <= resp.body['totalElements']; _i+=5){
         console.log("shortcuts ", _i)
         if(this.shortcutPages.indexOf(_i) === -1){
           this.shortcutPages.push(_i);
@@ -171,19 +172,36 @@ export class TableComponent implements OnInit {
     this.getClients();
   }
 
+  setRows(row:number, event: any){
+    event.preventDefault();
+
+    this.amountOfRowsToDisplay = row;
+
+    this.getClients();
+  }
+
 
   openDialog(): void {
 
     console.log()
 
-    const dialogRef = this.dialog.open(EditDialogComponent, {
+    const dialogRef2 = this.dialog.open(EditDialogComponent, {
       width: '550px',
       data: this.clients[this.selectedRow]
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef2.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result)
+
+      this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
+        console.log(resp)
+        this.clients = resp.body['clientsToDisplay'];
+        this.pages = new Array(resp.body['totalPages']);
+        this.firstClientIndex = resp.body['firstElement'];
+        this.lastClientIndex = resp.body['lastElement'];
+      });
+
     });
   }
 
@@ -224,7 +242,7 @@ export class TableComponent implements OnInit {
       console.log('The dialog was closed');
       console.log(result);
 
-      this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
+      this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
         console.log(resp)
         this.clients = resp.body['clientsToDisplay'];
         this.pages = new Array(resp.body['totalPages']);
@@ -237,16 +255,18 @@ export class TableComponent implements OnInit {
 
   delete() {
 
-    console.log("Selected item Id: ", this.selectedRow);
+    /*console.log("Selected item Id: ", this.selectedRow);
     console.log("offset element id "+ this.selectedRow);
 
-    var id = this.firstClientIndex+this.selectedRow;
-    console.log("list element id" + id);
 
-    this.http.delete("/list?id="+id, {
+    var id = this.firstClientIndex+this.selectedRow;
+    console.log("list element id" + id);*/
+    console.log("this.clients[this.selectedRow].id " + this.clients[this.selectedRow].id);
+
+    this.http.delete("/list?id="+this.clients[this.selectedRow].id, {
     }, "text").toPromise().then(resp => console.log(resp.body));
 
-    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
+    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
       console.log(resp)
       this.clients = resp.body['clientsToDisplay'];
       this.pages = new Array(resp.body['totalPages']);
@@ -263,7 +283,7 @@ export class TableComponent implements OnInit {
     this.searchPatronymic = searchPatronymic;
 
 
-    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic)).toPromise().then(resp => {
+    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
       console.log(resp)
       this.clients = resp.body['clientsToDisplay'];
       this.pages = new Array(resp.body['totalPages']);

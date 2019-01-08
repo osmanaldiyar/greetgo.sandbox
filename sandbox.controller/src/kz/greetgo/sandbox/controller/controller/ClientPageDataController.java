@@ -7,14 +7,10 @@ import kz.greetgo.mvc.annotations.ToJson;
 import kz.greetgo.mvc.annotations.on_methods.OnDelete;
 import kz.greetgo.mvc.annotations.on_methods.OnGet;
 import kz.greetgo.mvc.annotations.on_methods.OnPost;
-import kz.greetgo.sandbox.controller.model.ClientDetails;
 import kz.greetgo.sandbox.controller.model.ClientPageData;
-import kz.greetgo.sandbox.controller.model.ClientRecord;
 import kz.greetgo.sandbox.controller.register.ClientRecordRegister;
 import kz.greetgo.sandbox.controller.security.PublicAccess;
 import kz.greetgo.sandbox.controller.util.Controller;
-
-import java.util.List;
 
 @Bean
 public class ClientPageDataController implements Controller {
@@ -25,8 +21,9 @@ public class ClientPageDataController implements Controller {
     @ToJson
     @OnGet("/list")
     public ClientPageData clientPageData(@Par("page") int page, @Par("sortAttribute") String sortAttribute, @Par("orderBy") String orderBy,
-                                         @Par("searchSurname") String searchSurname,@Par("searchName") String searchName,@Par("searchPatronymic") String searchPatronymic) {
-        return clientRecordRegister.get().selectAllClientRecords(page, sortAttribute, orderBy,searchSurname,searchName,searchPatronymic);
+                                         @Par("searchSurname") String searchSurname, @Par("searchName") String searchName,
+                                         @Par("searchPatronymic") String searchPatronymic,@Par("rows") int rows) {
+        return clientRecordRegister.get().selectAllClientRecords(page, sortAttribute, orderBy,searchSurname,searchName,searchPatronymic,rows);
     }
 
     @PublicAccess
@@ -42,6 +39,14 @@ public class ClientPageDataController implements Controller {
     public String addClientRecord(@Par("FIO") String FIO, @Par("age") int age, @Par("character") String character,
                                   @Par("total_cash_rem") int total_cash_rem,@Par("max_cash_rem") int max_cash_rem,@Par("min_cash_rem") int min_cash_rem) {
         return clientRecordRegister.get().addClientRecord(FIO,age,character,total_cash_rem, max_cash_rem, min_cash_rem);
+    }
+
+    @PublicAccess
+    @ToJson
+    @OnPost("/list/edit")
+    public String editClientRecord(@Par("id") int id,@Par("FIO") String FIO, @Par("age") int age, @Par("character") String character,
+                                   @Par("total_cash_rem") int total_cash_rem,@Par("max_cash_rem") int max_cash_rem,@Par("min_cash_rem") int min_cash_rem) {
+        return clientRecordRegister.get().editClientRecord(id,FIO,age,character,total_cash_rem, max_cash_rem, min_cash_rem);
     }
 
 }

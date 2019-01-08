@@ -1,27 +1,27 @@
 <h5 mat-dialog-title>Add client</h5>
 <div mat-dialog-content>
   <label for="surname">Surname <span style="color:red">*</span></label>
-  <input #surname id="surname" required class="form-control" >
+  <input #surname [(ngModel)]="surnameInput" (ngModelChange)="inputsIsEmpty()" id="surname" required class="form-control" >
 
   <label for="name">Name <span style="color:red">*</span></label>
-  <input #name id="name" class="form-control" matInput >
+  <input #name [(ngModel)]="nameInput" (ngModelChange)="inputsIsEmpty()" id="name" class="form-control" matInput >
 
   <label for="patronymic">Patronymic</label>
   <input #patronymic id="patronymic" class="form-control">
 
   <label for="gender">Gender <span style="color:red">*</span></label>
   <br>
-  <select [(ngModel)]="selectedGender" id="gender" class="form-control">
+  <select [(ngModel)]="selectedGender" (ngModelChange)="inputsIsEmpty()" id="gender" class="form-control">
     <option>Male</option>
     <option>Female</option>
   </select>
   <br>
 
   <label for="birthday">Date of birth <span style="color:red">*</span></label>
-  <input #date type="date" id="birthday" class="form-control">
+  <input #date [(ngModel)]="dateOfBirthInput" (ngModelChange)="inputsIsEmpty()" id="birthday" class="form-control">
 
   <label for="character">Character <span style="color:red">*</span></label>
-  <input #character id="character" class="form-control" id="lastAddClientInput">
+  <input #character [(ngModel)]="characterInput" (ngModelChange)="inputsIsEmpty()" id="character" class="form-control" id="lastAddClientInput">
 
   <br>
   <h4>Address</h4>
@@ -38,13 +38,13 @@
   <h4>Registered Address <span style="color:red">*</span></h4>
 
   <label for="streetLbl">Street</label>
-  <input #regStreet id="streetLbl" class="form-control" matInput >
+  <input #regStreet [(ngModel)]="regStreetInput" (ngModelChange)="inputsIsEmpty()"  id="streetLbl" class="form-control" matInput >
 
   <label for="houseLbl">House</label>
-  <input #regHouse id="houseLbl" class="form-control" matInput >
+  <input #regHouse [(ngModel)]="regHouseInput" (ngModelChange)="inputsIsEmpty()"  id="houseLbl" class="form-control" matInput >
 
   <label for="flatLbl">Flat</label>
-  <input #regFlat id="flatLbl" class="form-control" matInput >
+  <input #regFlat [(ngModel)]="regFlatInput" (ngModelChange)="inputsIsEmpty()"  id="flatLbl" class="form-control" matInput >
 
 
   <h3>Phone numbers</h3>
@@ -52,7 +52,7 @@
   <label >Mobile <span style="color:red">*</span></label>
   <br>
   <div class="addPhoneNumberInputs">
-    <input #firstNumber placeholder="87059513095" value="87059513095" id="firstNumber" class="form-control firstNumber" matInput>
+    <input #firstNumber [(ngModel)]="mobileInput" (ngModelChange)="inputsIsEmpty()"  placeholder="87059513095" id="firstNumber" class="form-control firstNumber" matInput>
   </div>
 
 
@@ -143,9 +143,10 @@
   </div>
 
 </div>
+
 <div mat-dialog-actions>
 
-  <button id="addSaveChanges" (click)="onAddClientClick(surname.value,name.value,patronymic.value,date.value,character.value,street.value,
+  <button id="addSaveChanges" [disabled]="inputIsEmpty" (click)="onAddClientClick(surname.value,name.value,patronymic.value,date.value,character.value,street.value,
   house.value,flatNumber.value,regStreet.value,regHouse.value,regFlat.value)" class="btn btn-success"
           mat-button [mat-dialog-close]="data.fio" cdkFocusInitial>Add client</button>
 

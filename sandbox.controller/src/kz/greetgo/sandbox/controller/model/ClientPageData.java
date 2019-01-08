@@ -1,8 +1,14 @@
 package kz.greetgo.sandbox.controller.model;
 
+import kz.greetgo.depinject.core.Bean;
+import kz.greetgo.depinject.core.HasAfterInject;
+import kz.greetgo.util.RND;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+
 
 public class ClientPageData {
 
@@ -13,8 +19,9 @@ public class ClientPageData {
     private List<ClientRecord> clientsToDisplay;
     private List<ClientRecord> clients;
 
+
     public ClientPageData() {
-        clients = new ArrayList<>(
+        /*clients = new ArrayList<>(
                 Arrays.asList(
                         new ClientRecord(0,"Pushkin","good",110,46,150,16550),
                         new ClientRecord(1,"Lermontov","nice",111,50,150,16440),
@@ -73,7 +80,7 @@ public class ClientPageData {
                         new ClientRecord(18,"Esenin John","normal",55,23440,123450,16560),
                         new ClientRecord(19,"Esenin Aleksei","hero",18,423420,123450,1562360)
                 )
-        );
+        );*/
     }
 
     public List<ClientRecord> getClientsToDisplay() {

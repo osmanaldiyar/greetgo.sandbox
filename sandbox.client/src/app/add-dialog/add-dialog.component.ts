@@ -17,15 +17,29 @@ export class AddDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: DialogData, private http: HttpService) { }
 
 
+  //inputs
+  surnameInput:string = '';
+  nameInput:string = '';
+  dateOfBirthInput: string = '';
+  characterInput: string = '';
+  regStreetInput: string = '';
+  regHouseInput: string = '';
+  regFlatInput: string = '';
+  mobileInput: string = '';
+  //
+
+
   addNumber: boolean = false;
   addNumber2: boolean = false;
   addNumber3: boolean = false;
   addNumber4: boolean = false;
   addNumber5: boolean = false;
+  year: Array<string> = [];
   selectedGender: string = "";
   phoneTypes:Array<string> = ["Home number","Work number", "Mobile"];
   addClientDetails: ClientDetails = new ClientDetails();
   addClientRecord: Client = new Client();
+  inputIsEmpty: boolean = true;
 
   ngOnInit() {
   }
@@ -47,16 +61,18 @@ export class AddDialogComponent implements OnInit {
   }
 
 
-  onAddClientClick(surname:string, name:string, patronymic: string,gender: string, dateOfBirth: Date , character: string,
+  onAddClientClick(surname:string, name:string, patronymic: string,gender: string, dateOfBirth: string , character: string,
                    street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string,
                    phoneNumber1:string,phoneNumber2:string,phoneNumber3:string,phoneNumber4:string,phoneNumber5:string){
 
     console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,character,street,house,flatNumber,
       registeredStreet,registeredFlatNumber,registeredHouse,phoneNumber1,phoneNumber2,phoneNumber3,phoneNumber4,phoneNumber5);
 
+    var d = new Date();
+
     console.log("Gender ",this.selectedGender)
     this.addClientDetails.gender = this.selectedGender;
-    this.addClientDetails.dateOfBirth = dateOfBirth;
+    this.addClientDetails.dateOfBirth = d;
     this.addClientDetails.street = street;
     this.addClientDetails.house = house;
     this.addClientDetails.flatNumber = flatNumber;
@@ -68,9 +84,13 @@ export class AddDialogComponent implements OnInit {
     this.addClientRecord.character = character;
 
     var d = new Date();
-    dateOfBirth = new Date();
+    //this.year = dateOfBirth.toString().split("-");
+    var currentYear: number = d.getFullYear();
 
-    this.addClientRecord.age = d.getFullYear() - 1998;
+    //this.addClientRecord.age = currentYear - parseInt(this.year[0]);
+    this.addClientRecord.age = 21;
+    console.log("dateofbirth ",dateOfBirth);
+    console.log("clientage ",this.addClientRecord.age);
 
     console.log(this.addClientRecord.FIO);
 
@@ -90,6 +110,17 @@ export class AddDialogComponent implements OnInit {
     }, "text").toPromise().then(resp => resp.body as string);
 
 
+  }
+
+  inputsIsEmpty(){
+    //console.log('dateOfbirthInput ',this.dateOfBirthInput);
+    if (this.surnameInput != '' && this.nameInput != '' && this.characterInput != '' && this.dateOfBirthInput !='' &&
+      this.selectedGender != '' && this.regStreetInput !='' && this.regHouseInput != '' && this.regFlatInput != '' && this.mobileInput !='') {
+      this.inputIsEmpty = false;
+    }
+    else{
+      this.inputIsEmpty = true;
+    }
   }
 
   onNoClick(): void {

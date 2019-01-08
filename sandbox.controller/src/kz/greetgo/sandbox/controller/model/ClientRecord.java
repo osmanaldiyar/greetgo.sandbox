@@ -10,6 +10,8 @@ public class ClientRecord {
     public int max_remainings;
     public int min_remainings;
 
+    public ClientRecord() {
+    }
 
     public ClientRecord(String FIO, String character, int age, int total_cash_remainings, int max_remainings, int min_remainings) {
         this.FIO = FIO;

@@ -2,24 +2,23 @@ package kz.greetgo.sandbox.register.impl;
 
 import kz.greetgo.depinject.core.Bean;
 import kz.greetgo.depinject.core.BeanGetter;
-import kz.greetgo.sandbox.controller.model.ClientDetails;
 import kz.greetgo.sandbox.controller.model.ClientPageData;
 import kz.greetgo.sandbox.controller.model.ClientRecord;
 import kz.greetgo.sandbox.controller.register.ClientRecordRegister;
 import kz.greetgo.sandbox.register.dao.ClientRecordDao;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Bean
 public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
     public BeanGetter<ClientRecordDao> clientRecordDao;
     ClientPageData clientPageData = new ClientPageData();
+    public BeanGetter<StandDb> standDb;
 
     @Override
-    public ClientPageData selectAllClientRecords(int page,String sortAttribute, String orderBy,String searchSurname,String searchName,String searchPatronymic){
-
+    public ClientPageData selectAllClientRecords(int page, String sortAttribute, String orderBy, String searchSurname, String searchName, String searchPatronymic, int rows){
+        List<ClientRecord> clients = standDb.get().clients;
 
         System.out.println("GET------------------------Start");
 
@@ -56,8 +55,8 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 */
         //totalPages
 
-        int elementsPerPage = 4;
-        int listSize = clientPageData.getClients().size();
+        int elementsPerPage = rows;
+        int listSize = standDb.get().getClients().size();
         System.out.println("listsize"+listSize);
 
         //5000/30=100
@@ -183,28 +182,28 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             //filtered
 
             //filter
-            for(int i = 0; i < clientPageData.getClients().size();i++){
-                if(!(clientPageData.getClients().get(i).getFIO().split(" ")[0].isEmpty()) && !searchSurname.equals("")) {
-                    if (clientPageData.getClients().get(i).getFIO().split(" ")[0].contains(searchSurname)) {
-                        if(!filteredClients.contains(clientPageData.getClients().get(i))){
-                            filteredClients.add(clientPageData.getClients().get(i));
+            for(int i = 0; i < standDb.get().getClients().size();i++){
+                if(!(standDb.get().getClients().get(i).getFIO().split(" ")[0].isEmpty()) && !searchSurname.equals("")) {
+                    if (standDb.get().getClients().get(i).getFIO().split(" ")[0].contains(searchSurname)) {
+                        if(!filteredClients.contains(standDb.get().getClients().get(i))){
+                            filteredClients.add(standDb.get().getClients().get(i));
                         }
 
                         System.out.println(i+"is match to the filter ");
                     }
                 }
-                if(!(clientPageData.getClients().get(i).getFIO().split(" ").length < 2) && !searchName.equals("")) {
-                    if (clientPageData.getClients().get(i).getFIO().split(" ")[1].contains(searchName)) {
-                        if(!filteredClients.contains(clientPageData.getClients().get(i))){
-                            System.out.println(clientPageData.getClients().get(i).getFIO());
-                            filteredClients.add(clientPageData.getClients().get(i));
+                if(!(standDb.get().getClients().get(i).getFIO().split(" ").length < 2) && !searchName.equals("")) {
+                    if (standDb.get().getClients().get(i).getFIO().split(" ")[1].contains(searchName)) {
+                        if(!filteredClients.contains(standDb.get().getClients().get(i))){
+                            System.out.println(standDb.get().getClients().get(i).getFIO());
+                            filteredClients.add(standDb.get().getClients().get(i));
                         }
                     }
                 }
-                if(!(clientPageData.getClients().get(i).getFIO().split(" ").length<3) && !searchPatronymic.equals("")) {
-                    if (clientPageData.getClients().get(i).getFIO().split(" ")[2].contains(searchPatronymic)) {
-                        if(!filteredClients.contains(clientPageData.getClients().get(i))){
-                            filteredClients.add(clientPageData.getClients().get(i));
+                if(!(standDb.get().getClients().get(i).getFIO().split(" ").length<3) && !searchPatronymic.equals("")) {
+                    if (standDb.get().getClients().get(i).getFIO().split(" ")[2].contains(searchPatronymic)) {
+                        if(!filteredClients.contains(standDb.get().getClients().get(i))){
+                            filteredClients.add(standDb.get().getClients().get(i));
                         }
                     }
                 }
@@ -294,7 +293,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             }
 
             //clientPageData.setClients(filteredClients.subList(first,last));
-            clientPageData.setClientsToDisplay(filteredClients.subList(first,last));
+            standDb.get().setClientsToDisplay(filteredClients.subList(first,last));
 
             totalPages = filteredClients.size()/elementsPerPage;
             totalPagesRemainder = filteredClients.size()%elementsPerPage;
@@ -309,8 +308,8 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             }
 
             System.out.println("total pages: "+totalPages);
-            clientPageData.setTotalPages(totalPages);
-            clientPageData.setTotalElements(filteredClients.size());
+            standDb.get().setTotalPages(totalPages);
+            standDb.get().setTotalElements(filteredClients.size());
             System.out.println("size filt "+filteredClients.size());
 
 
@@ -320,53 +319,61 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             if (orderBy.equals("asc")) {
                 if (sortAttribute.equals("fullname")) {
                     FullnameCompare fullnameCompare = new FullnameCompare();
-                    Collections.sort(clientPageData.getClients(), fullnameCompare);
+                    Collections.sort(standDb.get().getClients(), fullnameCompare);
                 } else if (sortAttribute.equals("age")) {
                     AgeCompare fullnameCompare = new AgeCompare();
-                    Collections.sort(clientPageData.getClients(), fullnameCompare);
+                    Collections.sort(standDb.get().getClients(), fullnameCompare);
                 } else if (sortAttribute.equals("total_cash_remainings")) {
                     TotalCompare fullnameCompare = new TotalCompare();
-                    Collections.sort(clientPageData.getClients(), fullnameCompare);
+                    Collections.sort(standDb.get().getClients(), fullnameCompare);
                 } else if (sortAttribute.equals("max_cash_remainings")) {
                     MaxCompare fullnameCompare = new MaxCompare();
-                    Collections.sort(clientPageData.getClients(), fullnameCompare);
+                    Collections.sort(standDb.get().getClients(), fullnameCompare);
                 } else if (sortAttribute.equals("min_cash_remainings")) {
                     MinCompare fullnameCompare = new MinCompare();
-                    Collections.sort(clientPageData.getClients(), fullnameCompare);
+                    Collections.sort(standDb.get().getClients(), fullnameCompare);
                 }
             } else if (orderBy.equals("desc")) {
                 if (sortAttribute.equals("fullname")) {
                     FullnameDescCompare fullnameDescCompare = new FullnameDescCompare();
-                    Collections.sort(clientPageData.getClients(), fullnameDescCompare);
+                    Collections.sort(standDb.get().getClients(), fullnameDescCompare);
                 } else if (sortAttribute.equals("age")) {
                     AgeDescCompare ageDescCompare = new AgeDescCompare();
-                    Collections.sort(clientPageData.getClients(), ageDescCompare);
+                    Collections.sort(standDb.get().getClients(), ageDescCompare);
                 } else if (sortAttribute.equals("total_cash_remainings")) {
                     TotalDescCompare totalDescCompare = new TotalDescCompare();
-                    Collections.sort(clientPageData.getClients(), totalDescCompare);
+                    Collections.sort(standDb.get().getClients(), totalDescCompare);
                 } else if (sortAttribute.equals("max_cash_remainings")) {
                     MaxDescCompare maxDescCompare = new MaxDescCompare();
-                    Collections.sort(clientPageData.getClients(), maxDescCompare);
+                    Collections.sort(standDb.get().getClients(), maxDescCompare);
                 } else if (sortAttribute.equals("min_cash_remainings")) {
                     MinDescCompare minDescCompare = new MinDescCompare();
-                    Collections.sort(clientPageData.getClients(), minDescCompare);
+                    Collections.sort(standDb.get().getClients(), minDescCompare);
                 }
             }
 
             System.out.println("first: " + first + " last: " + last);
-            clientPageData.setClientsToDisplay(clientPageData.getClients().subList(first,last));
+            standDb.get().setClientsToDisplay(standDb.get().getClients().subList(first,last));
 
-            clientPageData.setClients(clientPageData.getClients());
-            clientPageData.setFirstElement(first);
-            clientPageData.setLastElement(last);
-            clientPageData.setTotalPages(totalPages);
-            clientPageData.setTotalElements(clientPageData.getClients().size());
-            System.out.println("sizee"+clientPageData.getClients().size());
+            standDb.get().setClients(standDb.get().getClients());
+            standDb.get().setFirstElement(first);
+            standDb.get().setLastElement(last);
+            standDb.get().setTotalPages(totalPages);
+            standDb.get().setTotalElements(standDb.get().getClients().size());
+            System.out.println("sizee"+standDb.get().getClients().size());
 
         }
 
 
         System.out.println("GET------------------------END");
+
+        clientPageData.setClientsToDisplay(standDb.get().getClients().subList(first,last));
+        clientPageData.setClients(standDb.get().getClients());
+        clientPageData.setFirstElement(first);
+        clientPageData.setLastElement(last);
+        clientPageData.setTotalPages(totalPages);
+        clientPageData.setTotalElements(standDb.get().getClients().size());
+
         return clientPageData;
 
     }
@@ -375,14 +382,14 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
     public String deleteClientRecord(int id) {
         System.out.println();
         System.out.println("Delete--------------START");
-        System.out.println("size "+clientPageData.getClients().size());
-        System.out.println("deleted FIO "+clientPageData.getClients().get(id).getFIO());
-        clientPageData.getClients().remove(id);
+        System.out.println("size "+standDb.get().getClients().size());
+        System.out.println("deleted FIO "+standDb.get().getClients().get(id).getFIO());
+        standDb.get().getClients().remove(id);
 
         //totalPages
 
         int elementsPerPage = 4;
-        int listSize = clientPageData.getClients().size();
+        int listSize = standDb.get().getClients().size();
         System.out.println("listsize "+listSize);
 
         //5000/30=100
@@ -414,8 +421,8 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
         //totalPages end
 
-        clientPageData.setTotalPages(totalPages);
-        clientPageData.setTotalElements(listSize);
+        standDb.get().setTotalPages(totalPages);
+        standDb.get().setTotalElements(listSize);
         System.out.println("Delete--------------END");
         System.out.println();
         return "Ok";
@@ -430,10 +437,37 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         System.out.println(max_cash_rem);
         System.out.println(min_cash_rem);
 
-        int id = clientPageData.getClients().size()-1;
+        int id = standDb.get().getClients().size()-1;
 
-        clientPageData.getClients().add(new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
+        standDb.get().getClients().add(new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
 
+        return "ok";
+    }
+
+
+    @Override
+    public String editClientRecord(int id,String FIO,int age, String character, int total_cash_rem,int max_cash_rem,int min_cash_rem) {
+        System.out.println("id ---"+id);
+        System.out.println(FIO);
+        System.out.println(age);
+        System.out.println(character);
+        System.out.println(total_cash_rem);
+        System.out.println(max_cash_rem);
+        System.out.println(min_cash_rem);
+
+        if(!FIO.isEmpty()){
+            standDb.get().getClients().get(id).setFIO(FIO);
+        }if(character != null) {
+            standDb.get().getClients().get(id).setCharacter(character);
+        }if(total_cash_rem != 0){
+            standDb.get().getClients().get(id).setTotal_cash_remainings(total_cash_rem);
+        }if(max_cash_rem != 0){
+            standDb.get().getClients().get(id).setMax_remainings(max_cash_rem);
+        }if(min_cash_rem != 0){
+            standDb.get().getClients().get(id).setMin_remainings(min_cash_rem);
+        }if(age != 0){
+            standDb.get().getClients().get(id).setAge(age);
+        }
         return "ok";
     }
 }

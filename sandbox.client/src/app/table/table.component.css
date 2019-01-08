@@ -15,9 +15,12 @@ thead>tr>th {
   background: #47caff;
 }*/
 
-
-.table tr.active td {
+.selected {
   background-color:#123456 !important;
   color: white;
+}
+.notSelected {
+  background-color: unset;
+  color: unset;
 }
 

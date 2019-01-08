@@ -83,7 +83,7 @@
 
 
       <tbody>
-      <tr *ngFor="let client of clients; let i = index" (click)="setClickedRow(i,client)" [class.active]="i == selectedRow">
+      <tr *ngFor="let client of clients; let i = index" (click)="setClickedRow(i,client)" [ngClass]="{'selected': (i == selectedRow && selected == true),'notSelected':(i == selectedRow && selected == false)}">
         <td>{{client.FIO}} </td>
         <td>{{client.character}}</td>
         <td>{{client.age}}</td>
@@ -104,11 +104,14 @@
       <li class="nav-item" *ngFor="let p of pages; let i=index">
         <a class="nav-link"  href="" (click)="setPage(i, $event)" [ngClass]="{'active':i==page}">{{i+1}}</a>
       </li>
+        <li class="nav-item" style="margin-left:15px;padding-top: 10px;">
+          <select (click)="setPage(($event.target.value-1),$event)">
+            <option *ngFor="let s of shortcutPages" >{{s+1}}</option>
+          </select>
+        </li>
+
       </ul>
 
-      <select>
-        <option *ngFor="let shorcutPage of shortcutPages" (click)="setPage(shortcutPage, $event)">{{shorcutPage}}</option>
-      </select>
 
 
       <br><br>

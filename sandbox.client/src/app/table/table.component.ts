@@ -40,16 +40,31 @@ export class TableComponent implements OnInit {
   public selectedClient: Client;
   public isFiltering: boolean = false;
   public shortcutPages: Array<number> = [];
+  public selected: boolean = false;
 
 
 //unused
   isDisabled: boolean = true;
 
   constructor(public dialog: MatDialog, private clientsPageService: ClientsPageService, private http: HttpService) {
+    this.setClickedRow = function(index,client){
+      console.log("client id",client.id);
+      this.selectedClient = client;
+      this.selectedRow = index;
+      this.isDisabled = false
 
+      this.isSelected();
+      if(this.selected == false){
+        this.selectedRow = undefined;
+        this.isDisabled = true;
+      }
+      console.log("selected row "+this.selectedRow)
+    }
   }
 
-
+  isSelected(){
+    this.selected = !this.selected;
+  }
 
   //sorting
   key: string = 'age'; //set default
@@ -126,20 +141,16 @@ export class TableComponent implements OnInit {
       this.firstClientIndex = resp.body['firstElement'];
       this.lastClientIndex = resp.body['lastElement'];
 
-      for(var _i = 0; _i < resp.body['totalPages']; _i+=5){
+      for(var _i = 0; _i < resp.body['totalPages']; _i+=4){
         console.log("shortcuts ", _i)
-        this.shortcutPages[_i] = _i;
+        if(this.shortcutPages.indexOf(_i) === -1){
+          this.shortcutPages.push(_i);
+        }
       }
 
+
     });
-    this.setClickedRow = function(index,client){
-      console.log("client id",client.id);
-      this.selectedClient = client;
-      console.log("success ")
-      this.selectedRow = index;
-      this.isDisabled = false
-      console.log("selected row "+this.selectedRow)
-    }
+
 
 
 
@@ -152,13 +163,14 @@ export class TableComponent implements OnInit {
 
 
 
-  setPage(i,event:any){
+  setPage(p:number, event: any){
     event.preventDefault();
 
-    this.page = i;
+    this.page = p;
 
-    this.getClients()
+    this.getClients();
   }
+
 
   openDialog(): void {
 

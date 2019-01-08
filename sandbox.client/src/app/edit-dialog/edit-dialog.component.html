@@ -53,7 +53,7 @@
     <label >Mobile <span style="color:red">*</span></label>
     <br>
     <div class="addPhoneNumberInputs">
-      <input required [(ngModel)]="editMobileInput" name="editMobile" (ngModelChange)="inputsIsEmpty()" type='tel' pattern='[8]\d{3}\d{3}\d{4}' #firstNumber id="firstNumber" name="myPhone" class="form-control" matInput>
+      <input required name="editMobileInput" [(ngModel)]="editMobileInput" name="editMobile" (ngModelChange)="inputsIsEmpty()" type='tel' pattern='[8]\d{3}\d{3}\d{4}' #firstNumber id="firstNumber" name="myPhone" class="form-control" matInput>
     </div>
 
 
@@ -71,7 +71,7 @@
       </select>
 
       <div *ngIf="addNumber2" class="addPhoneNumberInputs2">
-        <input #firstNumber1 placeholder="87059513095" id="firstNumber2" class="form-control firstNumber" matInput>
+        <input #firstNumber1 name="editMobileInput2" [(ngModel)]="editMobileInput2" placeholder="87059513095" id="firstNumber2" class="form-control firstNumber" matInput>
 
       </div>
       <button id="removePhoneNumber2" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber2()" *ngIf="addNumber2" ></button>
@@ -94,7 +94,7 @@
       </select>
 
       <div *ngIf="addNumber3" class="addPhoneNumberInputs3">
-        <input #firstNumber2 placeholder="87059513095" value="87059513095" id="firstNumber3" class="form-control firstNumber" matInput>
+        <input #firstNumber2 name="editMobileInput3" [(ngModel)]="editMobileInput3" placeholder="87059513095" id="firstNumber3" class="form-control firstNumber" matInput>
       </div>
 
 
@@ -115,7 +115,7 @@
       </select>
 
       <div *ngIf="addNumber4" class="addPhoneNumberInputs4">
-        <input #firstNumber3 placeholder="87059513095" value="87059513095" id="firstNumber4" class="form-control" matInput>
+        <input #firstNumber3 name="editMobileInput4" [(ngModel)]="editMobileInput4" placeholder="87059513095" value="87059513095" id="firstNumber4" class="form-control" matInput>
       </div>
 
 
@@ -136,7 +136,7 @@
       </select>
 
       <div *ngIf="addNumber5" class="addPhoneNumberInputs5">
-        <input #firstNumber4 placeholder="87059513095" value="87059513095" id="firstNumber5" class="form-control" matInput>
+        <input #firstNumber4  name="editMobileInput5" [(ngModel)]="editMobileInput5" placeholder="87059513095" value="87059513095" id="firstNumber5" class="form-control" matInput>
       </div>
 
 

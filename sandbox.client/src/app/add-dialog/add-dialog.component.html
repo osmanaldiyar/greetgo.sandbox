@@ -70,7 +70,7 @@
   </select>
 
   <div *ngIf="addNumber2" class="addPhoneNumberInputs2">
-    <input #firstNumber1 placeholder="87059513095" id="firstNumber2" class="form-control firstNumber" matInput>
+    <input placeholder="87059513095" [(ngModel)]="mobileInput2" id="firstNumber2" class="form-control firstNumber" matInput>
 
   </div>
     <button id="removePhoneNumber2" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber2()" *ngIf="addNumber2" ></button>
@@ -93,7 +93,7 @@
   </select>
 
   <div *ngIf="addNumber3" class="addPhoneNumberInputs3">
-    <input #firstNumber2 placeholder="87059513095" value="87059513095" id="firstNumber3" class="form-control firstNumber" matInput>
+    <input placeholder="87059513095" [(ngModel)]="mobileInput3" value="87059513095" id="firstNumber3" class="form-control firstNumber" matInput>
   </div>
 
 
@@ -114,7 +114,7 @@
   </select>
 
   <div *ngIf="addNumber4" class="addPhoneNumberInputs4">
-    <input #firstNumber3 placeholder="87059513095" value="87059513095" id="firstNumber4" class="form-control" matInput>
+    <input placeholder="87059513095" [(ngModel)]="mobileInput4" value="87059513095" id="firstNumber4" class="form-control" matInput>
   </div>
 
 
@@ -135,7 +135,7 @@
   </select>
 
   <div *ngIf="addNumber5" class="addPhoneNumberInputs5">
-    <input #firstNumber4 placeholder="87059513095" value="87059513095" id="firstNumber5" class="form-control" matInput>
+    <input placeholder="87059513095" value="87059513095" id="firstNumber5" class="form-control" matInput>
   </div>
 
 
@@ -147,7 +147,7 @@
 <div mat-dialog-actions>
 
   <button id="addSaveChanges" [disabled]="inputIsEmpty" (click)="onAddClientClick(surname.value,name.value,patronymic.value,dateOfBirth.value,character.value,street.value,
-  house.value,flatNumber.value,regStreet.value,regHouse.value,regFlat.value,firstNumber.value)" class="btn btn-success"
+  house.value,flatNumber.value,regStreet.value,regHouse.value,regFlat.value)" class="btn btn-success"
           mat-button [mat-dialog-close]="data.fio" cdkFocusInitial>Add client</button>
 
   <button class="btn btn-light" mat-button (click)="onNoClick()">Cancel</button>

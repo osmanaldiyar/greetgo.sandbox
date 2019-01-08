@@ -26,6 +26,10 @@ export class AddDialogComponent implements OnInit {
   regHouseInput: string = '';
   regFlatInput: string = '';
   mobileInput: string = '';
+  mobileInput2: string = '';
+  mobileInput3: string = '';
+  mobileInput4: string = '';
+  mobileInput5: string = '';
   //
 
 
@@ -34,7 +38,6 @@ export class AddDialogComponent implements OnInit {
   addNumber3: boolean = false;
   addNumber4: boolean = false;
   addNumber5: boolean = false;
-  year: Array<string> = [];
   selectedGender: string = "";
   phoneTypes:Array<string> = ["Home number","Work number", "Mobile"];
   addClientDetails: ClientDetails = new ClientDetails();
@@ -62,11 +65,10 @@ export class AddDialogComponent implements OnInit {
 
 
   onAddClientClick(surname:string, name:string, patronymic: string, dateOfBirth: Date , character: string,
-                   street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string,
-                   phoneNumber1:string,phoneNumber2:string,phoneNumber3:string,phoneNumber4:string,phoneNumber5:string){
+                   street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string){
 
     console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,character,street,house,flatNumber,
-      registeredStreet,registeredFlatNumber,registeredHouse,phoneNumber1,phoneNumber2,phoneNumber3,phoneNumber4,phoneNumber5);
+      registeredStreet,registeredFlatNumber,registeredHouse,this.mobileInput,this.mobileInput2,this.mobileInput3,this.mobileInput4,this.mobileInput5);
 
 
     console.log("Gender ",this.selectedGender)
@@ -78,6 +80,11 @@ export class AddDialogComponent implements OnInit {
     this.addClientDetails.registeredStreet = registeredStreet;
     this.addClientDetails.registeredFlatNumber = registeredFlatNumber;
     this.addClientDetails.registeredHouse = registeredHouse;
+    this.addClientDetails.phoneNumber1 = this.mobileInput;
+    this.addClientDetails.phoneNumber2 = this.mobileInput2;
+    this.addClientDetails.phoneNumber3 = this.mobileInput3;
+    this.addClientDetails.phoneNumber4 = this.mobileInput4;
+    this.addClientDetails.phoneNumber5 = this.mobileInput5;
 
     this.addClientRecord.FIO = surname + " " + name + " " + patronymic;
     this.addClientRecord.character = character;

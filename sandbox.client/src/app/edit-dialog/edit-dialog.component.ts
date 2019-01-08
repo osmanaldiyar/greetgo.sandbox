@@ -39,6 +39,10 @@ export class EditDialogComponent implements OnInit{
   editRegHouseInput: string = '';
   editRegFlatInput: string = '';
   editMobileInput: string = '';
+  editMobileInput2: string = '';
+  editMobileInput3: string = '';
+  editMobileInput4: string = '';
+  editMobileInput5: string = '';
   //
 
   inputIsEmpty: boolean = true;
@@ -66,11 +70,10 @@ export class EditDialogComponent implements OnInit{
 
 
   onEditClient(surname:string, name:string, patronymic: string, dateOfBirth: Date , character: string,
-               street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string,
-               phoneNumber1:string,phoneNumber2:string,phoneNumber3:string,phoneNumber4:string,phoneNumber5:string){
+               street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string){
 
     console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,character,street,house,flatNumber,
-      registeredStreet,registeredFlatNumber,registeredHouse,phoneNumber1,phoneNumber2,phoneNumber3,phoneNumber4,phoneNumber5);
+      registeredStreet,registeredFlatNumber,registeredHouse,this.editMobileInput,this.editMobileInput2,this.editMobileInput3,this.editMobileInput4,this.editMobileInput5);
 
     console.log("Gender ",this.selectedGender)
     this.addClientRecord.id = this.data.id;
@@ -82,6 +85,11 @@ export class EditDialogComponent implements OnInit{
     this.addClientDetails.registeredStreet = registeredStreet;
     this.addClientDetails.registeredFlatNumber = registeredFlatNumber;
     this.addClientDetails.registeredHouse = registeredHouse;
+    this.addClientDetails.phoneNumber1 = this.editMobileInput;
+    this.addClientDetails.phoneNumber2 = this.editMobileInput2;
+    this.addClientDetails.phoneNumber3 = this.editMobileInput3;
+    this.addClientDetails.phoneNumber4 = this.editMobileInput4;
+    this.addClientDetails.phoneNumber5 = this.editMobileInput5;
 
     this.addClientRecord.FIO = surname + " " + name + " " + patronymic;
     this.addClientRecord.character = character;

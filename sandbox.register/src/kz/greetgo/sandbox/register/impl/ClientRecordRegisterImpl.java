@@ -293,8 +293,11 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
                 last--;
             }
 
-            //clientPageData.setClients(filteredClients.subList(first,last));
+            //pageData
             standDb.get().setClientsToDisplay(filteredClients.subList(first,last));
+            clientPageData.setClientsToDisplay(filteredClients.subList(first,last));
+            //clientPageData.setFirstElement(first);
+            //clientPageData.setLastElement(last);
 
             totalPages = filteredClients.size()/elementsPerPage;
             totalPagesRemainder = filteredClients.size()%elementsPerPage;
@@ -312,6 +315,10 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             standDb.get().setTotalPages(totalPages);
             standDb.get().setTotalElements(filteredClients.size());
             System.out.println("size filt "+filteredClients.size());
+
+            //pageData
+            clientPageData.setTotalPages(totalPages);
+            clientPageData.setTotalElements(filteredClients.size());
 
 
         }//filtered end
@@ -365,17 +372,20 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             standDb.get().setTotalElements(standDb.get().getClients().size());
             System.out.println("sizee"+standDb.get().getClients().size());
 
+            //pageData
+            clientPageData.setTotalPages(totalPages);
+            clientPageData.setTotalElements(standDb.get().getClients().size());
+            clientPageData.setClients(standDb.get().getClients());
+            clientPageData.setClientsToDisplay(standDb.get().getClients().subList(first,last));
+            clientPageData.setFirstElement(first);
+            clientPageData.setLastElement(last);
+
         }
 
 
         System.out.println("GET------------------------END");
 
-        clientPageData.setTotalPages(totalPages);
-        clientPageData.setTotalElements(standDb.get().getClients().size());
-        clientPageData.setClients(standDb.get().getClients());
-        clientPageData.setClientsToDisplay(standDb.get().getClients().subList(first,last));
-        clientPageData.setFirstElement(first);
-        clientPageData.setLastElement(last);
+
 
 
         return clientPageData;

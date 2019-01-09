@@ -198,15 +198,24 @@ export class TableComponent implements OnInit {
     console.log("selected row", this.selectedRow)
     console.log("Editing client ", this.clients[this.selectedRow].FIO);
 
-    var id = this.firstClientIndex+this.selectedRow;
-    console.log("list element id" + id);
-
+    console.log("----list element id" + this.selectedClient.id);
+    var id = this.selectedClient.id;
+    console.log("-id ha ",id)
     const dialogRef2 = this.dialog.open(EditDialogComponent, {
       width: '550px',
       data: {
-        client: this.selectedClient,
-        id: id
+        client: {
+          id: id,
+          fio: this.clients[this.selectedRow].FIO,
+          character: this.clients[this.selectedRow].character,
+          age: this.clients[this.selectedRow].age,
+          total_cash_rem: this.clients[this.selectedRow].total_cash_remainings,
+          max_rem: this.clients[this.selectedRow].max_remainings,
+          min_rem: this.clients[this.selectedRow].min_remainings
+
+        }
       }
+
     });
 
     dialogRef2.afterClosed().subscribe(result => {
@@ -275,13 +284,6 @@ export class TableComponent implements OnInit {
   }
 
   delete() {
-
-    /*console.log("Selected item Id: ", this.selectedRow);
-    console.log("offset element id "+ this.selectedRow);
-
-
-    var id = this.firstClientIndex+this.selectedRow;
-    console.log("list element id" + id);*/
     console.log("this.clients[this.selectedRow].id " + this.clients[this.selectedRow].id);
 
     this.http.delete("/list?id="+this.clients[this.selectedRow].id, {

@@ -21,6 +21,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe'; //importing the module
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import {ClientsPageService} from "./table/clients-page.service";
 
+
 @NgModule({
   declarations: [
     AppComponent,

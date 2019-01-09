@@ -7,6 +7,7 @@ import {HttpService} from "../http.service";
 
 
 
+
 @Component({
   selector: 'edit-dialog',
   templateUrl: 'edit-dialog.component.html',
@@ -16,7 +17,7 @@ export class EditDialogComponent implements OnInit{
 
   constructor(
     public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private http: HttpService) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpService) {
     console.log("Client",data.fio + " came to edit")
   }
 
@@ -52,19 +53,21 @@ export class EditDialogComponent implements OnInit{
 
   ngOnInit(): void {
 
-
+    console.log("ngOnInit--------idddd ",this.data.client.id);
   }
 
 
 
-  onEditClient(surname:string, name:string, patronymic: string, dateOfBirth: Date ,
+  onEditClient(surname:string, name:string, patronymic: string, dateOfBirth: string ,
                street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string){
 
     console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,this.characterOption,street,house,flatNumber,
       registeredStreet,registeredFlatNumber,registeredHouse,this.mobileInput,this.mobileInput2,this.mobileInput3,this.mobileInput4,this.mobileInput5);
 
-    console.log("Gender ",this.selectedGender)
-    this.addClientRecord.id = this.data.id;
+    console.log("onEditClient--------idddd ",this.data.id);
+    // console.log("--------fio ",this.data.fio);
+
+    this.addClientRecord.id = this.data.client.id;
     this.addClientDetails.gender = this.selectedGender;
     this.addClientDetails.dateOfBirth = dateOfBirth;
     this.addClientDetails.street = street;
@@ -100,8 +103,21 @@ export class EditDialogComponent implements OnInit{
       character: this.addClientRecord.character,
       total_cash_rem: this.addClientRecord.total_cash_remainings,
       max_cash_rem: this.addClientRecord.max_remainings,
-      min_cash_rem: this.addClientRecord.min_remainings
+      min_cash_rem: this.addClientRecord.min_remainings,
+      gender: this.addClientDetails.gender,
+      dateOfBirth: this.addClientDetails.dateOfBirth,
+      street: this.addClientDetails.street,
+      house: this.addClientDetails.house,
+      flatNumber: this.addClientDetails.flatNumber,
+      registeredStreet: this.addClientDetails.street,
+      registeredFlatNumber: this.addClientDetails.registeredFlatNumber,
+      phoneNumber1: this.addClientDetails.phoneNumber1,
+      phoneNumber2: this.addClientDetails.phoneNumber2,
+      phoneNumber3: this.addClientDetails.phoneNumber3,
+      phoneNumber4: this.addClientDetails.phoneNumber4,
+      phoneNumber5: this.addClientDetails.phoneNumber5
     }, "text").toPromise().then(resp => resp.body as string);
+
 
 
   }
@@ -129,20 +145,20 @@ export class EditDialogComponent implements OnInit{
         this.phoneNumberCounter--;
       }
     }
-    console.log("counter", this.phoneNumberCounter);
+    //console.log("counter", this.phoneNumberCounter);
     if(this.phoneNumberCounter > 0){
-      console.log("Im here");
+      //console.log("Im here");
       this.phoneInputIsVisible2 = true;
-      console.log("2 isVisible :", this.phoneInputIsVisible2);
+      //console.log("2 isVisible :", this.phoneInputIsVisible2);
     }if(this.phoneNumberCounter > 1){
       this.phoneInputIsVisible3 = true;
-      console.log("3 isVisible :", this.phoneInputIsVisible2);
+      //console.log("3 isVisible :", this.phoneInputIsVisible2);
     }if(this.phoneNumberCounter > 2){
       this.phoneInputIsVisible4 = true;
-      console.log("4 isVisible :", this.phoneInputIsVisible2);
+      //console.log("4 isVisible :", this.phoneInputIsVisible2);
     }if(this.phoneNumberCounter > 3){
       this.phoneInputIsVisible5 = true;
-      console.log("5 isVisible :", this.phoneInputIsVisible2);
+      //console.log("5 isVisible :", this.phoneInputIsVisible2);
     }
 
   }

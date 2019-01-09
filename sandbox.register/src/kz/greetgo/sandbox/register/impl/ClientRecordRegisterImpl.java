@@ -442,7 +442,11 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
     }
 
     @Override
-    public String addClientRecord(String FIO,int age, String character, int total_cash_rem,int max_cash_rem,int min_cash_rem) {
+    public String addClientRecord(String FIO,int age, String character, int total_cash_rem,int max_cash_rem,int min_cash_rem,
+    String gender, Date dateOfBirth, String street, String house, String flatNumber, String registeredStreet, String registeredHouse,
+                                  String registeredFlatNumber, String phoneNumber1, String phoneNumber2, String phoneNumber3, String phoneNumber4,
+                                  String phoneNumber5) {
+        System.out.println("Adding client-----------------------------");
         System.out.println(FIO);
         System.out.println(age);
         System.out.println(character);
@@ -450,46 +454,68 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         System.out.println(max_cash_rem);
         System.out.println(min_cash_rem);
 
-        int id = standDb.get().getClients().size()-1;
+        System.out.println(gender);
+        System.out.println(dateOfBirth.toString());
+        System.out.println(street);
+        System.out.println(house);
+        System.out.println(flatNumber);
+        System.out.println(registeredStreet);
+        System.out.println(registeredFlatNumber);
+
+        System.out.println(phoneNumber1);
+        System.out.println(phoneNumber2);
+        System.out.println(phoneNumber3);
+        System.out.println(phoneNumber4);
+        System.out.println(phoneNumber5);
+
+        //get id of last
+        int id = standDb.get().getClients().get(standDb.get().getClients().size()-1).id + 1;
 
         standDb.get().getClients().add(new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
+
+        //Fill ClientDetails
+
+
+        System.out.println("-------------------------------------------");
 
         return "ok";
     }
 
 
     @Override
-    public String editClientRecord(int id,String FIO,int age, String character, int total_cash_rem,int max_cash_rem,int min_cash_rem) {
+    public String editClientRecord(int id,String FIO,int age, String character, int total_cash_rem,int max_cash_rem,int min_cash_rem,
+                                   String gender, Date dateOfBirth, String street, String house, String flatNumber, String registeredStreet,
+                                   String registeredHouse,String registeredFlatNumber, String phoneNumber1, String phoneNumber2, String phoneNumber3,
+                                   String phoneNumber4,String phoneNumber5) {
+
+        System.out.println("EDITING CLIENT-------------------------");
+        //int idd = id + standDb.get().getClients().
         System.out.println("id ---"+id);
         System.out.println(FIO);
-        System.out.println(age);
+        System.out.println("age "+age);
         System.out.println(character);
         System.out.println(total_cash_rem);
         System.out.println(max_cash_rem);
         System.out.println(min_cash_rem);
 
+        System.out.println(gender);
+        System.out.println(dateOfBirth.toString());
+        System.out.println(street);
+        System.out.println(house);
+        System.out.println(flatNumber);
+        System.out.println(registeredStreet);
+        System.out.println(registeredFlatNumber);
 
-        //remove
+        System.out.println(phoneNumber1);
+        System.out.println(phoneNumber2);
+        System.out.println(phoneNumber3);
+        System.out.println(phoneNumber4);
+        System.out.println(phoneNumber5);
 
-        //findId
-
-        //add
+        System.out.println("--------------------------------------------");
 
         standDb.get().getClients().set(id,new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
-/*
-        if(FIO != ""){
-            standDb.get().getClients().get(id).setFIO(FIO);
-        }if(character != "") {
-            standDb.get().getClients().get(id).setCharacter(character);
-        }if(total_cash_rem != 0){
-            standDb.get().getClients().get(id).setTotal_cash_remainings(total_cash_rem);
-        }if(max_cash_rem != 0){
-            standDb.get().getClients().get(id).setMax_remainings(max_cash_rem);
-        }if(min_cash_rem != 0){
-            standDb.get().getClients().get(id).setMin_remainings(min_cash_rem);
-        }if(age != 0){
-            standDb.get().getClients().get(id).setAge(age);
-        }*/
+
         return "ok";
     }
 }

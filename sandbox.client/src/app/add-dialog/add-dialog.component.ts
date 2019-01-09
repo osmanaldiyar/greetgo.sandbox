@@ -51,7 +51,7 @@ export class AddDialogComponent implements OnInit {
   }
 
 
-  onAddClientClick(surname:string, name:string, patronymic: string, dateOfBirth: Date ,street:string, house:string,
+  onAddClientClick(surname:string, name:string, patronymic: string, dateOfBirth: string ,street:string, house:string,
                    flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string){
 
     console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,this.characterOption,street,house,flatNumber,
@@ -88,13 +88,26 @@ export class AddDialogComponent implements OnInit {
 
     console.log(this.addClientRecord.total_cash_remainings,this.addClientRecord.max_remainings,this.addClientRecord.min_remainings);
 
+
     this.http.post("/list/add", {
       FIO: this.addClientRecord.FIO,
       age: this.addClientRecord.age,
       character: this.addClientRecord.character,
       total_cash_rem: this.addClientRecord.total_cash_remainings,
       max_cash_rem: this.addClientRecord.max_remainings,
-      min_cash_rem: this.addClientRecord.min_remainings
+      min_cash_rem: this.addClientRecord.min_remainings,
+      gender: this.addClientDetails.gender,
+      dateOfBirth: this.addClientDetails.dateOfBirth,
+      street: this.addClientDetails.street,
+      house: this.addClientDetails.house,
+      flatNumber: this.addClientDetails.flatNumber,
+      registeredStreet: this.addClientDetails.street,
+      registeredFlatNumber: this.addClientDetails.registeredFlatNumber,
+      phoneNumber1: this.addClientDetails.phoneNumber1,
+      phoneNumber2: this.addClientDetails.phoneNumber2,
+      phoneNumber3: this.addClientDetails.phoneNumber3,
+      phoneNumber4: this.addClientDetails.phoneNumber4,
+      phoneNumber5: this.addClientDetails.phoneNumber5
     }, "text").toPromise().then(resp => resp.body as string);
 
 
@@ -124,20 +137,20 @@ export class AddDialogComponent implements OnInit {
         this.phoneNumberCounter--;
       }
     }
-    console.log("counter", this.phoneNumberCounter);
+    //console.log("counter", this.phoneNumberCounter);
     if(this.phoneNumberCounter > 0){
-      console.log("Im here");
+      //console.log("Im here");
       this.phoneInputIsVisible2 = true;
-      console.log("2 isVisible :", this.phoneInputIsVisible2);
+      //console.log("2 isVisible :", this.phoneInputIsVisible2);
     }if(this.phoneNumberCounter > 1){
       this.phoneInputIsVisible3 = true;
-      console.log("3 isVisible :", this.phoneInputIsVisible2);
+      //console.log("3 isVisible :", this.phoneInputIsVisible2);
     }if(this.phoneNumberCounter > 2){
       this.phoneInputIsVisible4 = true;
-      console.log("4 isVisible :", this.phoneInputIsVisible2);
+      //console.log("4 isVisible :", this.phoneInputIsVisible2);
     }if(this.phoneNumberCounter > 3){
       this.phoneInputIsVisible5 = true;
-      console.log("5 isVisible :", this.phoneInputIsVisible2);
+      //console.log("5 isVisible :", this.phoneInputIsVisible2);
     }
 
   }

@@ -23,16 +23,10 @@ h5{
 }
 
 
-select#selectPhoneType{
-  width:30%;
-  float: left;
-}
 
 #firstNumber{
   width: 50%;
-}
-#firstNumber1{
-  width: 50%;
+  float:left;
 }
 
 #firstNumber2{
@@ -46,71 +40,37 @@ select#selectPhoneType{
 #firstNumber4{
   width: 50%;
 }
-
-#removePhoneNumber{
-  margin-left: 10px;
+#firstNumber5{
+  width: 50%;
 }
 
-.addPhoneNumberInputs input{
-  margin-left: 10px;
+
+select#selectPhoneType{
+  width:30%;
   float: left;
+  margin-right: 10px;
 }
 
 select#selectPhoneType2{
   width:30%;
   float: left;
-}
-
-
-#removePhoneNumber2{
-  margin-left: 10px;
-}
-
-.addPhoneNumberInputs2 input{
-  margin-left: 10px;
-  float: left;
+  margin-right: 10px;
 }
 
 select#selectPhoneType3{
   width:30%;
   float: left;
-}
-
-
-#removePhoneNumber3{
-  margin-left: 10px;
-}
-
-.addPhoneNumberInputs3 input{
-  margin-left: 10px;
-  float: left;
+  margin-right: 10px;
 }
 
 select#selectPhoneType4{
   width:30%;
   float: left;
-}
-
-
-#removePhoneNumber4{
-  margin-left: 10px;
-}
-
-.addPhoneNumberInputs4 input{
-  margin-left: 10px;
-  float: left;
+  margin-right: 10px;
 }
 
 select#selectPhoneType5{
   width:30%;
   float: left;
-}
-
-#removePhoneNumber5{
-  margin-left: 10px;
-}
-
-.addPhoneNumberInputs5 input{
-  margin-left: 10px;
-  float: left;
+  margin-right: 10px;
 }

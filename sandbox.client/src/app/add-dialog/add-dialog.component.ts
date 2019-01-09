@@ -21,7 +21,7 @@ export class AddDialogComponent implements OnInit {
   surnameInput:string = '';
   nameInput:string = '';
   dateOfBirthInput: string = '';
-  characterInput: string = '';
+  characterOption: string = '';
   regStreetInput: string = '';
   regHouseInput: string = '';
   regFlatInput: string = '';
@@ -32,42 +32,22 @@ export class AddDialogComponent implements OnInit {
   mobileInput5: string = '';
   //
 
-
-  addNumber: boolean = false;
-  addNumber2: boolean = false;
-  addNumber3: boolean = false;
-  addNumber4: boolean = false;
-  addNumber5: boolean = false;
   selectedGender: string = "";
   phoneTypes:Array<string> = ["Home number","Work number", "Mobile"];
+  characterTypes:Array<string> = ["Humble","Angry", "Crazy","Lazy","Nervous","Hardworking"];
   addClientDetails: ClientDetails = new ClientDetails();
   addClientRecord: Client = new Client();
   inputIsEmpty: boolean = true;
+  phoneNumberCounter: number = 0;
 
   ngOnInit() {
   }
 
-  addPhoneNumber(){
-    this.addNumber = !this.addNumber;
-  }
-  addPhoneNumber2(){
-    this.addNumber2 = !this.addNumber2;
-  }
-  addPhoneNumber3(){
-    this.addNumber3 = !this.addNumber3;
-  }
-  addPhoneNumber4(){
-    this.addNumber4 = !this.addNumber4;
-  }
-  addPhoneNumber5(){
-    this.addNumber5 = !this.addNumber5;
-  }
 
+  onAddClientClick(surname:string, name:string, patronymic: string, dateOfBirth: Date ,street:string, house:string,
+                   flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string){
 
-  onAddClientClick(surname:string, name:string, patronymic: string, dateOfBirth: Date , character: string,
-                   street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string){
-
-    console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,character,street,house,flatNumber,
+    console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,this.characterOption,street,house,flatNumber,
       registeredStreet,registeredFlatNumber,registeredHouse,this.mobileInput,this.mobileInput2,this.mobileInput3,this.mobileInput4,this.mobileInput5);
 
 
@@ -87,7 +67,7 @@ export class AddDialogComponent implements OnInit {
     this.addClientDetails.phoneNumber5 = this.mobileInput5;
 
     this.addClientRecord.FIO = surname + " " + name + " " + patronymic;
-    this.addClientRecord.character = character;
+    this.addClientRecord.character = this.characterOption;
 
     //calculate year
     var d = new Date();
@@ -115,7 +95,7 @@ export class AddDialogComponent implements OnInit {
 
   inputsIsEmpty(){
     //console.log('dateOfbirthInput ',this.dateOfBirthInput);
-    if (this.surnameInput != '' && this.nameInput != '' && this.characterInput != '' && this.dateOfBirthInput !='' &&
+    if (this.surnameInput != '' && this.nameInput != '' && this.characterOption != '' && this.dateOfBirthInput !='' &&
       this.selectedGender != '' && this.regStreetInput !='' && this.regHouseInput != '' && this.regFlatInput != '' && this.mobileInput !='') {
       this.inputIsEmpty = false;
     }
@@ -128,6 +108,22 @@ export class AddDialogComponent implements OnInit {
     this.dialogRef.close(this.data);
   }
 
+
+  //Dynamic phones
+  addPhone(){
+    if(this.phoneNumberCounter < 5){
+      this.phoneNumberCounter++;
+      if(this.phoneNumberCounter == 5){
+        this.phoneNumberCounter--;
+      }
+    }
+  }
+
+  removePhone(){
+    if(this.phoneNumberCounter > 0){
+      this.phoneNumberCounter--;
+    }
+  }
 
 
 }

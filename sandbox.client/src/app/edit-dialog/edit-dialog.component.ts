@@ -20,60 +20,42 @@ export class EditDialogComponent implements OnInit{
     console.log("Client",data.fio + " came to edit")
   }
 
-  addNumber: boolean = false;
-  addNumber2: boolean = false;
-  addNumber3: boolean = false;
-  addNumber4: boolean = false;
-  addNumber5: boolean = false;
   selectedGender: string = "";
   phoneTypes:Array<string> = ["Home number","Work number", "Mobile"];
+  characterTypes:Array<string> = ["Humble","Angry", "Crazy","Lazy","Nervous","Hardworking"];
   addClientDetails: ClientDetails = new ClientDetails();
   addClientRecord: Client = new Client();
 
   //inputs
-  editSurnameInput:string = '';
-  editNameInput:string = '';
-  editDateOfBirthInput: string = '';
-  editCharacterInput: string = '';
-  editRegStreetInput: string = '';
-  editRegHouseInput: string = '';
-  editRegFlatInput: string = '';
-  editMobileInput: string = '';
-  editMobileInput2: string = '';
-  editMobileInput3: string = '';
-  editMobileInput4: string = '';
-  editMobileInput5: string = '';
+  surnameInput:string = '';
+  nameInput:string = '';
+  dateOfBirthInput: string = '';
+  characterOption: string = '';
+  regStreetInput: string = '';
+  regHouseInput: string = '';
+  regFlatInput: string = '';
+  mobileInput: string = '';
+  mobileInput2: string = '';
+  mobileInput3: string = '';
+  mobileInput4: string = '';
+  mobileInput5: string = '';
   //
 
   inputIsEmpty: boolean = true;
+  phoneNumberCounter: number = 0;
 
   ngOnInit(): void {
 
 
   }
 
-  addPhoneNumber(){
-    this.addNumber = !this.addNumber;
-  }
-  addPhoneNumber2(){
-    this.addNumber2 = !this.addNumber2;
-  }
-  addPhoneNumber3(){
-    this.addNumber3 = !this.addNumber3;
-  }
-  addPhoneNumber4(){
-    this.addNumber4 = !this.addNumber4;
-  }
-  addPhoneNumber5(){
-    this.addNumber5 = !this.addNumber5;
-  }
 
 
-  onEditClient(surname:string, name:string, patronymic: string, dateOfBirth: Date , character: string,
+  onEditClient(surname:string, name:string, patronymic: string, dateOfBirth: Date ,
                street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string){
 
-    console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,character,street,house,flatNumber,
-      registeredStreet,registeredFlatNumber,registeredHouse,this.editMobileInput,this.editMobileInput2,this.editMobileInput3,this.editMobileInput4,this.editMobileInput5);
+    console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,this.characterOption,street,house,flatNumber,
+      registeredStreet,registeredFlatNumber,registeredHouse,this.mobileInput,this.mobileInput2,this.mobileInput3,this.mobileInput4,this.mobileInput5);
 
     console.log("Gender ",this.selectedGender)
     this.addClientRecord.id = this.data.id;
@@ -85,14 +67,14 @@ export class EditDialogComponent implements OnInit{
     this.addClientDetails.registeredStreet = registeredStreet;
     this.addClientDetails.registeredFlatNumber = registeredFlatNumber;
     this.addClientDetails.registeredHouse = registeredHouse;
-    this.addClientDetails.phoneNumber1 = this.editMobileInput;
-    this.addClientDetails.phoneNumber2 = this.editMobileInput2;
-    this.addClientDetails.phoneNumber3 = this.editMobileInput3;
-    this.addClientDetails.phoneNumber4 = this.editMobileInput4;
-    this.addClientDetails.phoneNumber5 = this.editMobileInput5;
+    this.addClientDetails.phoneNumber1 = this.mobileInput;
+    this.addClientDetails.phoneNumber2 = this.mobileInput2;
+    this.addClientDetails.phoneNumber3 = this.mobileInput3;
+    this.addClientDetails.phoneNumber4 = this.mobileInput4;
+    this.addClientDetails.phoneNumber5 = this.mobileInput5;
 
     this.addClientRecord.FIO = surname + " " + name + " " + patronymic;
-    this.addClientRecord.character = character;
+    this.addClientRecord.character = this.characterOption;
 
     //calculate year
     var d = new Date();
@@ -120,8 +102,8 @@ export class EditDialogComponent implements OnInit{
 
   inputsIsEmpty(){
     //console.log('dateOfbirthInput ',this.dateOfBirthInput);
-    if (this.editSurnameInput != '' && this.editNameInput != '' && this.editCharacterInput != '' && this.editDateOfBirthInput !='' &&
-      this.selectedGender != '' && this.editRegStreetInput !='' && this.editRegHouseInput != '' && this.editRegFlatInput != '' && this.editMobileInput !='') {
+    if (this.surnameInput != '' && this.nameInput != '' && this.characterOption != '' && this.dateOfBirthInput !='' &&
+      this.selectedGender != '' && this.regStreetInput !='' && this.regHouseInput != '' && this.regFlatInput != '' && this.mobileInput !='') {
       this.inputIsEmpty = false;
     }else{
       this.inputIsEmpty = true;
@@ -131,6 +113,22 @@ export class EditDialogComponent implements OnInit{
 
   onNoClick(): void {
     this.dialogRef.close(this.data);
+  }
+
+  //Dynamic phones
+  addPhone(){
+    if(this.phoneNumberCounter < 5){
+      this.phoneNumberCounter++;
+      if(this.phoneNumberCounter == 5){
+        this.phoneNumberCounter--;
+      }
+    }
+  }
+
+  removePhone(){
+    if(this.phoneNumberCounter > 0){
+      this.phoneNumberCounter--;
+    }
   }
 
 }

@@ -5,11 +5,8 @@ button#addSaveChanges{
 
 #firstNumber{
   width: 50%;
+  float:left;
 }
-#firstNumber1{
-  width: 50%;
-}
-
 #firstNumber2{
   width: 50%;
 }
@@ -19,6 +16,9 @@ button#addSaveChanges{
 }
 
 #firstNumber4{
+  width: 50%;
+}
+#firstNumber5{
   width: 50%;
 }
 
@@ -44,62 +44,34 @@ h5{
 }
 
 select#selectPhoneType{
-  width:35%;
+  width:30%;
   float: left;
   margin-right: 10px;
 }
-
-
-#removePhoneNumber{
-  margin-left: 5px;
-}
-
 
 select#selectPhoneType2{
-  width:35%;
+  width:30%;
   float: left;
   margin-right: 10px;
 }
-
-#removePhoneNumber2{
-  margin-left: 10px;
-}
-
-
 
 select#selectPhoneType3{
-  width:35%;
+  width:30%;
   float: left;
   margin-right: 10px;
 }
-
-
-#removePhoneNumber3{
-  margin-left: 10px;
-}
-
-
 
 select#selectPhoneType4{
-  width:35%;
+  width:30%;
   float: left;
   margin-right: 10px;
 }
-
-#removePhoneNumber4{
-  margin-left: 10px;
-}
-
 
 select#selectPhoneType5{
-  width:35%;
+  width:30%;
   float: left;
   margin-right: 10px;
 }
 
-
-#removePhoneNumber5{
-  margin-left: 10px;
-}
 
 

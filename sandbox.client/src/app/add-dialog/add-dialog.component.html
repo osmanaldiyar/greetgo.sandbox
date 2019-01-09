@@ -1,13 +1,21 @@
 <h5 mat-dialog-title>Add client</h5>
 <div mat-dialog-content>
+
+
   <label for="surname">Surname <span style="color:red">*</span></label>
-  <input #surname [(ngModel)]="surnameInput" (ngModelChange)="inputsIsEmpty()" id="surname" required class="form-control" >
+  <input #surname [(ngModel)]="surnameInput" (ngModelChange)="inputsIsEmpty()" id="surname" class="form-control" >
+
+
 
   <label for="name">Name <span style="color:red">*</span></label>
   <input #name [(ngModel)]="nameInput" (ngModelChange)="inputsIsEmpty()" id="name" class="form-control" matInput >
 
+
+
   <label for="patronymic">Patronymic</label>
   <input #patronymic id="patronymic" class="form-control">
+
+
 
   <label for="gender">Gender <span style="color:red">*</span></label>
   <br>
@@ -17,22 +25,33 @@
   </select>
   <br>
 
+
   <label for="birthday">Date of birth <span style="color:red">*</span></label>
   <input #dateOfBirth [(ngModel)]="dateOfBirthInput" (ngModelChange)="inputsIsEmpty()" type="date" id="birthday" class="form-control">
 
-  <label for="character">Character <span style="color:red">*</span></label>
-  <input #character [(ngModel)]="characterInput" (ngModelChange)="inputsIsEmpty()" id="character" class="form-control" id="lastAddClientInput">
+
+  <label for="characterOption">Character <span style="color:red">*</span></label><br>
+  <select [(ngModel)]="characterOption" id="characterOption" class="form-control" name="character">
+    <option *ngFor="let characterType of characterTypes">{{characterType}}</option>
+  </select>
+
 
   <br>
   <h4>Address</h4>
   <label for="street">Street</label>
   <input #street id="street" class="form-control" matInput >
 
+
+
   <label for="house">House</label>
   <input #house id="house" class="form-control" matInput >
 
+
+
   <label for="flatNumberLbl">Flat number</label>
   <input #flatNumber id="flatNumberLbl" class="form-control" matInput >
+
+
 
   <br>
   <h4>Registered Address <span style="color:red">*</span></h4>
@@ -53,100 +72,85 @@
   <br>
   <div class="addPhoneNumberInputs">
     <input #firstNumber [(ngModel)]="mobileInput" (ngModelChange)="inputsIsEmpty()"  placeholder="87059513095" id="firstNumber" class="form-control firstNumber" matInput>
+    <button id ="addPhoneNumber" class="btn btn-success" (click)="addPhone()">+</button>
   </div>
 
 
-  <!--
+  <!-------------------------------------------------------------------------------------------------
 -->
-  <button id ="addPhoneNumber2" class="btn btn-success" (click)="addPhoneNumber2()" *ngIf="!addNumber2" >+</button>
-
-  <br>
-  <label *ngIf="addNumber2">Add phone number</label>
-  <br>
-
+  <br><br>
   <div class="input-remove-group">
-  <select id="selectPhoneType2" class="form-control selectPhoneType" *ngIf="addNumber2">
+  <select id="selectPhoneType2" class="form-control selectPhoneType" *ngIf="phoneNumberCounter > 0" >
     <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
   </select>
 
-  <div *ngIf="addNumber2" class="addPhoneNumberInputs2">
+  <div *ngIf="phoneNumberCounter > 0" class="addPhoneNumberInputs2">
     <input placeholder="87059513095" [(ngModel)]="mobileInput2" id="firstNumber2" class="form-control firstNumber" matInput>
 
   </div>
-    <button id="removePhoneNumber2" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber2()" *ngIf="addNumber2" ></button>
+    <button id="removePhoneNumber2" class="btn btn-default glyphicon glyphicon-remove" *ngIf="phoneNumberCounter == 1" (click)="removePhone()" ></button>
   </div>
 
 
 
-  <!--
+  <!------------------------------------------------------------------------------------------------
   -->
-  <br>
-  <button id ="addPhoneNumber3" class="btn btn-success" (click)="addPhoneNumber3()" *ngIf="!addNumber3" >+</button>
 
-  <br>
-  <label *ngIf="addNumber3">Add phone number</label>
-  <br>
 
   <div class="input-remove-group">
-  <select id="selectPhoneType3" class="form-control selectPhoneType" *ngIf="addNumber3">
+  <select id="selectPhoneType3" class="form-control selectPhoneType" *ngIf="phoneNumberCounter > 1" >
     <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
   </select>
 
-  <div *ngIf="addNumber3" class="addPhoneNumberInputs3">
+  <div *ngIf="phoneNumberCounter > 1" class="addPhoneNumberInputs3">
     <input placeholder="87059513095" [(ngModel)]="mobileInput3" value="87059513095" id="firstNumber3" class="form-control firstNumber" matInput>
   </div>
 
 
-  <button id="removePhoneNumber3" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber3()" *ngIf="addNumber3" ></button>
+  <button id="removePhoneNumber3" class="btn btn-default glyphicon glyphicon-remove" *ngIf="phoneNumberCounter == 2" (click)="removePhone()" ></button>
   </div>
-  <!--
+  <!-----------------------------------------------------------------------------------------
   -->
-  <br>
-  <button id ="addPhoneNumber4" class="btn btn-success" (click)="addPhoneNumber4()" *ngIf="!addNumber4" >+</button>
-
-  <br>
-  <label *ngIf="addNumber4">Add phone number</label>
-  <br>
 
   <div class="input-remove-group">
-  <select id="selectPhoneType4" class="form-control selectPhoneType" *ngIf="addNumber4">
+  <select id="selectPhoneType4" class="form-control selectPhoneType" *ngIf="phoneNumberCounter > 2" >
     <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
   </select>
 
-  <div *ngIf="addNumber4" class="addPhoneNumberInputs4">
+  <div *ngIf="phoneNumberCounter > 2" class="addPhoneNumberInputs4">
     <input placeholder="87059513095" [(ngModel)]="mobileInput4" value="87059513095" id="firstNumber4" class="form-control" matInput>
   </div>
 
 
-  <button id="removePhoneNumber4" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber4()" *ngIf="addNumber4" ></button>
+  <button id="removePhoneNumber4" class="btn btn-default glyphicon glyphicon-remove" *ngIf="phoneNumberCounter == 3" (click)="removePhone()" ></button>
   </div>
-  <!--
-  -->
-  <br>
-  <button id ="addPhoneNumber5" class="btn btn-success" (click)="addPhoneNumber5()" *ngIf="!addNumber5" >+</button>
 
-  <br>
-  <label *ngIf="addNumber5">Add phone number</label>
-  <br>
+
+  <!-----------------------------------------------------------------------------
+  -->
 
   <div class="input-remove-group">
-  <select id="selectPhoneType5" class="form-control selectPhoneType" *ngIf="addNumber5">
-    <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
-  </select>
 
-  <div *ngIf="addNumber5" class="addPhoneNumberInputs5">
-    <input placeholder="87059513095" value="87059513095" id="firstNumber5" class="form-control" matInput>
+    <select id="selectPhoneType5" class="form-control selectPhoneType" *ngIf="phoneNumberCounter > 3" >
+      <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
+    </select>
+
+
+    <div *ngIf="phoneNumberCounter > 3" class="addPhoneNumberInputs5">
+      <input placeholder="87059513095" id="firstNumber5" class="form-control" matInput>
+    </div>
+
+    <button id="removePhoneNumber5" class="btn btn-default glyphicon glyphicon-remove" *ngIf="phoneNumberCounter == 4" (click)="removePhone()" ></button>
+
   </div>
 
-
-  <button id="removePhoneNumber5" class="btn btn-default glyphicon glyphicon-remove" (click)="addPhoneNumber5()" *ngIf="addNumber5" ></button>
-  </div>
+  <br><br>
 
 </div>
 
 <div mat-dialog-actions>
 
-  <button id="addSaveChanges" [disabled]="inputIsEmpty" (click)="onAddClientClick(surname.value,name.value,patronymic.value,dateOfBirth.value,character.value,street.value,
+  <button id="addSaveChanges" [disabled]="inputIsEmpty" (click)="onAddClientClick(surname.value,name.value,patronymic.value,dateOfBirth.value,street.value,
   house.value,flatNumber.value,regStreet.value,regHouse.value,regFlat.value)" class="btn btn-success"
           mat-button [mat-dialog-close]="data.fio" cdkFocusInitial>Add client</button>
 

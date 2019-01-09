@@ -52,20 +52,29 @@ export class TableComponent implements OnInit {
     this.setClickedRow = function(index,client){
       console.log("client id",client.id);
       this.selectedClient = client;
-      this.selectedRow = index;
+
+      if(index == this.selectedRow){
+
+        this.selected = false;
+
+      }else{
+
+        this.selectedRow = index;
+        this.selected = true;
+
+      }
+
       this.isDisabled = false
 
-      this.isSelected();
+
       if(this.selected == false){
+
         this.selectedRow = undefined;
         this.isDisabled = true;
+
       }
       //console.log("selected row "+this.selectedRow)
     }
-  }
-
-  isSelected(){
-    this.selected = !this.selected;
   }
 
   //sorting

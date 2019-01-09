@@ -354,7 +354,9 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             }
 
             System.out.println("first: " + first + " last: " + last);
-            standDb.get().setClientsToDisplay(standDb.get().getClients().subList(first,last));
+            if(first <= listSize){
+                standDb.get().setClientsToDisplay(standDb.get().getClients().subList(first,last));
+            }
 
             standDb.get().setClients(standDb.get().getClients());
             standDb.get().setFirstElement(first);
@@ -368,12 +370,13 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
         System.out.println("GET------------------------END");
 
-        clientPageData.setClientsToDisplay(standDb.get().getClients().subList(first,last));
-        clientPageData.setClients(standDb.get().getClients());
-        clientPageData.setFirstElement(first);
-        clientPageData.setLastElement(last);
         clientPageData.setTotalPages(totalPages);
         clientPageData.setTotalElements(standDb.get().getClients().size());
+        clientPageData.setClients(standDb.get().getClients());
+        clientPageData.setClientsToDisplay(standDb.get().getClients().subList(first,last));
+        clientPageData.setFirstElement(first);
+        clientPageData.setLastElement(last);
+
 
         return clientPageData;
 

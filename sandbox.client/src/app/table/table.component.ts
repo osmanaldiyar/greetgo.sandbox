@@ -42,6 +42,7 @@ export class TableComponent implements OnInit {
   public isFiltering: boolean = false;
   public shortcutPages: Array<number> = [];
   public selected: boolean = false;
+  public totalElements: number;
 
   isDisabled: boolean = true;
 
@@ -117,6 +118,7 @@ export class TableComponent implements OnInit {
       this.pages = new Array(resp.body['totalPages']);
       this.firstClientIndex = resp.body['firstElement'];
       this.lastClientIndex = resp.body['lastElement'];
+      this.totalElements = resp.body['totalElements'];
       this.isFiltering = true;
     });
 
@@ -141,6 +143,7 @@ export class TableComponent implements OnInit {
       this.pages = new Array(resp.body['totalPages']);
       this.firstClientIndex = resp.body['firstElement'];
       this.lastClientIndex = resp.body['lastElement'];
+      this.totalElements = resp.body['totalElements'];
 
       for(var _i = 5; _i <= resp.body['totalElements']; _i+=5){
         console.log("shortcuts ", _i)
@@ -207,6 +210,7 @@ export class TableComponent implements OnInit {
         this.pages = new Array(resp.body['totalPages']);
         this.firstClientIndex = resp.body['firstElement'];
         this.lastClientIndex = resp.body['lastElement'];
+        this.totalElements = resp.body['totalElements'];
       });
 
     });
@@ -255,6 +259,7 @@ export class TableComponent implements OnInit {
         this.pages = new Array(resp.body['totalPages']);
         this.firstClientIndex = resp.body['firstElement'];
         this.lastClientIndex = resp.body['lastElement'];
+        this.totalElements = resp.body['totalElements'];
       });
 
     });
@@ -279,6 +284,7 @@ export class TableComponent implements OnInit {
       this.pages = new Array(resp.body['totalPages']);
       this.firstClientIndex = resp.body['firstElement'];
       this.lastClientIndex = resp.body['lastElement'];
+      this.totalElements = resp.body['totalElements'];
     });
 
   }
@@ -296,6 +302,7 @@ export class TableComponent implements OnInit {
       this.pages = new Array(resp.body['totalPages']);
       this.firstClientIndex = resp.body['firstElement'];
       this.lastClientIndex = resp.body['lastElement'];
+      this.totalElements = resp.body['totalElements'];
     });
   }
 

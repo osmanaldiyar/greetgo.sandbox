@@ -74,15 +74,15 @@
 -->
   <br><br>
   <div class="input-remove-group">
-    <select id="selectPhoneType2" class="form-control selectPhoneType" *ngIf="phoneNumberCounter > 0" >
+    <select id="selectPhoneType2" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible2" >
       <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
     </select>
 
-    <div *ngIf="phoneNumberCounter > 0" class="addPhoneNumberInputs2">
+    <div *ngIf="phoneInputIsVisible2" class="addPhoneNumberInputs2">
       <input placeholder="87059513095" [(ngModel)]="mobileInput2" id="firstNumber2" class="form-control firstNumber" matInput>
 
     </div>
-    <button id="removePhoneNumber2" class="btn btn-default glyphicon glyphicon-remove" *ngIf="phoneNumberCounter == 1" (click)="removePhone()" ></button>
+    <button id="removePhoneNumber2" class="btn btn-default fa fa-minus" *ngIf="phoneInputIsVisible2" (click)="removePhone2()" ></button>
   </div>
 
 
@@ -92,31 +92,31 @@
 
 
   <div class="input-remove-group">
-    <select id="selectPhoneType3" class="form-control selectPhoneType" *ngIf="phoneNumberCounter > 1" >
+    <select id="selectPhoneType3" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible3" >
       <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
     </select>
 
-    <div *ngIf="phoneNumberCounter > 1" class="addPhoneNumberInputs3">
+    <div *ngIf="phoneInputIsVisible3" class="addPhoneNumberInputs3">
       <input placeholder="87059513095" [(ngModel)]="mobileInput3" value="87059513095" id="firstNumber3" class="form-control firstNumber" matInput>
     </div>
 
 
-    <button id="removePhoneNumber3" class="btn btn-default glyphicon glyphicon-remove" *ngIf="phoneNumberCounter == 2" (click)="removePhone()" ></button>
+    <button id="removePhoneNumber3" class="btn btn-default fa fa-minus" *ngIf="phoneInputIsVisible3" (click)="removePhone3()" ></button>
   </div>
   <!-----------------------------------------------------------------------------------------
   -->
 
   <div class="input-remove-group">
-    <select id="selectPhoneType4" class="form-control selectPhoneType" *ngIf="phoneNumberCounter > 2" >
+    <select id="selectPhoneType4" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible4" >
       <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
     </select>
 
-    <div *ngIf="phoneNumberCounter > 2" class="addPhoneNumberInputs4">
+    <div *ngIf="phoneInputIsVisible4" class="addPhoneNumberInputs4">
       <input placeholder="87059513095" [(ngModel)]="mobileInput4" value="87059513095" id="firstNumber4" class="form-control" matInput>
     </div>
 
 
-    <button id="removePhoneNumber4" class="btn btn-default glyphicon glyphicon-remove" *ngIf="phoneNumberCounter == 3" (click)="removePhone()" ></button>
+    <button id="removePhoneNumber4" class="btn btn-default fa fa-minus" *ngIf="phoneInputIsVisible4" (click)="removePhone4()" ></button>
   </div>
 
 
@@ -125,16 +125,16 @@
 
   <div class="input-remove-group">
 
-    <select id="selectPhoneType5" class="form-control selectPhoneType" *ngIf="phoneNumberCounter > 3" >
+    <select id="selectPhoneType5" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible5" >
       <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
     </select>
 
 
-    <div *ngIf="phoneNumberCounter > 3" class="addPhoneNumberInputs5">
+    <div *ngIf="phoneInputIsVisible5" class="addPhoneNumberInputs5">
       <input placeholder="87059513095" id="firstNumber5" class="form-control" matInput>
     </div>
 
-    <button id="removePhoneNumber5" class="btn btn-default glyphicon glyphicon-remove" *ngIf="phoneNumberCounter == 4" (click)="removePhone()" ></button>
+    <button id="removePhoneNumber5" class="btn btn-default fa fa-minus" *ngIf="phoneInputIsVisible5" (click)="removePhone5()" ></button>
 
   </div>
 

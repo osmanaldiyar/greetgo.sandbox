@@ -33,12 +33,19 @@ export class AddDialogComponent implements OnInit {
   //
 
   selectedGender: string = "";
-  phoneTypes:Array<string> = ["Home number","Work number", "Mobile"];
+  phoneTypes:Array<string> = ["Home","Work", "Mobile"];
   characterTypes:Array<string> = ["Humble","Angry", "Crazy","Lazy","Nervous","Hardworking"];
   addClientDetails: ClientDetails = new ClientDetails();
   addClientRecord: Client = new Client();
   inputIsEmpty: boolean = true;
+
   phoneNumberCounter: number = 0;
+
+  //remove phone flags
+  phoneInputIsVisible2:boolean = false;
+  phoneInputIsVisible3:boolean = false;
+  phoneInputIsVisible4:boolean = false;
+  phoneInputIsVisible5:boolean = false;
 
   ngOnInit() {
   }
@@ -117,12 +124,42 @@ export class AddDialogComponent implements OnInit {
         this.phoneNumberCounter--;
       }
     }
+    console.log("counter", this.phoneNumberCounter);
+    if(this.phoneNumberCounter > 0){
+      console.log("Im here");
+      this.phoneInputIsVisible2 = true;
+      console.log("2 isVisible :", this.phoneInputIsVisible2);
+    }if(this.phoneNumberCounter > 1){
+      this.phoneInputIsVisible3 = true;
+      console.log("3 isVisible :", this.phoneInputIsVisible2);
+    }if(this.phoneNumberCounter > 2){
+      this.phoneInputIsVisible4 = true;
+      console.log("4 isVisible :", this.phoneInputIsVisible2);
+    }if(this.phoneNumberCounter > 3){
+      this.phoneInputIsVisible5 = true;
+      console.log("5 isVisible :", this.phoneInputIsVisible2);
+    }
+
   }
 
-  removePhone(){
-    if(this.phoneNumberCounter > 0){
-      this.phoneNumberCounter--;
-    }
+  removePhone2(){
+    this.phoneNumberCounter--;
+    this.phoneInputIsVisible2 = false;
+  }
+
+  removePhone3(){
+    this.phoneNumberCounter--;
+    this.phoneInputIsVisible3 = false;
+  }
+
+  removePhone4(){
+    this.phoneNumberCounter--;
+    this.phoneInputIsVisible4 = false;
+  }
+
+  removePhone5(){
+    this.phoneNumberCounter--;
+    this.phoneInputIsVisible5 = false;
   }
 
 

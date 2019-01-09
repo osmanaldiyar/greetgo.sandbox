@@ -26,15 +26,22 @@
 
 
       <form class="filter-form">
-        <input #searchSurname class="form-control" type="text" name="searchSurname">
-        <input #searchName class="form-control" type="text" name="searchName">
-        <input #searchPatronymic class="form-control" type="text" name="searchPatronymic">
-        <button type="submit" name="submitSearch" (click)="searchFilter(searchSurname.value,searchName.value,searchPatronymic.value)">
-          <i class="fa fa-search"></i>
-        </button>
+
+        <div class="col-sm-11">
+          <input #searchSurname id="searchSurnameInput" class="form-control" type="text" name="searchSurname">
+          <input #searchName id="searchNameInput" class="form-control" type="text" name="searchName">
+          <input #searchPatronymic id="searchPatronymicInput" class="form-control" type="text" name="searchPatronymic">
+        </div>
+
+        <div class="col-sm-1">
+          <button type="submit" class="btn btn-light" id="searchSubmitBtn" name="submitSearch" (click)="searchFilter(searchSurname.value,searchName.value,searchPatronymic.value)">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+
       </form>
 
-      <br>
+      <br><br><br>
 
     <div class="col-sm-11">
     <table class="table table-bordered" id="table">
@@ -109,7 +116,9 @@
             <option *ngFor="let s of shortcutPages" >{{s}}</option>
           </select>
         </li>
-
+        <li class="nav-item" style="margin-left:15px;padding-top: 10px;">
+          Total elements: {{totalElements}}
+        </li>
       </ul>
 
 
@@ -120,9 +129,9 @@
 
 
     <div class="col-sm-1">
-        <button id="addClientBtn" type="button" (click)="openAddDialog(null)" class="btn fa fa-user-plus"></button>
+        <button id="addClientBtn" type="button" (click)="openAddDialog(null)" class="btn fa fa-plus"></button>
         <button (click)="openDialog()" class="btn btn-light" [disabled]="isDisabled">...</button>
-        <button type="button" [disabled]="isDisabled" (click)="delete()" class="btn"><i class="fa fa-user-times"></i></button>
+        <button type="button" [disabled]="isDisabled" (click)="delete()" class="btn"><i class="fa fa-minus"></i></button>
     </div>
 
   </div>

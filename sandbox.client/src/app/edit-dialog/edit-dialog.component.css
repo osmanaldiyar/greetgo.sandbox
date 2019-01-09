@@ -22,55 +22,19 @@ h5{
   text-align: center;
 }
 
-
-
-#firstNumber{
+#firstNumber, #firstNumber2, #firstNumber3, #firstNumber4, #firstNumber5{
   width: 50%;
   float:left;
 }
 
-#firstNumber2{
-  width: 50%;
-}
-
-#firstNumber3{
-  width: 50%;
-}
-
-#firstNumber4{
-  width: 50%;
-}
-#firstNumber5{
-  width: 50%;
-}
-
-
-select#selectPhoneType{
+select#selectPhoneType, select#selectPhoneType2, select#selectPhoneType3, select#selectPhoneType4, select#selectPhoneType5{
   width:30%;
   float: left;
   margin-right: 10px;
 }
 
-select#selectPhoneType2{
-  width:30%;
-  float: left;
-  margin-right: 10px;
+#removePhoneNumber2, #removePhoneNumber3,#removePhoneNumber4, #removePhoneNumber5{
+  margin-left: 5px;
+  margin-bottom: 10px;
 }
 
-select#selectPhoneType3{
-  width:30%;
-  float: left;
-  margin-right: 10px;
-}
-
-select#selectPhoneType4{
-  width:30%;
-  float: left;
-  margin-right: 10px;
-}
-
-select#selectPhoneType5{
-  width:30%;
-  float: left;
-  margin-right: 10px;
-}

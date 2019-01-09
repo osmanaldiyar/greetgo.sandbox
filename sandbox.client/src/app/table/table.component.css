@@ -24,3 +24,7 @@ thead>tr>th {
   color: unset;
 }
 
+#searchSurnameInput, #searchNameInput, #searchPatronymicInput{
+  margin-top: 10px;
+  width: 32%;
+}

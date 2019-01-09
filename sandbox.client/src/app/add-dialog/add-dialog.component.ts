@@ -1,10 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, HostListener} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {DialogData} from "../table/table.component";
 import {HttpService} from "../http.service";
 import {ClientDetails} from "../../model/ClientDetails";
 import {Client} from "../models/client";
-import {toPromise} from "rxjs-compat/operator/toPromise";
 
 @Component({
   selector: 'app-add-dialog',
@@ -38,6 +37,7 @@ export class AddDialogComponent implements OnInit {
   addClientDetails: ClientDetails = new ClientDetails();
   addClientRecord: Client = new Client();
   inputIsEmpty: boolean = true;
+  warning: string = "";
 
   phoneNumberCounter: number = 0;
 
@@ -122,6 +122,19 @@ export class AddDialogComponent implements OnInit {
     else{
       this.inputIsEmpty = true;
     }
+
+    //console.log("this.mobile1[0] ", this.mobileInput.length);
+    console.log("type",typeof(this.mobileInput[0]));
+    if(!this.mobileInput.match("^[0-9]{0,15}$")){
+      this.warning = "\n letters not allowed";
+    }else if(this.mobileInput[0] != "8"){
+      this.warning = "\n phone number should start with 8";
+    }else if(this.mobileInput[1] != "7"){
+      this.warning = "\n Illegal operator code. Examples of operators(705,745,707,701)";
+    }else{
+      this.warning = "";
+    }
+
   }
 
   onNoClick(): void {
@@ -174,6 +187,11 @@ export class AddDialogComponent implements OnInit {
     this.phoneNumberCounter--;
     this.phoneInputIsVisible5 = false;
   }
+
+
+
+
+  //Validate phone
 
 
 }

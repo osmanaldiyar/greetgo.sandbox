@@ -393,7 +393,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
     }
 
     @Override
-    public String deleteClientRecord(int id) {
+    public String deleteClientRecord(int id,int rows) {
         System.out.println();
         System.out.println("Delete--------------START");
         System.out.println("size "+standDb.get().getClients().size());
@@ -401,7 +401,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
         //totalPages
 
-        int elementsPerPage = 4;
+        int elementsPerPage = rows;
         int listSize = standDb.get().getClients().size();
         System.out.println("listsize "+listSize);
 

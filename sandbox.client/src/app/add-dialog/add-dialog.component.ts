@@ -38,6 +38,10 @@ export class AddDialogComponent implements OnInit {
   addClientRecord: Client = new Client();
   inputIsEmpty: boolean = true;
   warning: string = "";
+  warning2: string = "";
+  warning3: string = "";
+  warning4: string = "";
+  warning5: string = "";
 
   phoneNumberCounter: number = 0;
 
@@ -115,6 +119,8 @@ export class AddDialogComponent implements OnInit {
 
   inputsIsEmpty(){
     //console.log('dateOfbirthInput ',this.dateOfBirthInput);
+
+    //check for empty if field is empty submit is disabled
     if (this.surnameInput != '' && this.nameInput != '' && this.characterOption != '' && this.dateOfBirthInput !='' &&
       this.selectedGender != '' && this.regStreetInput !='' && this.regHouseInput != '' && this.regFlatInput != '' && this.mobileInput !='') {
       this.inputIsEmpty = false;
@@ -123,16 +129,71 @@ export class AddDialogComponent implements OnInit {
       this.inputIsEmpty = true;
     }
 
+    //check for format
     //console.log("this.mobile1[0] ", this.mobileInput.length);
-    console.log("type",typeof(this.mobileInput[0]));
-    if(!this.mobileInput.match("^[0-9]{0,15}$")){
-      this.warning = "\n letters not allowed";
-    }else if(this.mobileInput[0] != "8"){
-      this.warning = "\n phone number should start with 8";
-    }else if(this.mobileInput[1] != "7"){
-      this.warning = "\n Illegal operator code. Examples of operators(705,745,707,701)";
-    }else{
-      this.warning = "";
+    //console.log("type",typeof(this.mobileInput[0]));
+    if(this.mobileInput != ""){
+      if(!this.mobileInput.match("^[0-9]{0,15}$")){
+        this.warning = "\n letters not allowed";
+      }else if(this.mobileInput[0] != "8"){
+        this.warning = "\n phone number should start with 8";
+      }else if(this.mobileInput[1] != "7"){
+        this.warning = "\n Illegal operator code. Examples of operators(705,745,707,701)";
+      }else{
+        this.warning = "";
+      }
+    }
+
+    //check 2nd phone input
+    if(this.mobileInput2 != ""){
+      if(!this.mobileInput2.match("^[0-9]{0,15}$")){
+        this.warning2 = "\n letters not allowed";
+      }else if(this.mobileInput2[0] != "8"){
+        this.warning2 = "\n phone number should start with 8";
+      }else if(this.mobileInput2[1] != "7"){
+        this.warning2 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
+      }else{
+        this.warning2 = "";
+      }
+    }
+
+    //check 3rd phone input
+    if(this.mobileInput3 != "") {
+      if (!this.mobileInput3.match("^[0-9]{0,15}$")) {
+        this.warning3 = "\n letters not allowed";
+      } else if (this.mobileInput3[0] != "8") {
+        this.warning3 = "\n phone number should start with 8";
+      } else if (this.mobileInput3[1] != "7") {
+        this.warning3 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
+      } else {
+        this.warning3 = "";
+      }
+    }
+
+    //check 4th phone input
+    if(this.mobileInput4 != ""){
+      if(!this.mobileInput4.match("^[0-9]{0,15}$")){
+        this.warning4 = "\n letters not allowed";
+      }else if(this.mobileInput4[0] != "8"){
+        this.warning4 = "\n phone number should start with 8";
+      }else if(this.mobileInput4[1] != "7"){
+        this.warning4 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
+      }else{
+        this.warning4 = "";
+      }
+    }
+
+    //check 5th phone input
+    if(this.mobileInput5 != "") {
+      if (!this.mobileInput5.match("^[0-9]{0,15}$")) {
+        this.warning5 = "\n letters not allowed";
+      } else if (this.mobileInput5[0] != "8") {
+        this.warning5 = "\n phone number should start with 8";
+      } else if (this.mobileInput5[1] != "7") {
+        this.warning5 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
+      } else {
+        this.warning5 = "";
+      }
     }
 
   }

@@ -31,8 +31,8 @@ public class ClientPageDataController implements Controller {
     @PublicAccess
     @ToJson
     @OnDelete("/list")
-    public String deleteClientRecord(@Par("id") int id) {
-        return clientRecordRegister.get().deleteClientRecord(id);
+    public String deleteClientRecord(@Par("id") int id,@Par("rows") int rows) {
+        return clientRecordRegister.get().deleteClientRecord(id,rows);
     }
 
     @PublicAccess

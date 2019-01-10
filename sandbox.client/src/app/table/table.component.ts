@@ -286,7 +286,7 @@ export class TableComponent implements OnInit {
   delete() {
     console.log("this.clients[this.selectedRow].id " + this.clients[this.selectedRow].id);
 
-    this.http.delete("/list?id="+this.clients[this.selectedRow].id, {
+    this.http.delete("/list?id="+this.clients[this.selectedRow].id+"&rows="+this.amountOfRowsToDisplay, {
     }, "text").toPromise().then(resp => console.log(resp.body));
 
     this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {

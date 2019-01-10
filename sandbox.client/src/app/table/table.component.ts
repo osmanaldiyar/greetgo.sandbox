@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Client} from '../models/client';
 
 import {MatDialog} from '@angular/material';
@@ -48,7 +48,7 @@ export class TableComponent implements OnInit {
 
   amountOfRowsToDisplay: number = 5;
 
-  constructor(public dialog: MatDialog, private clientsPageService: ClientsPageService, private http: HttpService) {
+  constructor(public dialog: MatDialog, private clientsPageService: ClientsPageService, private http: HttpService,private cdRef:ChangeDetectorRef) {
     this.setClickedRow = function(index,client){
       console.log("client id",client.id);
       this.selectedClient = client;
@@ -222,14 +222,7 @@ export class TableComponent implements OnInit {
       console.log('The dialog was closed');
       console.log(result)
 
-      this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
-        console.log(resp)
-        this.clients = resp.body['clientsToDisplay'];
-        this.pages = new Array(resp.body['totalPages']);
-        this.firstClientIndex = resp.body['firstElement'];
-        this.lastClientIndex = resp.body['lastElement'];
-        this.totalElements = resp.body['totalElements'];
-      });
+      window.location.reload();
 
     });
   }
@@ -270,15 +263,7 @@ export class TableComponent implements OnInit {
     addDialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
-
-      this.http.get(this.clientsPageService.getClients((this.pages.length-1),this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
-        console.log(resp)
-        this.clients = resp.body['clientsToDisplay'];
-        this.pages = new Array(resp.body['totalPages']);
-        this.firstClientIndex = resp.body['firstElement'];
-        this.lastClientIndex = resp.body['lastElement'];
-        this.totalElements = resp.body['totalElements'];
-      });
+      window.location.reload();
 
     });
 
@@ -290,16 +275,7 @@ export class TableComponent implements OnInit {
 
     this.http.delete("/list?id="+this.clients[this.selectedRow].id+"&rows="+this.amountOfRowsToDisplay, {
     }, "text").toPromise().then(resp => console.log(resp.body));
-
-    this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
-      console.log(resp)
-      this.clients = resp.body['clientsToDisplay'];
-      this.pages = new Array(resp.body['totalPages']);
-      this.firstClientIndex = resp.body['firstElement'];
-      this.lastClientIndex = resp.body['lastElement'];
-      this.totalElements = resp.body['totalElements'];
-    });
-
+    window.location.reload();
   }
 
   searchFilter(searchSurname:string, searchName:string, searchPatronymic: string){

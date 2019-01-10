@@ -485,7 +485,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
         System.out.println("-------------------------------------------");
 
-        return "ok";
+        return "Ok";
     }
 
 

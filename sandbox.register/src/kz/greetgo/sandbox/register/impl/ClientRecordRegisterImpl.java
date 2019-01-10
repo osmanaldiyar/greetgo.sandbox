@@ -371,6 +371,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         System.out.println("Delete--------------START");
         System.out.println("size "+standDb.get().getClients().size());
         standDb.get().getClients().removeIf(obj -> obj.id == id);
+        standDb.get().clientDetails.removeIf(obj -> obj.id == id);
 
         //totalPages
 
@@ -520,30 +521,32 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         System.out.println(phoneNumber4);
         System.out.println(phoneNumber5);
 
+        List<ClientRecord> beerDrinkers = standDb.get().getClients().stream()
+                .filter(c -> c.id == id).collect(Collectors.toList());
+        int listIndex = standDb.get().getClients().indexOf(beerDrinkers.get(0));
 
-
-        standDb.get().getClients().set(id,new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
+        standDb.get().getClients().set(listIndex,new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
 
         //have optionals
         if(phoneNumber1 != "") {
 
-            standDb.get().clientDetails.get(id).getPhoneNumbers().set(0, new ClientPhoneNumber(0,phoneNumber1,"mobile"));
+            standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(0, new ClientPhoneNumber(0,phoneNumber1,"mobile"));
 
         }if(phoneNumber2 != "" && phoneType2 != "") {
 
-            standDb.get().clientDetails.get(id).getPhoneNumbers().set(1, new ClientPhoneNumber(1, phoneNumber2, phoneType2));
+            standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(1, new ClientPhoneNumber(1, phoneNumber2, phoneType2));
 
         }if(phoneNumber3 != "" && phoneType3 != "") {
 
-            standDb.get().clientDetails.get(id).getPhoneNumbers().set(2, new ClientPhoneNumber(2, phoneNumber3, phoneType3));
+            standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(2, new ClientPhoneNumber(2, phoneNumber3, phoneType3));
 
         }if(phoneNumber4 != "" && phoneType4 != "") {
 
-            standDb.get().clientDetails.get(id).getPhoneNumbers().set(3, new ClientPhoneNumber(3, phoneNumber4, phoneType4));
+            standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(3, new ClientPhoneNumber(3, phoneNumber4, phoneType4));
 
         }if(phoneNumber5 != "" && phoneType5 != "") {
 
-            standDb.get().clientDetails.get(id).getPhoneNumbers().set(4, new ClientPhoneNumber(4, phoneNumber5, phoneType5));
+            standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(4, new ClientPhoneNumber(4, phoneNumber5, phoneType5));
 
         }
 
@@ -556,11 +559,17 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             registeredFlatNumber = "";
         }
 
-        standDb.get().clientDetails.set(id,new ClientDetails(id, gender, dateOfBirth, new ClientAddress(street,house,flatNumber),
-                new ClientRegisteredAddress(registeredStreet,registeredHouse,registeredFlatNumber),
-                standDb.get().clientDetails.get(id).getPhoneNumbers()));
 
-        System.out.println("After editing "+standDb.get().clientDetails.get(id));
+
+
+        System.out.println("beerDrinkers size--" + beerDrinkers.size());
+        System.out.println("beerDrinkers[0]: " + beerDrinkers.get(0).getFIO());
+
+        standDb.get().clientDetails.set(listIndex,new ClientDetails(gender, dateOfBirth, new ClientAddress(street,house,flatNumber),
+                new ClientRegisteredAddress(registeredStreet,registeredHouse,registeredFlatNumber),
+                standDb.get().clientDetails.get(listIndex).getPhoneNumbers()));
+
+        System.out.println("After editing "+standDb.get().clientDetails.get(listIndex));
         System.out.println("--------------------------------------------");
 
         return "ok";

@@ -54,6 +54,11 @@ public class StandDb implements HasAfterInject {
 
         List<ClientPhoneNumber> phones = new ArrayList<>();
         phones.add(new ClientPhoneNumber(0,"87059513095","Mobile"));
+        phones.add(new ClientPhoneNumber(1,"","Mobile"));
+        phones.add(new ClientPhoneNumber(2,"87057777777","Mobile"));
+        phones.add(new ClientPhoneNumber(3,"","Mobile"));
+        phones.add(new ClientPhoneNumber(4,"","Mobile"));
+
         clientDetails.add(new ClientDetails(0, "Male", new Date(), new ClientAddress(), new ClientRegisteredAddress(), phones));
         clientDetails.add(new ClientDetails(1, "Male", new Date(), new ClientAddress(), new ClientRegisteredAddress(), phones));
         clientDetails.add(new ClientDetails(2, "Male", new Date(), new ClientAddress(), new ClientRegisteredAddress(), phones));

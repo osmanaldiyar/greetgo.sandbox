@@ -531,35 +531,19 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
         }if(phoneNumber2 != "" && phoneType2 != "") {
 
-            if(id < standDb.get().clientDetails.get(id).getPhoneNumbers().size()) {
-                standDb.get().clientDetails.get(id).getPhoneNumbers().set(1, new ClientPhoneNumber(1, phoneNumber2, phoneType2));
-            }else if(id > standDb.get().clientDetails.get(id).getPhoneNumbers().size()){
-                standDb.get().clientDetails.get(id).getPhoneNumbers().add(new ClientPhoneNumber(1, phoneNumber2, phoneType2));
-            }
+            standDb.get().clientDetails.get(id).getPhoneNumbers().set(1, new ClientPhoneNumber(1, phoneNumber2, phoneType2));
 
         }if(phoneNumber3 != "" && phoneType3 != "") {
 
-            if(id < standDb.get().clientDetails.get(id).getPhoneNumbers().size()) {
-                standDb.get().clientDetails.get(id).getPhoneNumbers().set(2, new ClientPhoneNumber(2, phoneNumber3, phoneType3));
-            }else if(id > standDb.get().clientDetails.get(id).getPhoneNumbers().size()){
-                standDb.get().clientDetails.get(id).getPhoneNumbers().add(new ClientPhoneNumber(2, phoneNumber3, phoneType3));
-            }
+            standDb.get().clientDetails.get(id).getPhoneNumbers().set(2, new ClientPhoneNumber(2, phoneNumber3, phoneType3));
 
         }if(phoneNumber4 != "" && phoneType4 != "") {
 
-            if(id < standDb.get().clientDetails.get(id).getPhoneNumbers().size()) {
-                standDb.get().clientDetails.get(id).getPhoneNumbers().set(3, new ClientPhoneNumber(3, phoneNumber4, phoneType4));
-            }else if(id > standDb.get().clientDetails.get(id).getPhoneNumbers().size()){
-                standDb.get().clientDetails.get(id).getPhoneNumbers().add(new ClientPhoneNumber(3, phoneNumber4, phoneType4));
-            }
+            standDb.get().clientDetails.get(id).getPhoneNumbers().set(3, new ClientPhoneNumber(3, phoneNumber4, phoneType4));
 
         }if(phoneNumber5 != "" && phoneType5 != "") {
 
-            if(id < standDb.get().clientDetails.get(id).getPhoneNumbers().size()) {
-                standDb.get().clientDetails.get(id).getPhoneNumbers().set(4, new ClientPhoneNumber(4, phoneNumber5, phoneType5));
-            }else if(id > standDb.get().clientDetails.get(id).getPhoneNumbers().size()){
-                standDb.get().clientDetails.get(id).getPhoneNumbers().add(new ClientPhoneNumber(4, phoneNumber5, phoneType5));
-            }
+            standDb.get().clientDetails.get(id).getPhoneNumbers().set(4, new ClientPhoneNumber(4, phoneNumber5, phoneType5));
 
         }
 

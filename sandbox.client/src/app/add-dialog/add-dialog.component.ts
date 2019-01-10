@@ -232,7 +232,7 @@ export class AddDialogComponent implements OnInit {
           this.warning5 = "\n letters not allowed";
         } else if (this.mobileInput5[0] != "8") {
           this.warning5 = "\n phone number should start with 8";
-        } else if (this.mobileInput2[1] != "7") {
+        } else if (this.mobileInput5[1] != "7") {
           this.warning5 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
         } else {
           this.warning5 = "";

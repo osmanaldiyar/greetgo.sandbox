@@ -46,10 +46,14 @@ public class ClientPageDataController implements Controller {
                                   @Par("registeredFlatNumber") String registeredFlatNumber, @Par("phoneNumber1") String phoneNumber1,
                                   @Par("phoneNumber2") String phoneNumber2, @Par("phoneNumber3")  String phoneNumber3,
                                   @Par("phoneNumber4")  String phoneNumber4,
-                                  @Par("phoneNumber5") String phoneNumber5) {
+                                  @Par("phoneNumber5") String phoneNumber5,
+                                  @Par("phoneType2") String phoneType2, @Par("phoneType3")  String phoneType3,
+                                  @Par("phoneType4")  String phoneType4,
+                                  @Par("phoneType5") String phoneType5) {
         return clientRecordRegister.get().addClientRecord(FIO,age,character,total_cash_rem, max_cash_rem, min_cash_rem,
                 gender, dateOfBirth, street, house, flatNumber, registeredStreet, registeredHouse, registeredFlatNumber,
-                phoneNumber1, phoneNumber2, phoneNumber3, phoneNumber4, phoneNumber5);
+                phoneNumber1, phoneNumber2, phoneNumber3, phoneNumber4, phoneNumber5, phoneType2, phoneType3,
+                phoneType4, phoneType5);
     }
 
     @PublicAccess
@@ -63,9 +67,10 @@ public class ClientPageDataController implements Controller {
                                    @Par("registeredFlatNumber") String registeredFlatNumber, @Par("phoneNumber1") String phoneNumber1,
                                    @Par("phoneNumber2") String phoneNumber2, @Par("phoneNumber3")  String phoneNumber3,
                                    @Par("phoneNumber4")  String phoneNumber4,
-                                   @Par("phoneNumber5") String phoneNumber5) {
+                                   @Par("phoneNumber5") String phoneNumber5, @Par("phoneType2") String phoneType2,
+                                   @Par("phoneType3")  String phoneType3, @Par("phoneType4")  String phoneType4, @Par("phoneType5") String phoneType5) {
         return clientRecordRegister.get().editClientRecord(id,FIO,age,character,total_cash_rem, max_cash_rem, min_cash_rem,gender, dateOfBirth, street, house, flatNumber, registeredStreet, registeredHouse, registeredFlatNumber,
-                phoneNumber1, phoneNumber2, phoneNumber3, phoneNumber4, phoneNumber5);
+                phoneNumber1, phoneNumber2, phoneNumber3, phoneNumber4, phoneNumber5, phoneType2, phoneType3, phoneType4, phoneType5);
     }
 
 }

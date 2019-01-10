@@ -195,8 +195,8 @@ export class TableComponent implements OnInit {
 
   openDialog(): void {
 
-    console.log("selected row", this.selectedRow)
-    console.log("Editing client ", this.clients[this.selectedRow].FIO);
+    // console.log("selected row", this.selectedRow)
+    // console.log("Editing client ", this.clients[this.selectedRow].FIO);
 
     console.log("----list element id" + this.selectedClient.id);
     var id = this.selectedClient.id;
@@ -271,7 +271,7 @@ export class TableComponent implements OnInit {
       console.log('The dialog was closed');
       console.log(result);
 
-      this.http.get(this.clientsPageService.getClients(this.page,this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
+      this.http.get(this.clientsPageService.getClients((this.pages.length-1),this.sortAttribute,this.orderBy,this.searchSurname,this.searchName,this.searchPatronymic,this.amountOfRowsToDisplay)).toPromise().then(resp => {
         console.log(resp)
         this.clients = resp.body['clientsToDisplay'];
         this.pages = new Array(resp.body['totalPages']);

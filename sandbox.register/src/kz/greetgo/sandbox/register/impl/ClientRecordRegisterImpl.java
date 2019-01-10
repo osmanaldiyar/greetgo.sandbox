@@ -2,8 +2,7 @@ package kz.greetgo.sandbox.register.impl;
 
 import kz.greetgo.depinject.core.Bean;
 import kz.greetgo.depinject.core.BeanGetter;
-import kz.greetgo.sandbox.controller.model.ClientPageData;
-import kz.greetgo.sandbox.controller.model.ClientRecord;
+import kz.greetgo.sandbox.controller.model.*;
 import kz.greetgo.sandbox.controller.register.ClientRecordRegister;
 import kz.greetgo.sandbox.register.dao.ClientRecordDao;
 
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 @Bean
 public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
-    public BeanGetter<ClientRecordDao> clientRecordDao;
+//  public BeanGetter<ClientRecordDao> clientRecordDao;
     ClientPageData clientPageData = new ClientPageData();
     public BeanGetter<StandDb> standDb;
 
@@ -27,33 +26,6 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         System.out.println("attr: "+sortAttribute + " orderBy: " + orderBy);
         System.out.println("surname " + searchSurname + " name: "+searchName + " patronymic: " + searchPatronymic);
 
-        //list;
-        //clientPageData.setClients(clientRecordDao.get().selectAllClientRecords());
-
-        //list
-        /*clients = new ArrayList<>();
-        clients.add(new ClientRecord("Pushkin","good",110,46,150,16550));
-        clients.add(new ClientRecord("Lermontov","nice",111,50,150,16440));
-        clients.add(new ClientRecord("Tolstoi","simple",22,47,150,16230));
-        clients.add(new ClientRecord("Kamu","angry",143,430,150,16330));
-
-
-        clients.add(new ClientRecord("Gogol","bad",10,40324,154320,164230));
-        clients.add(new ClientRecord("Esenin Alex","unknown",190,3450,423150,1604));
-        clients.add(new ClientRecord("Mayakovskii","good",610,123,154230,1640));
-        clients.add(new ClientRecord("Dekster","good",210,60040,142350,1630));
-
-
-        clients.add(new ClientRecord("Max Frai","good",310,434000,123450,123460));
-        clients.add(new ClientRecord("Coelio","good",150,4234230,123450,1650));
-        clients.add(new ClientRecord("Iung","good",55,23440,123450,16560));
-        clients.add(new ClientRecord("Lewis","good",18,423420,123450,1562360));
-
-        clients.add(new ClientRecord("Esenin Aleksandr","bad",310,434000,123450,123460));
-        clients.add(new ClientRecord("Esenin Evgenii","evil",150,4234230,123450,1650));
-        clients.add(new ClientRecord("Esenin Petr","normal",55,23440,123450,16560));
-        clients.add(new ClientRecord("Esenin Maksim","hero",18,423420,123450,1562360));
-*/
         //totalPages
 
         int elementsPerPage = rows;
@@ -88,7 +60,6 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
 
         //totalPages end
-
 
 
         int last;
@@ -376,7 +347,9 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             clientPageData.setTotalPages(totalPages);
             clientPageData.setTotalElements(standDb.get().getClients().size());
             clientPageData.setClients(standDb.get().getClients());
-            clientPageData.setClientsToDisplay(standDb.get().getClients().subList(first,last));
+            if(first <= listSize){
+                clientPageData.setClientsToDisplay(standDb.get().getClients().subList(first,last));
+            }
             clientPageData.setFirstElement(first);
             clientPageData.setLastElement(last);
 
@@ -445,7 +418,8 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
     public String addClientRecord(String FIO,int age, String character, int total_cash_rem,int max_cash_rem,int min_cash_rem,
     String gender, Date dateOfBirth, String street, String house, String flatNumber, String registeredStreet, String registeredHouse,
                                   String registeredFlatNumber, String phoneNumber1, String phoneNumber2, String phoneNumber3, String phoneNumber4,
-                                  String phoneNumber5) {
+                                  String phoneNumber5, String phoneType2, String phoneType3, String phoneType4,
+                                  String phoneType5) {
         System.out.println("Adding client-----------------------------");
         System.out.println(FIO);
         System.out.println(age);
@@ -474,7 +448,39 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         standDb.get().getClients().add(new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
 
         //Fill ClientDetails
+            standDb.get().clientDetails.add(new ClientDetails());
+            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).id = id;
+            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setGender(gender);
+            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setDateOfBirth(dateOfBirth);
+            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setClientAddress(new ClientAddress(street,house,flatNumber));
 
+            //optional
+            if(registeredStreet == "") {
+                registeredStreet = "";
+            }if(registeredHouse == "") {
+                registeredHouse = "";
+            }if(registeredFlatNumber == "") {
+                registeredFlatNumber = "";
+            }
+            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setRegisteredAddress(new ClientRegisteredAddress(registeredStreet, registeredHouse, registeredFlatNumber));
+
+            //have optionals
+            if(phoneNumber1 != "") {
+                standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).getPhoneNumbers().add(new ClientPhoneNumber(0,phoneNumber1,"mobile"));
+            }if(phoneNumber2 != "" && phoneType2 != "") {
+                standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).getPhoneNumbers().add(new ClientPhoneNumber(1,phoneNumber2,phoneType2));
+            }if(phoneNumber3 != "" && phoneType3 != "") {
+                standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).getPhoneNumbers().add(new ClientPhoneNumber(2,phoneNumber3,phoneType3));
+            }if(phoneNumber4 != "" && phoneType4 != "") {
+                standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).getPhoneNumbers().add(new ClientPhoneNumber(3,phoneNumber4,phoneType4));
+            }if(phoneNumber5 != "" && phoneType5 != "") {
+                standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).getPhoneNumbers().add(new ClientPhoneNumber(4,phoneNumber5,phoneType5));
+            }
+
+
+        System.out.println(standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1));
+        System.out.println(standDb.get().clientDetails.size());
+        //end of fill ClientDetails
 
         System.out.println("-------------------------------------------");
 
@@ -486,9 +492,11 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
     public String editClientRecord(int id,String FIO,int age, String character, int total_cash_rem,int max_cash_rem,int min_cash_rem,
                                    String gender, Date dateOfBirth, String street, String house, String flatNumber, String registeredStreet,
                                    String registeredHouse,String registeredFlatNumber, String phoneNumber1, String phoneNumber2, String phoneNumber3,
-                                   String phoneNumber4,String phoneNumber5) {
+                                   String phoneNumber4,String phoneNumber5, String phoneType2, String phoneType3, String phoneType4,
+                                   String phoneType5) {
 
         System.out.println("EDITING CLIENT-------------------------");
+        System.out.println("Original client "+standDb.get().clientDetails.get(id));
         //int idd = id + standDb.get().getClients().
         System.out.println("id ---"+id);
         System.out.println(FIO);
@@ -512,9 +520,64 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         System.out.println(phoneNumber4);
         System.out.println(phoneNumber5);
 
-        System.out.println("--------------------------------------------");
+
 
         standDb.get().getClients().set(id,new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
+
+        //have optionals
+        if(phoneNumber1 != "") {
+
+            standDb.get().clientDetails.get(id).getPhoneNumbers().set(0, new ClientPhoneNumber(0,phoneNumber1,"mobile"));
+
+        }if(phoneNumber2 != "" && phoneType2 != "") {
+
+            if(id < standDb.get().clientDetails.get(id).getPhoneNumbers().size()) {
+                standDb.get().clientDetails.get(id).getPhoneNumbers().set(1, new ClientPhoneNumber(1, phoneNumber2, phoneType2));
+            }else if(id > standDb.get().clientDetails.get(id).getPhoneNumbers().size()){
+                standDb.get().clientDetails.get(id).getPhoneNumbers().add(new ClientPhoneNumber(1, phoneNumber2, phoneType2));
+            }
+
+        }if(phoneNumber3 != "" && phoneType3 != "") {
+
+            if(id < standDb.get().clientDetails.get(id).getPhoneNumbers().size()) {
+                standDb.get().clientDetails.get(id).getPhoneNumbers().set(2, new ClientPhoneNumber(2, phoneNumber3, phoneType3));
+            }else if(id > standDb.get().clientDetails.get(id).getPhoneNumbers().size()){
+                standDb.get().clientDetails.get(id).getPhoneNumbers().add(new ClientPhoneNumber(2, phoneNumber3, phoneType3));
+            }
+
+        }if(phoneNumber4 != "" && phoneType4 != "") {
+
+            if(id < standDb.get().clientDetails.get(id).getPhoneNumbers().size()) {
+                standDb.get().clientDetails.get(id).getPhoneNumbers().set(3, new ClientPhoneNumber(3, phoneNumber4, phoneType4));
+            }else if(id > standDb.get().clientDetails.get(id).getPhoneNumbers().size()){
+                standDb.get().clientDetails.get(id).getPhoneNumbers().add(new ClientPhoneNumber(3, phoneNumber4, phoneType4));
+            }
+
+        }if(phoneNumber5 != "" && phoneType5 != "") {
+
+            if(id < standDb.get().clientDetails.get(id).getPhoneNumbers().size()) {
+                standDb.get().clientDetails.get(id).getPhoneNumbers().set(4, new ClientPhoneNumber(4, phoneNumber5, phoneType5));
+            }else if(id > standDb.get().clientDetails.get(id).getPhoneNumbers().size()){
+                standDb.get().clientDetails.get(id).getPhoneNumbers().add(new ClientPhoneNumber(4, phoneNumber5, phoneType5));
+            }
+
+        }
+
+        //optional
+        if(registeredStreet == "") {
+            registeredStreet = "";
+        }if(registeredHouse == "") {
+            registeredHouse = "";
+        }if(registeredFlatNumber == "") {
+            registeredFlatNumber = "";
+        }
+
+        standDb.get().clientDetails.set(id,new ClientDetails(id, gender, dateOfBirth, new ClientAddress(street,house,flatNumber),
+                new ClientRegisteredAddress(registeredStreet,registeredHouse,registeredFlatNumber),
+                standDb.get().clientDetails.get(id).getPhoneNumbers()));
+
+        System.out.println("After editing "+standDb.get().clientDetails.get(id));
+        System.out.println("--------------------------------------------");
 
         return "ok";
     }

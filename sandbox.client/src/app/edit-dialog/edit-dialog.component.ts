@@ -54,6 +54,10 @@ export class EditDialogComponent implements OnInit{
   warning3: string = "";
   warning4: string = "";
   warning5: string = "";
+  selectedPhoneType2: string = "";
+  selectedPhoneType3: string = "";
+  selectedPhoneType4: string = "";
+  selectedPhoneType5: string = "";
 
   ngOnInit(): void {
 
@@ -114,12 +118,17 @@ export class EditDialogComponent implements OnInit{
       house: this.addClientDetails.house,
       flatNumber: this.addClientDetails.flatNumber,
       registeredStreet: this.addClientDetails.street,
+      registeredHouse: this.addClientDetails.house,
       registeredFlatNumber: this.addClientDetails.registeredFlatNumber,
       phoneNumber1: this.addClientDetails.phoneNumber1,
       phoneNumber2: this.addClientDetails.phoneNumber2,
       phoneNumber3: this.addClientDetails.phoneNumber3,
       phoneNumber4: this.addClientDetails.phoneNumber4,
-      phoneNumber5: this.addClientDetails.phoneNumber5
+      phoneNumber5: this.addClientDetails.phoneNumber5,
+      phoneType2: this.selectedPhoneType2,
+      phoneType3: this.selectedPhoneType3,
+      phoneType4: this.selectedPhoneType4,
+      phoneType5: this.selectedPhoneType5
     }, "text").toPromise().then(resp => resp.body as string);
 
 
@@ -152,54 +161,94 @@ export class EditDialogComponent implements OnInit{
     }
 
     //check 2nd phone input
-    if(this.mobileInput2 != ""){
-      if(!this.mobileInput2.match("^[0-9]{0,15}$")){
-        this.warning2 = "\n letters not allowed";
-      }else if(this.mobileInput2[0] != "8"){
-        this.warning2 = "\n phone number should start with 8";
-      }else if(this.mobileInput2[1] != "7"){
-        this.warning2 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
-      }else{
-        this.warning2 = "";
+    if(this.selectedPhoneType2 == "Mobile") {
+      if (this.mobileInput2 != "") {
+        if (!this.mobileInput2.match("^[0-9]{0,15}$")) {
+          this.warning2 = "\n letters not allowed";
+        } else if (this.mobileInput2[0] != "8") {
+          this.warning2 = "\n phone number should start with 8";
+        } else if (this.mobileInput2[1] != "7") {
+          this.warning2 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
+        } else {
+          this.warning2 = "";
+        }
+      }
+    }else{
+      if (this.mobileInput2 != "") {
+        if (!this.mobileInput2.match("^[0-9]{0,15}$")) {
+          this.warning2 = "\n letters not allowed";
+        }else {
+          this.warning2 = "";
+        }
       }
     }
 
     //check 3rd phone input
-    if(this.mobileInput3 != "") {
-      if (!this.mobileInput3.match("^[0-9]{0,15}$")) {
-        this.warning3 = "\n letters not allowed";
-      } else if (this.mobileInput3[0] != "8") {
-        this.warning3 = "\n phone number should start with 8";
-      } else if (this.mobileInput3[1] != "7") {
-        this.warning3 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
-      } else {
-        this.warning3 = "";
+    if(this.selectedPhoneType3 == "Mobile") {
+      if (this.mobileInput3 != "") {
+        if (!this.mobileInput3.match("^[0-9]{0,15}$")) {
+          this.warning3 = "\n letters not allowed";
+        } else if (this.mobileInput3[0] != "8") {
+          this.warning3 = "\n phone number should start with 8";
+        } else if (this.mobileInput3[1] != "7") {
+          this.warning3 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
+        } else {
+          this.warning3 = "";
+        }
+      }
+    }else{
+      if (this.mobileInput3 != "") {
+        if (!this.mobileInput3.match("^[0-9]{0,15}$")) {
+          this.warning3 = "\n letters not allowed";
+        }else {
+          this.warning3 = "";
+        }
       }
     }
 
     //check 4th phone input
-    if(this.mobileInput4 != ""){
-      if(!this.mobileInput4.match("^[0-9]{0,15}$")){
-        this.warning4 = "\n letters not allowed";
-      }else if(this.mobileInput4[0] != "8"){
-        this.warning4 = "\n phone number should start with 8";
-      }else if(this.mobileInput4[1] != "7"){
-        this.warning4 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
-      }else{
-        this.warning4 = "";
+    if(this.selectedPhoneType4 == "Mobile") {
+      if (this.mobileInput4 != "") {
+        if (!this.mobileInput4.match("^[0-9]{0,15}$")) {
+          this.warning4 = "\n letters not allowed";
+        } else if (this.mobileInput4[0] != "8") {
+          this.warning4 = "\n phone number should start with 8";
+        } else if (this.mobileInput4[1] != "7") {
+          this.warning4 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
+        } else {
+          this.warning4 = "";
+        }
+      }
+    }else{
+      if (this.mobileInput4 != "") {
+        if (!this.mobileInput4.match("^[0-9]{0,15}$")) {
+          this.warning4 = "\n letters not allowed";
+        }else {
+          this.warning4 = "";
+        }
       }
     }
 
     //check 5th phone input
-    if(this.mobileInput5 != "") {
-      if (!this.mobileInput5.match("^[0-9]{0,15}$")) {
-        this.warning5 = "\n letters not allowed";
-      } else if (this.mobileInput5[0] != "8") {
-        this.warning5 = "\n phone number should start with 8";
-      } else if (this.mobileInput5[1] != "7") {
-        this.warning5 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
-      } else {
-        this.warning5 = "";
+    if(this.selectedPhoneType5 == "Mobile") {
+      if (this.mobileInput5 != "") {
+        if (!this.mobileInput5.match("^[0-9]{0,15}$")) {
+          this.warning5 = "\n letters not allowed";
+        } else if (this.mobileInput5[0] != "8") {
+          this.warning5 = "\n phone number should start with 8";
+        } else if (this.mobileInput2[1] != "7") {
+          this.warning5 = "\n Illegal operator code. Examples of operators(705,745,707,701)";
+        } else {
+          this.warning5 = "";
+        }
+      }
+    }else{
+      if (this.mobileInput5 != "") {
+        if (!this.mobileInput5.match("^[0-9]{0,15}$")) {
+          this.warning5 = "\n letters not allowed";
+        }else {
+          this.warning5 = "";
+        }
       }
     }
 

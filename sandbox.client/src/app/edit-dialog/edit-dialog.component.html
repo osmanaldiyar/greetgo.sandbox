@@ -76,7 +76,7 @@
   <br><br>
   <div class="input-remove-group">
     <label *ngIf="phoneInputIsVisible2" style="color:red">{{warning2}}</label><br>
-    <select id="selectPhoneType2" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible2" >
+    <select id="selectPhoneType2" [(ngModel)]="selectedPhoneType2" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible2" >
       <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
     </select>
 
@@ -95,7 +95,7 @@
 
   <div class="input-remove-group">
     <label *ngIf="phoneInputIsVisible3" style="color:red">{{warning3}}</label><br>
-    <select id="selectPhoneType3" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible3" >
+    <select id="selectPhoneType3" [(ngModel)]="selectedPhoneType3" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible3" >
       <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
     </select>
 
@@ -111,7 +111,7 @@
 
   <div class="input-remove-group">
     <label *ngIf="phoneInputIsVisible4" style="color:red">{{warning4}}</label><br>
-    <select id="selectPhoneType4" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible4" >
+    <select id="selectPhoneType4" [(ngModel)]="selectedPhoneType4" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible4" >
       <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
     </select>
 
@@ -129,7 +129,7 @@
 
   <div class="input-remove-group">
     <label *ngIf="phoneInputIsVisible5" style="color:red">{{warning5}}</label><br>
-    <select id="selectPhoneType5" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible5" >
+    <select id="selectPhoneType5" [(ngModel)]="selectedPhoneType5" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible5" >
       <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
     </select>
 

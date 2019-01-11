@@ -1,9 +1,12 @@
-import {Component, Inject, OnInit, HostListener} from '@angular/core';
+import {Component, Inject, OnInit, HostListener, Input} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {DialogData} from "../table/table.component";
 import {HttpService} from "../http.service";
 import {ClientDetails} from "../../model/ClientDetails";
 import {Client} from "../models/client";
+import {ClientPhoneNumber} from "../../model/ClientPhoneNumber";
+import {ClientAddress} from "../../model/ClientAddress";
+import {ClientRegisteredAddress} from "../../model/ClientRegisteredAddress";
 
 @Component({
   selector: 'app-add-dialog',
@@ -19,11 +22,12 @@ export class AddDialogComponent implements OnInit {
   //inputs
   surnameInput:string = '';
   nameInput:string = '';
-  dateOfBirthInput: string = '';
+  /*dateOfBirthInput: string = '';
   characterOption: string = '';
   regStreetInput: string = '';
   regHouseInput: string = '';
   regFlatInput: string = '';
+  */
   mobileInput: string = '';
   mobileInput2: string = '';
   mobileInput3: string = '';
@@ -31,11 +35,22 @@ export class AddDialogComponent implements OnInit {
   mobileInput5: string = '';
   //
 
-  selectedGender: string = "";
   phoneTypes:Array<string> = ["Home","Work", "Mobile"];
   characterTypes:Array<string> = ["Humble","Angry", "Crazy","Lazy","Nervous","Hardworking"];
-  addClientDetails: ClientDetails = new ClientDetails();
-  addClientRecord: Client = new Client();
+
+  clientDetails: ClientDetails = new ClientDetails();
+  clientAddress: ClientAddress = new ClientAddress();
+  clientRegisteredAddress = new ClientRegisteredAddress();
+  clientRecord: Client = new Client();
+
+  clientPhoneNumber1: ClientPhoneNumber = new ClientPhoneNumber();
+  clientPhoneNumber2: ClientPhoneNumber = new ClientPhoneNumber();
+  clientPhoneNumber3: ClientPhoneNumber = new ClientPhoneNumber();
+  clientPhoneNumber4: ClientPhoneNumber = new ClientPhoneNumber();
+  clientPhoneNumber5: ClientPhoneNumber = new ClientPhoneNumber();
+
+  clientPhoneNumbers: Array<ClientPhoneNumber> = [];
+
   inputIsEmpty: boolean = true;
   warning: string = "";
   warning2: string = "";
@@ -46,8 +61,7 @@ export class AddDialogComponent implements OnInit {
   selectedPhoneType3: string = "";
   selectedPhoneType4: string = "";
   selectedPhoneType5: string = "";
-  //to pass the latest last page, because when adding user it gives previous of the last page when users divided equally
-  lastPage: number;
+
 
   phoneNumberCounter: number = 0;
 
@@ -57,74 +71,79 @@ export class AddDialogComponent implements OnInit {
   phoneInputIsVisible4:boolean = false;
   phoneInputIsVisible5:boolean = false;
 
+
+
   ngOnInit() {
   }
 
 
-  onAddClientClick(surname:string, name:string, patronymic: string, dateOfBirth: string ,street:string, house:string,
-                   flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string){
+  onAddClientClick(surname:string, name:string, patronymic: string){
 
-    console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,this.characterOption,street,house,flatNumber,
-      registeredStreet,registeredFlatNumber,registeredHouse,this.mobileInput,this.mobileInput2,this.mobileInput3,this.mobileInput4,this.mobileInput5);
+    console.log("add dialog -> save changes pressed", surname,name,patronymic,);
+
+    //PhoneNumbers
+    this.clientPhoneNumber1.id = 0;
+    this.clientPhoneNumber1.phoneType = "Mobile";
+    this.clientPhoneNumber1.phoneNumber = this.mobileInput;
+    this.clientPhoneNumbers.push(this.clientPhoneNumber1);
+
+    this.clientPhoneNumber2.id = 1;
+    this.clientPhoneNumber2.phoneType = this.selectedPhoneType2;
+    this.clientPhoneNumber2.phoneNumber = this.mobileInput2;
+    this.clientPhoneNumbers.push(this.clientPhoneNumber2);
+
+    this.clientPhoneNumber3.id = 2;
+    this.clientPhoneNumber3.phoneType = this.selectedPhoneType3;
+    this.clientPhoneNumber3.phoneNumber = this.mobileInput3;
+    this.clientPhoneNumbers.push(this.clientPhoneNumber3);
+
+    this.clientPhoneNumber4.id = 3;
+    this.clientPhoneNumber4.phoneType = this.selectedPhoneType4;
+    this.clientPhoneNumber4.phoneNumber = this.mobileInput4;
+    this.clientPhoneNumbers.push(this.clientPhoneNumber4);
+
+    this.clientPhoneNumber5.id = 4;
+    this.clientPhoneNumber5.phoneType = this.selectedPhoneType5;
+    this.clientPhoneNumber5.phoneNumber = this.mobileInput5;
+    this.clientPhoneNumbers.push(this.clientPhoneNumber5);
 
 
-    console.log("Gender ",this.selectedGender)
-    this.addClientDetails.gender = this.selectedGender;
-    this.addClientDetails.dateOfBirth = dateOfBirth;
-    this.addClientDetails.street = street;
-    this.addClientDetails.house = house;
-    this.addClientDetails.flatNumber = flatNumber;
-    this.addClientDetails.registeredStreet = registeredStreet;
-    this.addClientDetails.registeredFlatNumber = registeredFlatNumber;
-    this.addClientDetails.registeredHouse = registeredHouse;
-    this.addClientDetails.phoneNumber1 = this.mobileInput;
-    this.addClientDetails.phoneNumber2 = this.mobileInput2;
-    this.addClientDetails.phoneNumber3 = this.mobileInput3;
-    this.addClientDetails.phoneNumber4 = this.mobileInput4;
-    this.addClientDetails.phoneNumber5 = this.mobileInput5;
 
-    this.addClientRecord.FIO = surname + " " + name + " " + patronymic;
-    this.addClientRecord.character = this.characterOption;
+    //ClientDetails----------------------------------------------------
+    this.clientDetails.clientAddress = this.clientAddress;
+    this.clientDetails.registeredAddress = this.clientRegisteredAddress;
+    this.clientDetails.phoneNumbers = this.clientPhoneNumbers;
+    //ClientDetails------------------------------------------------------
+
+
+    //ClientRecord------------------------------------------------------
+    this.clientRecord.FIO = surname + " " + name + " " + patronymic;
 
     //calculate year
     var d = new Date();
-    var year = dateOfBirth.toString().split("-");
-    this.addClientRecord.age = d.getFullYear() - parseInt(year[0]);
+    var year = this.clientDetails.dateOfBirth.toString().split("-");
+    this.clientRecord.age = d.getFullYear() - parseInt(year[0]);
 
+    //account
+    this.clientRecord.total_cash_remainings = 0;
+    this.clientRecord.max_remainings = 0;
+    this.clientRecord.min_remainings = 0;
+    //ClientRecord end----------------------------------------------------
 
-    this.addClientRecord.total_cash_remainings = 21313;
-    this.addClientRecord.max_remainings = 4313;
-    this.addClientRecord.min_remainings = 1313;
-
-    console.log(this.addClientRecord.total_cash_remainings,this.addClientRecord.max_remainings,this.addClientRecord.min_remainings);
-
+    console.log(this.clientRecord);
+    console.log(this.clientDetails);
 
     this.http.post("/list/add", {
-      FIO: this.addClientRecord.FIO,
-      age: this.addClientRecord.age,
-      character: this.addClientRecord.character,
-      total_cash_rem: this.addClientRecord.total_cash_remainings,
-      max_cash_rem: this.addClientRecord.max_remainings,
-      min_cash_rem: this.addClientRecord.min_remainings,
-      gender: this.addClientDetails.gender,
-      dateOfBirth: this.addClientDetails.dateOfBirth,
-      street: this.addClientDetails.street,
-      house: this.addClientDetails.house,
-      flatNumber: this.addClientDetails.flatNumber,
-      registeredStreet: this.addClientDetails.street,
-      registeredHouse: this.addClientDetails.house,
-      registeredFlatNumber: this.addClientDetails.registeredFlatNumber,
-      phoneNumber1: this.addClientDetails.phoneNumber1,
-      phoneNumber2: this.addClientDetails.phoneNumber2,
-      phoneNumber3: this.addClientDetails.phoneNumber3,
-      phoneNumber4: this.addClientDetails.phoneNumber4,
-      phoneNumber5: this.addClientDetails.phoneNumber5,
-      phoneType2: this.selectedPhoneType2,
-      phoneType3: this.selectedPhoneType3,
-      phoneType4: this.selectedPhoneType4,
-      phoneType5: this.selectedPhoneType5
+      clientRecord: JSON.stringify(this.clientRecord),
+      clientDetails: JSON.stringify(this.clientDetails)
+    }).toPromise().then(resp => {
 
-    }, "text").toPromise().then(resp => resp.body as string);
+    });
+
+
+    /*this.http.post("/list/add", { id:"", obj: JSON.stringify({})}).toPromise().then(res=>{
+      let assad = res.body;
+    });*/
 
 
   }
@@ -133,8 +152,9 @@ export class AddDialogComponent implements OnInit {
     //console.log('dateOfbirthInput ',this.dateOfBirthInput);
 
     //check for empty if field is empty submit is disabled
-    if (this.surnameInput != '' && this.nameInput != '' && this.characterOption != '' && this.dateOfBirthInput !='' &&
-      this.selectedGender != '' && this.regStreetInput !='' && this.regHouseInput != '' && this.regFlatInput != '' && this.mobileInput !='') {
+    if (this.surnameInput != '' && this.nameInput != '' && this.clientRecord.character != '' && this.clientDetails.dateOfBirth !='' &&
+      this.clientDetails.gender != '' && this.clientAddress.street !='' && this.clientAddress.house != '' &&
+      this.clientAddress.flatNumber != '' && this.mobileInput !='') {
       this.inputIsEmpty = false;
     }
     else{

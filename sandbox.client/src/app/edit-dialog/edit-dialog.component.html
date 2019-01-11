@@ -1,63 +1,68 @@
 <h5 mat-dialog-title>Edit client data</h5>
 <div mat-dialog-content>
 
-    <label for="surname">Surname <span style="color:red">*</span></label>
-    <input #surname id="surname" name="editSurname" [(ngModel)]="surnameInput" (ngModelChange)="inputsIsEmpty()" class="form-control" >
-
-
-    <label for="name">Name <span style="color:red">*</span></label>
-    <input #name id="name" name="editName" [(ngModel)]="nameInput" (ngModelChange)="inputsIsEmpty()" class="form-control" matInput >
-
-
-    <label for="patronymic">Patronymic</label>
-    <input #patronymic id="patronymic" class="form-control" >
-
-
-    <label for="gender">Gender <span style="color:red">*</span></label>
-    <br>
-    <select [(ngModel)]="selectedGender" (ngModelChange)="inputsIsEmpty()" name="gender" id="gender" class="form-control">
-      <option>Male</option>
-      <option>Female</option>
-    </select>
-    <br>
-
-
-    <label for="birthday">Date of birth <span style="color:red">*</span></label>
-    <input #date [(ngModel)]="dateOfBirthInput" name="editDateOfBirth" (ngModelChange)="inputsIsEmpty()" type="date" id="birthday" class="form-control">
+  <label for="surname">Surname <span style="color:red">*</span></label>
+  <input #surname [(ngModel)]="surnameInput" (ngModelChange)="inputsIsEmpty()" id="surname" class="form-control" >
 
 
 
-    <label for="characterOption">Character <span style="color:red">*</span></label><br>
-    <select [(ngModel)]="characterOption" id="characterOption" class="form-control" name="character">
-      <option *ngFor="let characterType of characterTypes">{{characterType}}</option>
-    </select>
-
-    <br>
-    <h4>Address</h4>
-    <label for="street">Street</label>
-    <input #street id="street" class="form-control" matInput >
-
-
-    <label for="house">House</label>
-    <input #house id="house" class="form-control" matInput >
-
-
-    <label for="flatNumberLbl">Flat number</label>
-    <input #flatNumber id="flatNumberLbl" class="form-control" matInput >
+  <label for="name">Name <span style="color:red">*</span></label>
+  <input #name [(ngModel)]="nameInput" (ngModelChange)="inputsIsEmpty()" id="name" class="form-control" matInput >
 
 
 
-    <br>
-    <h4>Registered Address <span style="color:red">*</span></h4>
+  <label for="patronymic">Patronymic</label>
+  <input #patronymic [(ngModel)]="patronymicInput" id="patronymic" class="form-control">
 
-    <label for="streetLbl">Street</label>
-    <input #regStreet [(ngModel)]="regStreetInput" name="editRegStreet" (ngModelChange)="inputsIsEmpty()" id="streetLbl" class="form-control" matInput >
 
-    <label for="houseLbl">House</label>
-    <input #regHouse [(ngModel)]="regHouseInput" name="editRegHouse" (ngModelChange)="inputsIsEmpty()" id="houseLbl" class="form-control" matInput >
 
-    <label for="flatLbl">Flat</label>
-    <input #regFlat [(ngModel)]="regFlatInput" name="editRegFlat" (ngModelChange)="inputsIsEmpty()" id="flatLbl" class="form-control" matInput >
+  <label for="gender">Gender <span style="color:red">*</span></label>
+  <br>
+  <select [(ngModel)]="clientDetails.gender" (ngModelChange)="inputsIsEmpty()" id="gender" class="form-control">
+    <option>Male</option>
+    <option>Female</option>
+  </select>
+  <br>
+
+
+  <label for="birthday">Date of birth <span style="color:red">*</span></label>
+  <input #dateOfBirth [(ngModel)]="clientDetails.dateOfBirth" (ngModelChange)="inputsIsEmpty()" type="date" id="birthday" class="form-control">
+
+
+  <label for="characterOption">Character <span style="color:red">*</span></label><br>
+  <select [(ngModel)]="clientRecord.character" id="characterOption" class="form-control" name="character">
+    <option *ngFor="let characterType of characterTypes">{{characterType}}</option>
+  </select>
+
+
+  <br>
+  <h4>Address</h4>
+  <label for="street">Street</label>
+  <input id="street" [(ngModel)]="clientAddress.street" class="form-control" matInput >
+
+
+
+  <label for="house">House</label>
+  <input id="house" [(ngModel)]="clientAddress.house" class="form-control" matInput >
+
+
+
+  <label for="flatNumberLbl">Flat number</label>
+  <input id="flatNumberLbl" [(ngModel)]="clientAddress.flatNumber" class="form-control" matInput >
+
+
+
+  <br>
+  <h4>Registered Address <span style="color:red">*</span></h4>
+
+  <label for="streetLbl">Street</label>
+  <input #regStreet [(ngModel)]="clientRegisteredAddress.registeredStreet" (ngModelChange)="inputsIsEmpty()"  id="streetLbl" class="form-control" matInput >
+
+  <label for="houseLbl">House</label>
+  <input #regHouse [(ngModel)]="clientRegisteredAddress.registeredHouse" (ngModelChange)="inputsIsEmpty()"  id="houseLbl" class="form-control" matInput >
+
+  <label for="flatLbl">Flat</label>
+  <input #regFlat [(ngModel)]="clientRegisteredAddress.registeredFlatNumber" (ngModelChange)="inputsIsEmpty()"  id="flatLbl" class="form-control" matInput >
 
 
   <h3>Phone numbers</h3>
@@ -145,7 +150,6 @@
   <br><br>
 </div>
 <div mat-dialog-actions>
-  <button id="saveChanges" [disabled]="inputIsEmpty" (click)="onEditClient(surname.value,name.value,patronymic.value,date.value,street.value,
-  house.value,flatNumber.value,regStreet.value,regHouse.value,regFlat.value)" class="btn btn-success" mat-button [mat-dialog-close]="data.id" cdkFocusInitial>Save changes</button>
+  <button id="saveChanges" [disabled]="inputIsEmpty" (click)="onEditClient()" class="btn btn-success" mat-button [mat-dialog-close]="data" cdkFocusInitial>Save changes</button>
   <button class="btn btn-light" mat-button (click)="onNoClick()">Cancel</button>
 </div>

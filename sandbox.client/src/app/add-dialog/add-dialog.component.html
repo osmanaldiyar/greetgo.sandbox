@@ -18,7 +18,7 @@
 
   <label for="gender">Gender <span style="color:red">*</span></label>
   <br>
-  <select [(ngModel)]="selectedGender" (ngModelChange)="inputsIsEmpty()" id="gender" class="form-control">
+  <select [(ngModel)]="clientDetails.gender" (ngModelChange)="inputsIsEmpty()" id="gender" class="form-control">
     <option>Male</option>
     <option>Female</option>
   </select>
@@ -26,11 +26,11 @@
 
 
   <label for="birthday">Date of birth <span style="color:red">*</span></label>
-  <input #dateOfBirth [(ngModel)]="dateOfBirthInput" (ngModelChange)="inputsIsEmpty()" type="date" id="birthday" class="form-control">
+  <input #dateOfBirth [(ngModel)]="clientDetails.dateOfBirth" (ngModelChange)="inputsIsEmpty()" type="date" id="birthday" class="form-control">
 
 
   <label for="characterOption">Character <span style="color:red">*</span></label><br>
-  <select [(ngModel)]="characterOption" id="characterOption" class="form-control" name="character">
+  <select [(ngModel)]="clientRecord.character" id="characterOption" class="form-control" name="character">
     <option *ngFor="let characterType of characterTypes">{{characterType}}</option>
   </select>
 
@@ -38,17 +38,17 @@
   <br>
   <h4>Address</h4>
   <label for="street">Street</label>
-  <input #street id="street" class="form-control" matInput >
+  <input id="street" [(ngModel)]="clientAddress.street" class="form-control" matInput >
 
 
 
   <label for="house">House</label>
-  <input #house id="house" class="form-control" matInput >
+  <input id="house" [(ngModel)]="clientAddress.house" class="form-control" matInput >
 
 
 
   <label for="flatNumberLbl">Flat number</label>
-  <input #flatNumber id="flatNumberLbl" class="form-control" matInput >
+  <input id="flatNumberLbl" [(ngModel)]="clientAddress.flatNumber" class="form-control" matInput >
 
 
 
@@ -56,13 +56,13 @@
   <h4>Registered Address <span style="color:red">*</span></h4>
 
   <label for="streetLbl">Street</label>
-  <input #regStreet [(ngModel)]="regStreetInput" (ngModelChange)="inputsIsEmpty()"  id="streetLbl" class="form-control" matInput >
+  <input #regStreet [(ngModel)]="clientRegisteredAddress.registeredStreet" (ngModelChange)="inputsIsEmpty()"  id="streetLbl" class="form-control" matInput >
 
   <label for="houseLbl">House</label>
-  <input #regHouse [(ngModel)]="regHouseInput" (ngModelChange)="inputsIsEmpty()"  id="houseLbl" class="form-control" matInput >
+  <input #regHouse [(ngModel)]="clientRegisteredAddress.registeredHouse" (ngModelChange)="inputsIsEmpty()"  id="houseLbl" class="form-control" matInput >
 
   <label for="flatLbl">Flat</label>
-  <input #regFlat [(ngModel)]="regFlatInput" (ngModelChange)="inputsIsEmpty()"  id="flatLbl" class="form-control" matInput >
+  <input #regFlat [(ngModel)]="clientRegisteredAddress.registeredFlatNumber" (ngModelChange)="inputsIsEmpty()"  id="flatLbl" class="form-control" matInput >
 
 
   <h3>Phone numbers</h3>
@@ -153,9 +153,8 @@
 
 <div mat-dialog-actions>
 
-  <button id="addSaveChanges" [disabled]="inputIsEmpty" (click)="onAddClientClick(surname.value,name.value,patronymic.value,dateOfBirth.value,street.value,
-  house.value,flatNumber.value,regStreet.value,regHouse.value,regFlat.value)" class="btn btn-success"
-          mat-button [mat-dialog-close]="lastPage" cdkFocusInitial>Add client</button>
+  <button id="addSaveChanges" [disabled]="inputIsEmpty" (click)="onAddClientClick(surname.value, name.value, patronymic.value)" class="btn btn-success"
+          mat-button [mat-dialog-close]="clientRecord" cdkFocusInitial>Add client</button>
 
   <button class="btn btn-light" mat-button (click)="onNoClick()">Cancel</button>
 </div>

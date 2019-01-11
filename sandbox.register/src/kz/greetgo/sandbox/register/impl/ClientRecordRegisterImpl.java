@@ -14,6 +14,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
 //  public BeanGetter<ClientRecordDao> clientRecordDao;
     ClientPageData clientPageData = new ClientPageData();
+    ClientRecordsAndDetails clientRecordsAndDetails = new ClientRecordsAndDetails();
     public BeanGetter<StandDb> standDb;
 
     @Override
@@ -416,71 +417,55 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
     }
 
     @Override
-    public String addClientRecord(String FIO,int age, String character, int total_cash_rem,int max_cash_rem,int min_cash_rem,
-    String gender, Date dateOfBirth, String street, String house, String flatNumber, String registeredStreet, String registeredHouse,
-                                  String registeredFlatNumber, String phoneNumber1, String phoneNumber2, String phoneNumber3, String phoneNumber4,
-                                  String phoneNumber5, String phoneType2, String phoneType3, String phoneType4,
-                                  String phoneType5) {
+    public String addClientRecord(ClientRecord clientRecord, ClientDetails clientDetails) {
         System.out.println("Adding client-----------------------------");
-        System.out.println(FIO);
-        System.out.println(age);
-        System.out.println(character);
-        System.out.println(total_cash_rem);
-        System.out.println(max_cash_rem);
-        System.out.println(min_cash_rem);
-
-        System.out.println(gender);
-        System.out.println(dateOfBirth.toString());
-        System.out.println(street);
-        System.out.println(house);
-        System.out.println(flatNumber);
-        System.out.println(registeredStreet);
-        System.out.println(registeredFlatNumber);
-
-        System.out.println(phoneNumber1);
-        System.out.println(phoneNumber2);
-        System.out.println(phoneNumber3);
-        System.out.println(phoneNumber4);
-        System.out.println(phoneNumber5);
 
         //get id of last
         int id = standDb.get().getClients().get(standDb.get().getClients().size()-1).id + 1;
 
-        standDb.get().getClients().add(new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
+        standDb.get().getClients().add(new ClientRecord(id,clientRecord.FIO,clientRecord.character,clientRecord.age,
+                clientRecord.total_cash_remainings,clientRecord.max_remainings,clientRecord.min_remainings));
 
         //Fill ClientDetails
             standDb.get().clientDetails.add(new ClientDetails());
             standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).id = id;
-            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setGender(gender);
-            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setDateOfBirth(dateOfBirth);
-            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setClientAddress(new ClientAddress(street,house,flatNumber));
+            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setGender(clientDetails.getGender());
+            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setDateOfBirth(clientDetails.getDateOfBirth());
+            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setClientAddress(clientDetails.getClientAddress());
 
-            //optional
-            if(registeredStreet == "") {
-                registeredStreet = "";
-            }if(registeredHouse == "") {
-                registeredHouse = "";
-            }if(registeredFlatNumber == "") {
-                registeredFlatNumber = "";
+            //check optional fields
+            if(clientDetails.getRegisteredAddress().getRegisteredStreet() == "") {
+
+                clientDetails.getRegisteredAddress().setRegisteredStreet("");
+
+            }if(clientDetails.getRegisteredAddress().getRegisteredHouse() == "") {
+
+                clientDetails.getRegisteredAddress().setRegisteredHouse("");
+
+            }if(clientDetails.getRegisteredAddress().getRegisteredFlatNumber() == "") {
+
+                clientDetails.getRegisteredAddress().setRegisteredFlatNumber("");
+
             }
-            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setRegisteredAddress(new ClientRegisteredAddress(registeredStreet, registeredHouse, registeredFlatNumber));
 
-            //have optionals
-            if(phoneNumber1 != "") {
-                standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).getPhoneNumbers().add(new ClientPhoneNumber(0,phoneNumber1,"mobile"));
-            }if(phoneNumber2 != "" && phoneType2 != "") {
-                standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).getPhoneNumbers().add(new ClientPhoneNumber(1,phoneNumber2,phoneType2));
-            }if(phoneNumber3 != "" && phoneType3 != "") {
-                standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).getPhoneNumbers().add(new ClientPhoneNumber(2,phoneNumber3,phoneType3));
-            }if(phoneNumber4 != "" && phoneType4 != "") {
-                standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).getPhoneNumbers().add(new ClientPhoneNumber(3,phoneNumber4,phoneType4));
-            }if(phoneNumber5 != "" && phoneType5 != "") {
-                standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).getPhoneNumbers().add(new ClientPhoneNumber(4,phoneNumber5,phoneType5));
+            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setRegisteredAddress(clientDetails.getRegisteredAddress());
+
+            System.out.println(clientDetails.getPhoneNumbers().size());
+
+            //check list which has optional fields
+            for(int i = 0; i < clientDetails.getPhoneNumbers().size(); i++) {
+
+                if (clientDetails.getPhoneNumbers().get(i).getPhoneNumber() != "") {
+
+                    standDb.get().clientDetails.get(standDb.get().clientDetails.size() - 1).getPhoneNumbers().add(
+                            new ClientPhoneNumber(i, clientDetails.getPhoneNumbers().get(i).getPhoneNumber(), clientDetails.getPhoneNumbers().get(i).getPhoneType()));
+
+                }
+
             }
 
 
         System.out.println(standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1));
-        System.out.println(standDb.get().clientDetails.size());
         //end of fill ClientDetails
 
         System.out.println("-------------------------------------------");
@@ -490,73 +475,44 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
 
     @Override
-    public String editClientRecord(int id,String FIO,int age, String character, int total_cash_rem,int max_cash_rem,int min_cash_rem,
-                                   String gender, Date dateOfBirth, String street, String house, String flatNumber, String registeredStreet,
-                                   String registeredHouse,String registeredFlatNumber, String phoneNumber1, String phoneNumber2, String phoneNumber3,
-                                   String phoneNumber4,String phoneNumber5, String phoneType2, String phoneType3, String phoneType4,
-                                   String phoneType5) {
+    public String editClientRecord(ClientRecord clientRecord, ClientDetails clientDetails) {
 
         System.out.println("EDITING CLIENT-------------------------");
-        System.out.println("Original client "+standDb.get().clientDetails.get(id));
-        //int idd = id + standDb.get().getClients().
-        System.out.println("id ---"+id);
-        System.out.println(FIO);
-        System.out.println("age "+age);
-        System.out.println(character);
-        System.out.println(total_cash_rem);
-        System.out.println(max_cash_rem);
-        System.out.println(min_cash_rem);
 
-        System.out.println(gender);
-        System.out.println(dateOfBirth.toString());
-        System.out.println(street);
-        System.out.println(house);
-        System.out.println(flatNumber);
-        System.out.println(registeredStreet);
-        System.out.println(registeredFlatNumber);
-
-        System.out.println(phoneNumber1);
-        System.out.println(phoneNumber2);
-        System.out.println(phoneNumber3);
-        System.out.println(phoneNumber4);
-        System.out.println(phoneNumber5);
 
         List<ClientRecord> beerDrinkers = standDb.get().getClients().stream()
-                .filter(c -> c.id == id).collect(Collectors.toList());
+                .filter(c -> c.id == clientRecord.id).collect(Collectors.toList());
         int listIndex = standDb.get().getClients().indexOf(beerDrinkers.get(0));
 
-        standDb.get().getClients().set(listIndex,new ClientRecord(id,FIO,character,age,total_cash_rem,max_cash_rem,min_cash_rem));
 
-        //have optionals
-        if(phoneNumber1 != "") {
+        //Update Clients
+        standDb.get().getClients().set(listIndex,clientRecord);
 
-            standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(0, new ClientPhoneNumber(0,phoneNumber1,"mobile"));
+        //check list which has optional fields
+        for(int i = 0; i < clientDetails.getPhoneNumbers().size(); i++) {
 
-        }if(phoneNumber2 != "" && phoneType2 != "") {
+            if (clientDetails.getPhoneNumbers().get(i).getPhoneNumber() != "") {
 
-            standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(1, new ClientPhoneNumber(1, phoneNumber2, phoneType2));
+                standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(
+                        i, new ClientPhoneNumber(i, clientDetails.getPhoneNumbers().get(i).getPhoneNumber(), clientDetails.getPhoneNumbers().get(i).getPhoneType()));
 
-        }if(phoneNumber3 != "" && phoneType3 != "") {
-
-            standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(2, new ClientPhoneNumber(2, phoneNumber3, phoneType3));
-
-        }if(phoneNumber4 != "" && phoneType4 != "") {
-
-            standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(3, new ClientPhoneNumber(3, phoneNumber4, phoneType4));
-
-        }if(phoneNumber5 != "" && phoneType5 != "") {
-
-            standDb.get().clientDetails.get(listIndex).getPhoneNumbers().set(4, new ClientPhoneNumber(4, phoneNumber5, phoneType5));
+            }
 
         }
 
-        //optional
-        if(registeredStreet == "") {
-            registeredStreet = "";
-        }if(registeredHouse == "") {
-            registeredHouse = "";
-        }if(registeredFlatNumber == "") {
-            registeredFlatNumber = "";
+        //check optional fields
+        if(clientDetails.getRegisteredAddress().getRegisteredStreet() == "") {
+
+            clientDetails.getRegisteredAddress().setRegisteredStreet("");
+
+        }if(clientDetails.getRegisteredAddress().getRegisteredHouse() == "") {
+
+            clientDetails.getRegisteredAddress().setRegisteredHouse("");
+
+        }if(clientDetails.getRegisteredAddress().getRegisteredFlatNumber() == "") {
+
+            clientDetails.getRegisteredAddress().setRegisteredFlatNumber("");
+
         }
 
 
@@ -565,14 +521,26 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         System.out.println("beerDrinkers size--" + beerDrinkers.size());
         System.out.println("beerDrinkers[0]: " + beerDrinkers.get(0).getFIO());
 
-        standDb.get().clientDetails.set(listIndex,new ClientDetails(gender, dateOfBirth, new ClientAddress(street,house,flatNumber),
-                new ClientRegisteredAddress(registeredStreet,registeredHouse,registeredFlatNumber),
-                standDb.get().clientDetails.get(listIndex).getPhoneNumbers()));
+        //Update ClientDetails
+        standDb.get().clientDetails.set(listIndex,clientDetails);
 
         System.out.println("After editing "+standDb.get().clientDetails.get(listIndex));
         System.out.println("--------------------------------------------");
 
         return "ok";
+    }
+
+    @Override
+    public ClientRecordsAndDetails selectClientRecordsAndDetails(int id) {
+
+        List<ClientRecord> beerDrinkers = standDb.get().getClients().stream()
+                .filter(c -> c.id == id).collect(Collectors.toList());
+        int listIndex = standDb.get().getClients().indexOf(beerDrinkers.get(0));
+
+        clientRecordsAndDetails.setClientDetails(standDb.get().clientDetails.get(listIndex));
+        clientRecordsAndDetails.setClientRecord(standDb.get().getClients().get(listIndex));
+
+        return clientRecordsAndDetails;
     }
 }
 

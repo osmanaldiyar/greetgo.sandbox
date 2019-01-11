@@ -3,6 +3,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {Client} from "../models/client";
 import {ClientDetails} from "../../model/ClientDetails";
 import {HttpService} from "../http.service";
+import {ClientPhoneNumber} from "../../model/ClientPhoneNumber";
+import {ClientAddress} from "../../model/ClientAddress";
+import {ClientRegisteredAddress} from "../../model/ClientRegisteredAddress";
+import {ClientsPageService} from "../table/clients-page.service";
 
 
 
@@ -16,24 +20,35 @@ export class EditDialogComponent implements OnInit{
 
   constructor(
     public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpService) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpService, private clientsPageService: ClientsPageService) {
     console.log("Client",data.fio + " came to edit")
   }
 
-  selectedGender: string = "";
   phoneTypes:Array<string> = ["Home","Work", "Mobile"];
   characterTypes:Array<string> = ["Humble","Angry", "Crazy","Lazy","Nervous","Hardworking"];
-  addClientDetails: ClientDetails = new ClientDetails();
-  addClientRecord: Client = new Client();
+
+  clientDetails: ClientDetails = new ClientDetails();
+  clientAddress: ClientAddress = new ClientAddress();
+  clientRegisteredAddress = new ClientRegisteredAddress();
+  clientRecord: Client = new Client();
+
+  //GET
+  clientRecordGET: Client = new Client();
+  clientDetailsGET: ClientDetails = new ClientDetails();
+  //
+
+  clientPhoneNumber1: ClientPhoneNumber = new ClientPhoneNumber();
+  clientPhoneNumber2: ClientPhoneNumber = new ClientPhoneNumber();
+  clientPhoneNumber3: ClientPhoneNumber = new ClientPhoneNumber();
+  clientPhoneNumber4: ClientPhoneNumber = new ClientPhoneNumber();
+  clientPhoneNumber5: ClientPhoneNumber = new ClientPhoneNumber();
+
+  clientPhoneNumbers: Array<ClientPhoneNumber> = [];
 
   //inputs
   surnameInput:string = '';
   nameInput:string = '';
-  dateOfBirthInput: string = '';
-  characterOption: string = '';
-  regStreetInput: string = '';
-  regHouseInput: string = '';
-  regFlatInput: string = '';
+  patronymicInput:string = '';
   mobileInput: string = '';
   mobileInput2: string = '';
   mobileInput3: string = '';
@@ -41,7 +56,7 @@ export class EditDialogComponent implements OnInit{
   mobileInput5: string = '';
   //
 
-  inputIsEmpty: boolean = true;
+  inputIsEmpty: boolean = false;
   phoneNumberCounter: number = 0;
 
   //remove phone flags
@@ -60,76 +75,116 @@ export class EditDialogComponent implements OnInit{
   selectedPhoneType5: string = "";
 
   ngOnInit(): void {
-
     console.log("ngOnInit--------idddd ",this.data.client.id);
   }
 
 
 
-  onEditClient(surname:string, name:string, patronymic: string, dateOfBirth: string ,
-               street:string, house:string, flatNumber: string,registeredStreet:string, registeredHouse:string, registeredFlatNumber: string){
+  onEditClient(){
 
-    console.log("add dialog -> save changes pressed", surname,name,patronymic,dateOfBirth,this.characterOption,street,house,flatNumber,
-      registeredStreet,registeredFlatNumber,registeredHouse,this.mobileInput,this.mobileInput2,this.mobileInput3,this.mobileInput4,this.mobileInput5);
+    //Get DATA to compare
+    this.http.get("list/select?id="+this.data.client.id).toPromise().then(resp => {
+      console.log("resp ",resp);
+      this.clientDetailsGET = resp.body['clientDetails'],
+        this.clientRecordGET = resp.body['clientRecord']
+    });
 
-    console.log("onEditClient--------idddd ",this.data.id);
-    // console.log("--------fio ",this.data.fio);
+    //ClientDetails----------------------------------------------------
 
-    this.addClientRecord.id = this.data.client.id;
-    this.addClientDetails.gender = this.selectedGender;
-    this.addClientDetails.dateOfBirth = dateOfBirth;
-    this.addClientDetails.street = street;
-    this.addClientDetails.house = house;
-    this.addClientDetails.flatNumber = flatNumber;
-    this.addClientDetails.registeredStreet = registeredStreet;
-    this.addClientDetails.registeredFlatNumber = registeredFlatNumber;
-    this.addClientDetails.registeredHouse = registeredHouse;
-    this.addClientDetails.phoneNumber1 = this.mobileInput;
-    this.addClientDetails.phoneNumber2 = this.mobileInput2;
-    this.addClientDetails.phoneNumber3 = this.mobileInput3;
-    this.addClientDetails.phoneNumber4 = this.mobileInput4;
-    this.addClientDetails.phoneNumber5 = this.mobileInput5;
+    if(this.clientDetails.dateOfBirth == "" || this.clientDetails.dateOfBirth == " ") {
+      this.clientDetails.dateOfBirth = this.clientDetailsGET.dateOfBirth;
+    }else {
+      this.clientDetails.dateOfBirth = this.clientDetails.dateOfBirth;
+    }
 
-    this.addClientRecord.FIO = surname + " " + name + " " + patronymic;
-    this.addClientRecord.character = this.characterOption;
+    if(this.clientDetails.clientAddress.street == "" && this.clientDetails.clientAddress.house == "" && this.clientDetails.clientAddress.flatNumber == "") {
+      this.clientDetails.clientAddress = this.clientDetailsGET.clientAddress;
+    }else if(this.clientDetails.clientAddress.street != "" || this.clientDetails.clientAddress.house != "" || this.clientDetails.clientAddress.flatNumber != ""){
+      this.clientDetails.clientAddress = this.clientDetails.clientAddress;
+    }
+
+    if(this.clientDetails.registeredAddress.registeredStreet == "" && this.clientDetails.registeredAddress.registeredHouse == "" && this.clientDetails.registeredAddress.registeredFlatNumber == "") {
+      this.clientDetails.registeredAddress = this.clientDetailsGET.registeredAddress;
+    }else if(this.clientDetails.registeredAddress.registeredStreet != "" || this.clientDetails.registeredAddress.registeredHouse != "" || this.clientDetails.registeredAddress.registeredFlatNumber != ""){
+      this.clientDetails.registeredAddress = this.clientDetails.registeredAddress;
+    }
+
+    //PhoneNumbers
+    this.clientPhoneNumber1.id = 0;
+    this.clientPhoneNumber1.phoneType = "Mobile";
+    this.clientPhoneNumber1.phoneNumber = this.mobileInput;
+    this.clientPhoneNumbers.push(this.clientPhoneNumber1);
+
+    this.clientPhoneNumber2.id = 1;
+    this.clientPhoneNumber2.phoneType = this.selectedPhoneType2;
+    this.clientPhoneNumber2.phoneNumber = this.mobileInput2;
+    this.clientPhoneNumbers.push(this.clientPhoneNumber2);
+
+    this.clientPhoneNumber3.id = 2;
+    this.clientPhoneNumber3.phoneType = this.selectedPhoneType3;
+    this.clientPhoneNumber3.phoneNumber = this.mobileInput3;
+    this.clientPhoneNumbers.push(this.clientPhoneNumber3);
+
+    this.clientPhoneNumber4.id = 3;
+    this.clientPhoneNumber4.phoneType = this.selectedPhoneType4;
+    this.clientPhoneNumber4.phoneNumber = this.mobileInput4;
+    this.clientPhoneNumbers.push(this.clientPhoneNumber4);
+
+    this.clientPhoneNumber5.id = 4;
+    this.clientPhoneNumber5.phoneType = this.selectedPhoneType5;
+    this.clientPhoneNumber5.phoneNumber = this.mobileInput5;
+    this.clientPhoneNumbers.push(this.clientPhoneNumber5);
+
+    this.clientDetails.clientAddress = this.clientAddress;
+    this.clientDetails.registeredAddress = this.clientRegisteredAddress;
+    this.clientDetails.phoneNumbers = this.clientPhoneNumbers;
+    //ClientDetails------------------------------------------------------
+
+
+
+
+    //ClientRecord------------------------------------------------------
+
+    this.clientRecord.id = this.data.client.id;
+    this.clientRecord.FIO = this.surnameInput + " " + this.nameInput + " " + this.patronymicInput;
+    console.log("FIO ",this.clientRecord.FIO);
+
+    if(this.clientRecord.FIO == "" || this.clientRecord.FIO == " ") {
+      this.clientRecord.FIO = this.clientRecordGET.FIO;
+    }else {
+      this.clientRecord.FIO = this.surnameInput + " " + this.nameInput + " " + this.patronymicInput;
+    }
 
     //calculate year
-    var d = new Date();
-    var year = dateOfBirth.toString().split("-");
-    this.addClientRecord.age = d.getFullYear() - parseInt(year[0]);
+    if(this.clientRecord.age == 0 || this.clientRecord.age == 0) {
+      this.clientRecord.age = this.clientRecordGET.age;
+    }else {
+      var d = new Date();
+      var year = this.clientDetails.dateOfBirth.toString().split("-");
+      this.clientRecord.age = d.getFullYear() - parseInt(year[0]);
+    }
 
-    this.addClientRecord.total_cash_remainings = 21313;
-    this.addClientRecord.max_remainings = 4313;
-    this.addClientRecord.min_remainings = 1313;
+    if(this.clientRecord.character == "" || this.clientRecord.character == " ") {
+      this.clientRecord.character = this.clientRecordGET.character;
+    }else {
+      this.clientRecord.character = this.clientRecord.character;
+    }
+    //ClientRecord end----------------------------------------------------
 
-    console.log(this.addClientRecord.total_cash_remainings,this.addClientRecord.max_remainings,this.addClientRecord.min_remainings);
+    console.log(this.clientRecord);
+    console.log(this.clientDetails);
 
     this.http.post("/list/edit", {
-      id: this.addClientRecord.id,
-      FIO: this.addClientRecord.FIO,
-      age: this.addClientRecord.age,
-      character: this.addClientRecord.character,
-      total_cash_rem: this.addClientRecord.total_cash_remainings,
-      max_cash_rem: this.addClientRecord.max_remainings,
-      min_cash_rem: this.addClientRecord.min_remainings,
-      gender: this.addClientDetails.gender,
-      dateOfBirth: this.addClientDetails.dateOfBirth,
-      street: this.addClientDetails.street,
-      house: this.addClientDetails.house,
-      flatNumber: this.addClientDetails.flatNumber,
-      registeredStreet: this.addClientDetails.street,
-      registeredHouse: this.addClientDetails.house,
-      registeredFlatNumber: this.addClientDetails.registeredFlatNumber,
-      phoneNumber1: this.addClientDetails.phoneNumber1,
-      phoneNumber2: this.addClientDetails.phoneNumber2,
-      phoneNumber3: this.addClientDetails.phoneNumber3,
-      phoneNumber4: this.addClientDetails.phoneNumber4,
-      phoneNumber5: this.addClientDetails.phoneNumber5,
-      phoneType2: this.selectedPhoneType2,
-      phoneType3: this.selectedPhoneType3,
-      phoneType4: this.selectedPhoneType4,
-      phoneType5: this.selectedPhoneType5
-    }, "text").toPromise().then(resp => resp.body as string);
+      clientRecord: JSON.stringify(this.clientRecord),
+      clientDetails: JSON.stringify(this.clientDetails)
+    }).toPromise().then(resp => {
+
+    });
+
+
+    /*this.http.post("/list/add", { id:"", obj: JSON.stringify({})}).toPromise().then(res=>{
+      let assad = res.body;
+    });*/
 
 
 
@@ -137,12 +192,16 @@ export class EditDialogComponent implements OnInit{
 
   inputsIsEmpty(){
     //console.log('dateOfbirthInput ',this.dateOfBirthInput);
-    if (this.surnameInput != '' && this.nameInput != '' && this.characterOption != '' && this.dateOfBirthInput !='' &&
-      this.selectedGender != '' && this.regStreetInput !='' && this.regHouseInput != '' && this.regFlatInput != '' && this.mobileInput !='') {
+
+    /*//check for empty if field is empty submit is disabled
+    if (this.surnameInput != '' && this.nameInput != '' && this.clientRecord.character != '' && this.clientDetails.dateOfBirth !='' &&
+      this.clientDetails.gender != '' && this.clientAddress.street !='' && this.clientAddress.house != '' &&
+      this.clientAddress.flatNumber != '' && this.mobileInput !='') {
       this.inputIsEmpty = false;
-    }else{
-      this.inputIsEmpty = true;
     }
+    else{
+      this.inputIsEmpty = true;
+    }*/
 
 
     //check for format

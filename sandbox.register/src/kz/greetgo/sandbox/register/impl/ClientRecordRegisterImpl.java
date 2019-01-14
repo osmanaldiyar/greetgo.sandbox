@@ -530,17 +530,6 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         return "ok";
     }
 
-    @Override
-    public ClientRecordsAndDetails selectClientRecordsAndDetails(int id) {
 
-        List<ClientRecord> beerDrinkers = standDb.get().getClients().stream()
-                .filter(c -> c.id == id).collect(Collectors.toList());
-        int listIndex = standDb.get().getClients().indexOf(beerDrinkers.get(0));
-
-        clientRecordsAndDetails.setClientDetails(standDb.get().clientDetails.get(listIndex));
-        clientRecordsAndDetails.setClientRecord(standDb.get().getClients().get(listIndex));
-
-        return clientRecordsAndDetails;
-    }
 }
 

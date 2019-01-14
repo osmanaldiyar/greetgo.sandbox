@@ -56,7 +56,7 @@ export class EditDialogComponent implements OnInit{
   mobileInput5: string = '';
   //
 
-  inputIsEmpty: boolean = false;
+  inputIsEmpty: boolean = true;
   phoneNumberCounter: number = 0;
 
   //remove phone flags
@@ -82,32 +82,11 @@ export class EditDialogComponent implements OnInit{
 
   onEditClient(){
 
-    //Get DATA to compare
-    this.http.get("list/select?id="+this.data.client.id).toPromise().then(resp => {
-      console.log("resp ",resp);
-      this.clientDetailsGET = resp.body['clientDetails'],
-        this.clientRecordGET = resp.body['clientRecord']
-    });
-
     //ClientDetails----------------------------------------------------
+    this.clientDetails.dateOfBirth = this.clientDetails.dateOfBirth;
+    this.clientDetails.clientAddress = this.clientAddress;
+    this.clientDetails.registeredAddress = this.clientRegisteredAddress;
 
-    if(this.clientDetails.dateOfBirth == "" || this.clientDetails.dateOfBirth == " ") {
-      this.clientDetails.dateOfBirth = this.clientDetailsGET.dateOfBirth;
-    }else {
-      this.clientDetails.dateOfBirth = this.clientDetails.dateOfBirth;
-    }
-
-    if(this.clientDetails.clientAddress.street == "" && this.clientDetails.clientAddress.house == "" && this.clientDetails.clientAddress.flatNumber == "") {
-      this.clientDetails.clientAddress = this.clientDetailsGET.clientAddress;
-    }else if(this.clientDetails.clientAddress.street != "" || this.clientDetails.clientAddress.house != "" || this.clientDetails.clientAddress.flatNumber != ""){
-      this.clientDetails.clientAddress = this.clientDetails.clientAddress;
-    }
-
-    if(this.clientDetails.registeredAddress.registeredStreet == "" && this.clientDetails.registeredAddress.registeredHouse == "" && this.clientDetails.registeredAddress.registeredFlatNumber == "") {
-      this.clientDetails.registeredAddress = this.clientDetailsGET.registeredAddress;
-    }else if(this.clientDetails.registeredAddress.registeredStreet != "" || this.clientDetails.registeredAddress.registeredHouse != "" || this.clientDetails.registeredAddress.registeredFlatNumber != ""){
-      this.clientDetails.registeredAddress = this.clientDetails.registeredAddress;
-    }
 
     //PhoneNumbers
     this.clientPhoneNumber1.id = 0;
@@ -149,26 +128,16 @@ export class EditDialogComponent implements OnInit{
     this.clientRecord.FIO = this.surnameInput + " " + this.nameInput + " " + this.patronymicInput;
     console.log("FIO ",this.clientRecord.FIO);
 
-    if(this.clientRecord.FIO == "" || this.clientRecord.FIO == " ") {
-      this.clientRecord.FIO = this.clientRecordGET.FIO;
-    }else {
-      this.clientRecord.FIO = this.surnameInput + " " + this.nameInput + " " + this.patronymicInput;
-    }
 
     //calculate year
-    if(this.clientRecord.age == 0 || this.clientRecord.age == 0) {
-      this.clientRecord.age = this.clientRecordGET.age;
-    }else {
+
+      console.log("age is ok", this.clientRecord.age);
       var d = new Date();
       var year = this.clientDetails.dateOfBirth.toString().split("-");
       this.clientRecord.age = d.getFullYear() - parseInt(year[0]);
-    }
 
-    if(this.clientRecord.character == "" || this.clientRecord.character == " ") {
-      this.clientRecord.character = this.clientRecordGET.character;
-    }else {
       this.clientRecord.character = this.clientRecord.character;
-    }
+
     //ClientRecord end----------------------------------------------------
 
     console.log(this.clientRecord);
@@ -193,7 +162,7 @@ export class EditDialogComponent implements OnInit{
   inputsIsEmpty(){
     //console.log('dateOfbirthInput ',this.dateOfBirthInput);
 
-    /*//check for empty if field is empty submit is disabled
+    //check for empty if field is empty submit is disabled
     if (this.surnameInput != '' && this.nameInput != '' && this.clientRecord.character != '' && this.clientDetails.dateOfBirth !='' &&
       this.clientDetails.gender != '' && this.clientAddress.street !='' && this.clientAddress.house != '' &&
       this.clientAddress.flatNumber != '' && this.mobileInput !='') {
@@ -201,7 +170,7 @@ export class EditDialogComponent implements OnInit{
     }
     else{
       this.inputIsEmpty = true;
-    }*/
+    }
 
 
     //check for format

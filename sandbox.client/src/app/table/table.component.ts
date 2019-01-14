@@ -221,7 +221,7 @@ export class TableComponent implements OnInit {
     dialogRef2.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result)
-      //this.clients.push(i,i);
+      //this.clients.splice(,i);
       //window.location.reload();
 
     });
@@ -264,7 +264,7 @@ export class TableComponent implements OnInit {
       console.log('The dialog was closed');
       console.log("post result ", result);
 
-      //this.clients.push(result);
+      this.clients.push(result);
       //window.location.reload();
 
     });

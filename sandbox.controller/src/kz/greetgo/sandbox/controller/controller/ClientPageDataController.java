@@ -54,18 +54,6 @@ public class ClientPageDataController implements Controller {
         return clientRecordRegister.get().editClientRecord(clientRecord, clientDetails);
     }
 
-    @PublicAccess
-    @ToJson
-    @OnGet("/list/select")
-    public ClientRecordsAndDetails selectClientRecordsAndDetails(@Par("id") int id){
-        return clientRecordRegister.get().selectClientRecordsAndDetails(id);
-    }
 
-
-    @ToJson
-    @OnPost("")
-    public void asdf(@Par("id") int id, @Par("obj") @Json  Object obj){
-
-    }
 
 }

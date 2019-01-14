@@ -21,7 +21,5 @@ public interface ClientRecordRegister {
 
     String editClientRecord(ClientRecord clientRecord, ClientDetails clientDetails);
 
-    //for editing
-    ClientRecordsAndDetails selectClientRecordsAndDetails(int id);
 
 }

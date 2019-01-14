@@ -150,6 +150,6 @@
   <br><br>
 </div>
 <div mat-dialog-actions>
-  <button id="saveChanges" [disabled]="inputIsEmpty" (click)="onEditClient()" class="btn btn-success" mat-button [mat-dialog-close]="data" cdkFocusInitial>Save changes</button>
+  <button id="saveChanges" [disabled]="inputIsEmpty" (click)="onEditClient()" class="btn btn-success" mat-button [mat-dialog-close]="clientRecord" cdkFocusInitial>Save changes</button>
   <button class="btn btn-light" mat-button (click)="onNoClick()">Cancel</button>
 </div>

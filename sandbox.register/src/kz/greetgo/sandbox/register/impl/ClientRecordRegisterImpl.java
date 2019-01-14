@@ -423,28 +423,25 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         //get id of last
         int id = standDb.get().getClients().get(standDb.get().getClients().size()-1).id + 1;
 
-        standDb.get().getClients().add(new ClientRecord(id,clientRecord.FIO,clientRecord.character,clientRecord.age,
-                clientRecord.total_cash_remainings,clientRecord.max_remainings,clientRecord.min_remainings));
+        clientRecord.id = id;
+        standDb.get().getClients().add(clientRecord);
 
         //Fill ClientDetails
-            standDb.get().clientDetails.add(new ClientDetails());
+            standDb.get().clientDetails.add(clientDetails);
             standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).id = id;
-            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setGender(clientDetails.getGender());
-            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setDateOfBirth(clientDetails.getDateOfBirth());
-            standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1).setClientAddress(clientDetails.getClientAddress());
 
             //check optional fields
-            if(clientDetails.getRegisteredAddress().getRegisteredStreet() == "") {
+            if(clientDetails.getClientAddress().getStreet() == "") {
 
-                clientDetails.getRegisteredAddress().setRegisteredStreet("");
+                clientDetails.getClientAddress().setStreet("");
 
-            }if(clientDetails.getRegisteredAddress().getRegisteredHouse() == "") {
+            }if(clientDetails.getClientAddress().getHouse() == "") {
 
-                clientDetails.getRegisteredAddress().setRegisteredHouse("");
+                clientDetails.getClientAddress().setHouse("");
 
-            }if(clientDetails.getRegisteredAddress().getRegisteredFlatNumber() == "") {
+            }if(clientDetails.getClientAddress().getFlatNumber() == "") {
 
-                clientDetails.getRegisteredAddress().setRegisteredFlatNumber("");
+                clientDetails.getClientAddress().setFlatNumber("");
 
             }
 
@@ -453,7 +450,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
             System.out.println(clientDetails.getPhoneNumbers().size());
 
             //check list which has optional fields
-            for(int i = 0; i < clientDetails.getPhoneNumbers().size(); i++) {
+            /*for(int i = 0; i < clientDetails.getPhoneNumbers().size(); i++) {
 
                 if (clientDetails.getPhoneNumbers().get(i).getPhoneNumber() != "") {
 
@@ -462,7 +459,9 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
                 }
 
-            }
+            }*/
+
+            standDb.get().clientDetails.get(id).setPhoneNumbers(clientDetails.getPhoneNumbers());
 
 
         System.out.println(standDb.get().clientDetails.get(standDb.get().clientDetails.size()-1));
@@ -489,7 +488,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         standDb.get().getClients().set(listIndex,clientRecord);
 
         //check list which has optional fields
-        for(int i = 0; i < clientDetails.getPhoneNumbers().size(); i++) {
+        /*for(int i = 0; i < clientDetails.getPhoneNumbers().size(); i++) {
 
             if (clientDetails.getPhoneNumbers().get(i).getPhoneNumber() != "") {
 
@@ -498,20 +497,23 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
             }
 
-        }
+        }*/
+
+        standDb.get().clientDetails.get(listIndex).setPhoneNumbers(clientDetails.getPhoneNumbers());
+
 
         //check optional fields
-        if(clientDetails.getRegisteredAddress().getRegisteredStreet() == "") {
+        if(clientDetails.getClientAddress().getStreet() == "") {
 
-            clientDetails.getRegisteredAddress().setRegisteredStreet("");
+            clientDetails.getClientAddress().setStreet("");
 
-        }if(clientDetails.getRegisteredAddress().getRegisteredHouse() == "") {
+        }if(clientDetails.getClientAddress().getHouse() == "") {
 
-            clientDetails.getRegisteredAddress().setRegisteredHouse("");
+            clientDetails.getClientAddress().setHouse("");
 
-        }if(clientDetails.getRegisteredAddress().getRegisteredFlatNumber() == "") {
+        }if(clientDetails.getClientAddress().getFlatNumber() == "") {
 
-            clientDetails.getRegisteredAddress().setRegisteredFlatNumber("");
+            clientDetails.getClientAddress().setFlatNumber("");
 
         }
 

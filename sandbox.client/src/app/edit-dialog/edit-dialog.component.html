@@ -69,82 +69,14 @@
 
   <label >Mobile <span style="color:red">*</span></label>
   <br>
-  <div class="addPhoneNumberInputs">
-    <label style="color:red">{{warning}}</label><br>
-    <input #firstNumber [(ngModel)]="mobileInput" name="mobileInput" (ngModelChange)="inputsIsEmpty()"  placeholder="87059513095" id="firstNumber" class="form-control firstNumber" matInput>
-    <button id ="addPhoneNumber" class="btn btn-success" (click)="addPhone()">+</button>
-  </div>
-
-
-  <!-------------------------------------------------------------------------------------------------
--->
-  <br><br>
-  <div class="input-remove-group">
-    <label *ngIf="phoneInputIsVisible2" style="color:red">{{warning2}}</label><br>
-    <select id="selectPhoneType2" [(ngModel)]="selectedPhoneType2" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible2" >
+  <div *ngFor="let phone of clientPhoneNumbers; let i = index" class="addPhoneNumberInputs">
+    <label style="color:red">{{warning[i]}}</label><br>
+    <select *ngIf="i!=0" id="selectPhoneType" [(ngModel)]="phone.phoneType" class="form-control selectPhoneType">
       <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
     </select>
-
-    <div *ngIf="phoneInputIsVisible2" class="addPhoneNumberInputs2">
-      <input placeholder="87059513095" [(ngModel)]="mobileInput2" name="phoneInput2" (ngModelChange)="inputsIsEmpty()" id="firstNumber2" class="form-control firstNumber" matInput>
-
-    </div>
-    <button id="removePhoneNumber2" class="btn btn-default fa fa-minus" *ngIf="phoneInputIsVisible2" (click)="removePhone2()" ></button>
-  </div>
-
-
-
-  <!------------------------------------------------------------------------------------------------
-  -->
-
-
-  <div class="input-remove-group">
-    <label *ngIf="phoneInputIsVisible3" style="color:red">{{warning3}}</label><br>
-    <select id="selectPhoneType3" [(ngModel)]="selectedPhoneType3" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible3" >
-      <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
-    </select>
-
-    <div *ngIf="phoneInputIsVisible3" class="addPhoneNumberInputs3">
-      <input placeholder="87059513095" [(ngModel)]="mobileInput3" name="phone3" (ngModelChange)="inputsIsEmpty()" value="87059513095" id="firstNumber3" class="form-control firstNumber" matInput>
-    </div>
-
-
-    <button id="removePhoneNumber3" class="btn btn-default fa fa-minus" *ngIf="phoneInputIsVisible3" (click)="removePhone3()" ></button>
-  </div>
-  <!-----------------------------------------------------------------------------------------
-  -->
-
-  <div class="input-remove-group">
-    <label *ngIf="phoneInputIsVisible4" style="color:red">{{warning4}}</label><br>
-    <select id="selectPhoneType4" [(ngModel)]="selectedPhoneType4" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible4" >
-      <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
-    </select>
-
-    <div *ngIf="phoneInputIsVisible4" class="addPhoneNumberInputs4">
-      <input placeholder="87059513095" [(ngModel)]="mobileInput4" name="phone4" (ngModelChange)="inputsIsEmpty()" value="87059513095" id="firstNumber4" class="form-control" matInput>
-    </div>
-
-
-    <button id="removePhoneNumber4" class="btn btn-default fa fa-minus" *ngIf="phoneInputIsVisible4" (click)="removePhone4()" ></button>
-  </div>
-
-
-  <!-----------------------------------------------------------------------------
-  -->
-
-  <div class="input-remove-group">
-    <label *ngIf="phoneInputIsVisible5" style="color:red">{{warning5}}</label><br>
-    <select id="selectPhoneType5" [(ngModel)]="selectedPhoneType5" class="form-control selectPhoneType" *ngIf="phoneInputIsVisible5" >
-      <option *ngFor="let phoneType of phoneTypes">{{phoneType}}</option>
-    </select>
-
-
-    <div *ngIf="phoneInputIsVisible5" class="addPhoneNumberInputs5">
-      <input placeholder="87059513095" [(ngModel)]="mobileInput5" name="phone5" (ngModelChange)="inputsIsEmpty()" id="firstNumber5" class="form-control" matInput>
-    </div>
-
-    <button id="removePhoneNumber5" class="btn btn-default fa fa-minus" *ngIf="phoneInputIsVisible5" (click)="removePhone5()" ></button>
-
+    <input [(ngModel)]="phone.phoneNumber" name="mobileInput" (ngModelChange)="inputsIsEmpty(i)"  placeholder="87059513095" id="firstNumber" class="form-control firstNumber" matInput>
+    <button *ngIf="i==0" id ="addPhoneNumber" class="btn btn-success" (click)="addPhone(i, phone.phoneNumber,phone.phoneType)">+</button>
+    <button *ngIf="i!=0" id ="deletePhoneNumber" class="btn btn-success" (click)="deletePhone(i)">-</button>
   </div>
 
   <br><br>

@@ -211,7 +211,8 @@ export class TableComponent implements OnInit {
           age: this.clients[this.selectedRow].age,
           total_cash_rem: this.clients[this.selectedRow].total_cash_remainings,
           max_rem: this.clients[this.selectedRow].max_remainings,
-          min_rem: this.clients[this.selectedRow].min_remainings
+          min_rem: this.clients[this.selectedRow].min_remainings,
+          indexInArray: this.selectedRow
 
         }
       }
@@ -221,7 +222,9 @@ export class TableComponent implements OnInit {
     dialogRef2.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result)
-      //this.clients.splice(,i);
+      if(result != "undefined"){
+        this.clients.splice(this.selectedRow,1,result);
+      }
       //window.location.reload();
 
     });
@@ -263,8 +266,9 @@ export class TableComponent implements OnInit {
     addDialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log("post result ", result);
-
-      this.clients.push(result);
+      if(result != "undefined"){
+        this.clients.push(result);
+      }
       //window.location.reload();
 
     });
@@ -277,7 +281,7 @@ export class TableComponent implements OnInit {
 
     this.http.delete("/list?id="+this.clients[this.selectedRow].id+"&rows="+this.amountOfRowsToDisplay, {
     }, "text").toPromise().then(resp => console.log(resp.body));
-    window.location.reload();
+    this.clients.splice(this.clients[this.selectedRow].id,1);
   }
 
   searchFilter(searchSurname:string, searchName:string, searchPatronymic: string){

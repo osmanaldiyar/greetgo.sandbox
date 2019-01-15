@@ -1,12 +1,10 @@
 package kz.greetgo.sandbox.controller.register;
 
 import kz.greetgo.depinject.core.BeanGetter;
-import kz.greetgo.sandbox.controller.model.ClientDetails;
-import kz.greetgo.sandbox.controller.model.ClientPageData;
-import kz.greetgo.sandbox.controller.model.ClientRecord;
-import kz.greetgo.sandbox.controller.model.ClientRecordsAndDetails;
+import kz.greetgo.sandbox.controller.model.*;
 
 import java.util.Date;
+import java.util.List;
 
 public interface ClientRecordRegister {
 
@@ -20,6 +18,8 @@ public interface ClientRecordRegister {
 
 
     String editClientRecord(ClientRecord clientRecord, ClientDetails clientDetails);
+
+    List<ClientTemp> selectSomething();
 
 
 }

@@ -78,6 +78,8 @@ public class AuthRegisterImpl implements AuthRegister {
     return ret;
   }
 
+
+
   @Override
   public void deleteSession(String sessionId) {
     sessionService.get().removeSession(sessionId);

@@ -12,9 +12,8 @@ import java.util.stream.Collectors;
 @Bean
 public class ClientRecordRegisterImpl implements ClientRecordRegister {
 
-//  public BeanGetter<ClientRecordDao> clientRecordDao;
+    public BeanGetter<ClientRecordDao> clientTempDao;
     ClientPageData clientPageData = new ClientPageData();
-    ClientRecordsAndDetails clientRecordsAndDetails = new ClientRecordsAndDetails();
     public BeanGetter<StandDb> standDb;
 
     @Override
@@ -188,7 +187,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
                 if (sortAttribute.equals("fullname")) {
                     FullnameCompare fullnameCompare = new FullnameCompare();
                     Collections.sort(filteredClients, fullnameCompare);
-                } else if (sortAttribute.equals("age")) {
+                } else if (sortAttribute.equals("dateOfBirth")) {
                     AgeCompare fullnameCompare = new AgeCompare();
                     Collections.sort(filteredClients, fullnameCompare);
                 } else if (sortAttribute.equals("total_cash_remainings")) {
@@ -205,7 +204,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
                 if (sortAttribute.equals("fullname")) {
                     FullnameDescCompare fullnameDescCompare = new FullnameDescCompare();
                     Collections.sort(filteredClients, fullnameDescCompare);
-                } else if (sortAttribute.equals("age")) {
+                } else if (sortAttribute.equals("dateOfBirth")) {
                     AgeDescCompare ageDescCompare = new AgeDescCompare();
                     Collections.sort(filteredClients, ageDescCompare);
                 } else if (sortAttribute.equals("total_cash_remainings")) {
@@ -300,7 +299,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
                 if (sortAttribute.equals("fullname")) {
                     FullnameCompare fullnameCompare = new FullnameCompare();
                     Collections.sort(standDb.get().getClients(), fullnameCompare);
-                } else if (sortAttribute.equals("age")) {
+                } else if (sortAttribute.equals("dateOfBirth")) {
                     AgeCompare fullnameCompare = new AgeCompare();
                     Collections.sort(standDb.get().getClients(), fullnameCompare);
                 } else if (sortAttribute.equals("total_cash_remainings")) {
@@ -317,7 +316,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
                 if (sortAttribute.equals("fullname")) {
                     FullnameDescCompare fullnameDescCompare = new FullnameDescCompare();
                     Collections.sort(standDb.get().getClients(), fullnameDescCompare);
-                } else if (sortAttribute.equals("age")) {
+                } else if (sortAttribute.equals("dateOfBirth")) {
                     AgeDescCompare ageDescCompare = new AgeDescCompare();
                     Collections.sort(standDb.get().getClients(), ageDescCompare);
                 } else if (sortAttribute.equals("total_cash_remainings")) {
@@ -532,6 +531,9 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         return "ok";
     }
 
-
+    @Override
+    public List<ClientTemp> selectSomething() {
+        return clientTempDao.get().selectSomething();
+    }
 }
 

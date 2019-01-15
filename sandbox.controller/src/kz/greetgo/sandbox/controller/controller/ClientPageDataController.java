@@ -8,15 +8,13 @@ import kz.greetgo.mvc.annotations.ToJson;
 import kz.greetgo.mvc.annotations.on_methods.OnDelete;
 import kz.greetgo.mvc.annotations.on_methods.OnGet;
 import kz.greetgo.mvc.annotations.on_methods.OnPost;
-import kz.greetgo.sandbox.controller.model.ClientDetails;
-import kz.greetgo.sandbox.controller.model.ClientPageData;
-import kz.greetgo.sandbox.controller.model.ClientRecord;
-import kz.greetgo.sandbox.controller.model.ClientRecordsAndDetails;
+import kz.greetgo.sandbox.controller.model.*;
 import kz.greetgo.sandbox.controller.register.ClientRecordRegister;
 import kz.greetgo.sandbox.controller.security.PublicAccess;
 import kz.greetgo.sandbox.controller.util.Controller;
 
 import java.util.Date;
+import java.util.List;
 
 @Bean
 public class ClientPageDataController implements Controller {
@@ -52,6 +50,13 @@ public class ClientPageDataController implements Controller {
     @OnPost("/list/edit")
     public String editClientRecord(@Par("clientRecord") @Json ClientRecord clientRecord, @Par("clientDetails") @Json ClientDetails clientDetails) {
         return clientRecordRegister.get().editClientRecord(clientRecord, clientDetails);
+    }
+
+    @PublicAccess
+    @ToJson
+    @OnGet("/list/smth")
+    public List<ClientTemp> selectSomething() {
+        return clientRecordRegister.get().selectSomething();
     }
 
 

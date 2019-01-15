@@ -1,34 +1,35 @@
 package kz.greetgo.sandbox.controller.model;
 
-import java.util.Date;
 
-public class ClientRecord {
+import java.sql.Date;
+
+public class ClientTemp {
 
     public int id;
     public String FIO;
     public String character;
-    public int age;
+    public Date dateOfBirth;
     public int total_cash_remainings;
     public int max_remainings;
     public int min_remainings;
 
-    public ClientRecord() {
+    public ClientTemp() {
     }
 
-    public ClientRecord(String FIO, String character, int age, int total_cash_remainings, int max_remainings, int min_remainings) {
+    public ClientTemp(String FIO, String character, Date dateOfBirth, int total_cash_remainings, int max_remainings, int min_remainings) {
         this.FIO = FIO;
         this.character = character;
-        this.age = age;
+        this.dateOfBirth = dateOfBirth;
         this.total_cash_remainings = total_cash_remainings;
         this.max_remainings = max_remainings;
         this.min_remainings = min_remainings;
     }
 
-    public ClientRecord(int id, String FIO, String character, int age, int total_cash_remainings, int max_remainings, int min_remainings) {
+    public ClientTemp(int id, String FIO, String character, Date dateOfBirth, int total_cash_remainings, int max_remainings, int min_remainings) {
         this.id = id;
         this.FIO = FIO;
         this.character = character;
-        this.age = age;
+        this.dateOfBirth = dateOfBirth;
         this.total_cash_remainings = total_cash_remainings;
         this.max_remainings = max_remainings;
         this.min_remainings = min_remainings;
@@ -50,12 +51,12 @@ public class ClientRecord {
         this.character = character;
     }
 
-    public int getAge() {
-        return age;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public int getTotal_cash_remainings() {
@@ -81,4 +82,5 @@ public class ClientRecord {
     public void setMin_remainings(int min_remainings) {
         this.min_remainings = min_remainings;
     }
+
 }

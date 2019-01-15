@@ -3,6 +3,7 @@ import {ClientPhoneNumber} from "./ClientPhoneNumber";
 import {ClientAddress} from "./ClientAddress";
 
 export class ClientDetails {
+
   id:number;
 
   gender:string;
@@ -13,4 +14,5 @@ export class ClientDetails {
   registeredAddress: ClientRegisteredAddress;
 
   phoneNumbers: Array<ClientPhoneNumber>;
+
 }

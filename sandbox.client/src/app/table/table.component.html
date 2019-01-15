@@ -60,10 +60,10 @@
 
         <th>character</th>
 
-        <th (click)="sort('age')">
-          age
-          <i class="fa fa-fw fa-sort" *ngIf="key != 'age'"></i>
-          <span class="glyphicon sort-icon" *ngIf="key =='age'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        <th (click)="sort('dateOfBirth')">
+          dateOfBirth
+          <i class="fa fa-fw fa-sort" *ngIf="key != 'dateOfBirth'"></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='dateOfBirth'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
         </th>
 
         <th (click)="sort('total_cash_remainings')">
@@ -93,7 +93,7 @@
       <tr *ngFor="let client of clients; let i = index" (click)="setClickedRow(i,client)" [ngClass]="{'selected': (i == selectedRow && selected == true),'notSelected':(i == selectedRow && selected == false)}">
         <td>{{client.FIO}} </td>
         <td>{{client.character}}</td>
-        <td>{{client.age}}</td>
+        <td>{{client.dateOfBirth}}</td>
         <td>{{client.total_cash_remainings}}</td>
         <td>{{client.max_remainings}}</td>
         <td>{{client.min_remainings}}</td>

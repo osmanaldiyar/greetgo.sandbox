@@ -1,37 +1,35 @@
 package kz.greetgo.sandbox.controller.model;
 
-import java.util.Date;
-
 public class ClientRecord {
 
     public int id;
     public String FIO;
     public String character;
     public int age;
-    public int total_cash_remainings;
-    public int max_remainings;
-    public int min_remainings;
+    public int totalCashRemainings;
+    public int maxRemainings;
+    public int minRemainings;
 
     public ClientRecord() {
     }
 
-    public ClientRecord(String FIO, String character, int age, int total_cash_remainings, int max_remainings, int min_remainings) {
+    public ClientRecord(String FIO, String character, int age, int totalCashRemainings, int maxRemainings, int minRemainings) {
         this.FIO = FIO;
         this.character = character;
         this.age = age;
-        this.total_cash_remainings = total_cash_remainings;
-        this.max_remainings = max_remainings;
-        this.min_remainings = min_remainings;
+        this.totalCashRemainings = totalCashRemainings;
+        this.maxRemainings = maxRemainings;
+        this.minRemainings = minRemainings;
     }
 
-    public ClientRecord(int id, String FIO, String character, int age, int total_cash_remainings, int max_remainings, int min_remainings) {
+    public ClientRecord(int id, String FIO, String character, int age, int totalCashRemainings, int maxRemainings, int minRemainings) {
         this.id = id;
         this.FIO = FIO;
         this.character = character;
         this.age = age;
-        this.total_cash_remainings = total_cash_remainings;
-        this.max_remainings = max_remainings;
-        this.min_remainings = min_remainings;
+        this.totalCashRemainings = totalCashRemainings;
+        this.maxRemainings = maxRemainings;
+        this.minRemainings = minRemainings;
     }
 
     public String getFIO() {
@@ -58,27 +56,27 @@ public class ClientRecord {
         this.age = age;
     }
 
-    public int getTotal_cash_remainings() {
-        return total_cash_remainings;
+    public int getTotalCashRemainings() {
+        return totalCashRemainings;
     }
 
-    public void setTotal_cash_remainings(int total_cash_remainings) {
-        this.total_cash_remainings = total_cash_remainings;
+    public void setTotalCashRemainings(int total_cash_remainings) {
+        this.totalCashRemainings = total_cash_remainings;
     }
 
-    public int getMax_remainings() {
-        return max_remainings;
+    public int getMaxRemainings() {
+        return maxRemainings;
     }
 
-    public void setMax_remainings(int max_remainings) {
-        this.max_remainings = max_remainings;
+    public void setMaxRemainings(int maxRemainings) {
+        this.maxRemainings = maxRemainings;
     }
 
-    public int getMin_remainings() {
-        return min_remainings;
+    public int getMinRemainings() {
+        return minRemainings;
     }
 
-    public void setMin_remainings(int min_remainings) {
-        this.min_remainings = min_remainings;
+    public void setMinRemainings(int minRemainings) {
+        this.minRemainings = minRemainings;
     }
 }

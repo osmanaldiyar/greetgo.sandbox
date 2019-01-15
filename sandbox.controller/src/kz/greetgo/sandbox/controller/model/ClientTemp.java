@@ -9,7 +9,7 @@ public class ClientTemp {
     public String FIO;
     public String character;
     public Date dateOfBirth;
-    public int total_cash_remainings;
+    public float total_cash_remainings;
     public int max_remainings;
     public int min_remainings;
 
@@ -59,11 +59,11 @@ public class ClientTemp {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getTotal_cash_remainings() {
+    public float getTotal_cash_remainings() {
         return total_cash_remainings;
     }
 
-    public void setTotal_cash_remainings(int total_cash_remainings) {
+    public void setTotal_cash_remainings(float total_cash_remainings) {
         this.total_cash_remainings = total_cash_remainings;
     }
 

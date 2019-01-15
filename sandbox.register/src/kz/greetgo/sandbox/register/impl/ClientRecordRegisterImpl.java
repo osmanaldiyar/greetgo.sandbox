@@ -97,19 +97,19 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         class TotalCompare implements Comparator<ClientRecord> {
             @Override
             public int compare(ClientRecord o1, ClientRecord o2) {
-                return o1.getTotal_cash_remainings() - o2.getTotal_cash_remainings();
+                return o1.getTotalCashRemainings() - o2.getTotalCashRemainings();
             }
         }
         class MaxCompare implements Comparator<ClientRecord> {
             @Override
             public int compare(ClientRecord o1, ClientRecord o2) {
-                return o1.getMax_remainings() - o2.getMax_remainings();
+                return o1.getMaxRemainings() - o2.getMaxRemainings();
             }
         }
         class MinCompare implements Comparator<ClientRecord> {
             @Override
             public int compare(ClientRecord o1, ClientRecord o2) {
-                return o1.getMin_remainings() - o2.getMin_remainings();
+                return o1.getMinRemainings() - o2.getMinRemainings();
             }
         }
 
@@ -129,19 +129,19 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
         class TotalDescCompare implements Comparator<ClientRecord> {
             @Override
             public int compare(ClientRecord o1, ClientRecord o2) {
-                return o2.getTotal_cash_remainings() - o1.getTotal_cash_remainings();
+                return o2.getTotalCashRemainings() - o1.getTotalCashRemainings();
             }
         }
         class MaxDescCompare implements Comparator<ClientRecord> {
             @Override
             public int compare(ClientRecord o1, ClientRecord o2) {
-                return o2.getMax_remainings() - o1.getMax_remainings();
+                return o2.getMaxRemainings() - o1.getMaxRemainings();
             }
         }
         class MinDescCompare implements Comparator<ClientRecord> {
             @Override
             public int compare(ClientRecord o1, ClientRecord o2) {
-                return o2.getMin_remainings() - o1.getMin_remainings();
+                return o2.getMinRemainings() - o1.getMinRemainings();
             }
         }
 
@@ -190,7 +190,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
                 } else if (sortAttribute.equals("dateOfBirth")) {
                     AgeCompare fullnameCompare = new AgeCompare();
                     Collections.sort(filteredClients, fullnameCompare);
-                } else if (sortAttribute.equals("total_cash_remainings")) {
+                } else if (sortAttribute.equals("totalCashRemainings")) {
                     TotalCompare fullnameCompare = new TotalCompare();
                     Collections.sort(filteredClients, fullnameCompare);
                 } else if (sortAttribute.equals("max_cash_remainings")) {
@@ -207,7 +207,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
                 } else if (sortAttribute.equals("dateOfBirth")) {
                     AgeDescCompare ageDescCompare = new AgeDescCompare();
                     Collections.sort(filteredClients, ageDescCompare);
-                } else if (sortAttribute.equals("total_cash_remainings")) {
+                } else if (sortAttribute.equals("totalCashRemainings")) {
                     TotalDescCompare totalDescCompare = new TotalDescCompare();
                     Collections.sort(filteredClients, totalDescCompare);
                 } else if (sortAttribute.equals("max_cash_remainings")) {
@@ -302,7 +302,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
                 } else if (sortAttribute.equals("dateOfBirth")) {
                     AgeCompare fullnameCompare = new AgeCompare();
                     Collections.sort(standDb.get().getClients(), fullnameCompare);
-                } else if (sortAttribute.equals("total_cash_remainings")) {
+                } else if (sortAttribute.equals("totalCashRemainings")) {
                     TotalCompare fullnameCompare = new TotalCompare();
                     Collections.sort(standDb.get().getClients(), fullnameCompare);
                 } else if (sortAttribute.equals("max_cash_remainings")) {
@@ -319,7 +319,7 @@ public class ClientRecordRegisterImpl implements ClientRecordRegister {
                 } else if (sortAttribute.equals("dateOfBirth")) {
                     AgeDescCompare ageDescCompare = new AgeDescCompare();
                     Collections.sort(standDb.get().getClients(), ageDescCompare);
-                } else if (sortAttribute.equals("total_cash_remainings")) {
+                } else if (sortAttribute.equals("totalCashRemainings")) {
                     TotalDescCompare totalDescCompare = new TotalDescCompare();
                     Collections.sort(standDb.get().getClients(), totalDescCompare);
                 } else if (sortAttribute.equals("max_cash_remainings")) {

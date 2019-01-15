@@ -66,10 +66,10 @@
           <span class="glyphicon sort-icon" *ngIf="key =='dateOfBirth'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
         </th>
 
-        <th (click)="sort('total_cash_remainings')">
+        <th (click)="sort('totalCashRemainings')">
           Total cash Remainings
-          <i class="fa fa-fw fa-sort" *ngIf="key != 'total_cash_remainings'"></i>
-          <span class="glyphicon sort-icon" *ngIf="key =='total_cash_remainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          <i class="fa fa-fw fa-sort" *ngIf="key != 'totalCashRemainings'"></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='totalCashRemainings'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
         </th>
 
         <th (click)="sort('max_cash_remainings')">
@@ -94,9 +94,9 @@
         <td>{{client.FIO}} </td>
         <td>{{client.character}}</td>
         <td>{{client.dateOfBirth}}</td>
-        <td>{{client.total_cash_remainings}}</td>
-        <td>{{client.max_remainings}}</td>
-        <td>{{client.min_remainings}}</td>
+        <td>{{client.totalCashRemainings}}</td>
+        <td>{{client.maxRemainings}}</td>
+        <td>{{client.minRemainings}}</td>
 
         <!--<td><button type="button" (click)="delete(client)" class="btn"><i class="fa fa-user-times"></i></button></td>
         <td><button (click)="openDialog(client)" class="btn btn-light">...</button></td>-->
